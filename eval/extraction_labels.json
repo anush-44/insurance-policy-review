@@ -1,0 +1,101 @@
+[
+  {
+    "policy_id": "care-adv-sample",
+    "insurer": "Care Health Insurance Limited",
+    "uin": "CHIHLIP21183V032021",
+    "initial_waiting_period_days": 30,
+    "ped_waiting_period_months": 36,
+    "specific_disease_waiting_months": 24,
+    "room_rent_cap_pct": 1.0,
+    "room_rent_category": "Normal Single Private Room",
+    "icu_cap_pct": 2.0,
+    "copay_pct": 20.0,
+    "copay_conditions": "Age 61 years or above at entry",
+    "cashless_notice_planned_hours": 48,
+    "cashless_notice_emergency_hours": 24,
+    "major_exclusions": [
+      "Investigation & Evaluation (Code-Excl04)",
+      "Rest Cure, Rehabilitation and Respite Care (Code-Excl05)",
+      "Obesity / Weight Control (Code-Excl06)",
+      "Cosmetic or Plastic Surgery (Code-Excl08)",
+      "Maternity Expenses"
+    ]
+  },
+  {
+    "policy_id": "hdfc-optima-secure-template",
+    "insurer": "HDFC ERGO General Insurance Company Limited",
+    "uin": "HDFHLIP21184V022021",
+    "initial_waiting_period_days": 30,
+    "ped_waiting_period_months": 36,
+    "specific_disease_waiting_months": 24,
+    "room_rent_cap_pct": null,
+    "room_rent_category": "Any Room Category",
+    "icu_cap_pct": null,
+    "copay_pct": 0.0,
+    "copay_conditions": "No mandatory co-payment",
+    "cashless_notice_planned_hours": 48,
+    "cashless_notice_emergency_hours": 24,
+    "major_exclusions": [
+      "Cosmetic Surgery",
+      "Hazardous Activities",
+      "Breach of Law"
+    ]
+  },
+  {
+    "policy_id": "star-comprehensive-template",
+    "insurer": "Star Health and Allied Insurance Co Ltd",
+    "uin": "SHAHLIP21185V012021",
+    "initial_waiting_period_days": 30,
+    "ped_waiting_period_months": 36,
+    "specific_disease_waiting_months": 24,
+    "room_rent_cap_pct": 1.0,
+    "room_rent_category": "Single Private Room",
+    "icu_cap_pct": 2.0,
+    "copay_pct": 10.0,
+    "copay_conditions": "Entry age 61+",
+    "cashless_notice_planned_hours": 24,
+    "cashless_notice_emergency_hours": 24,
+    "major_exclusions": [
+      "Maternity within first 24 months",
+      "Dental treatments except accidental"
+    ]
+  },
+  {
+    "policy_id": "niva-reassure-template",
+    "insurer": "Niva Bupa Health Insurance Company Limited",
+    "uin": "NBHLIP21186V022021",
+    "initial_waiting_period_days": 30,
+    "ped_waiting_period_months": 36,
+    "specific_disease_waiting_months": 24,
+    "room_rent_cap_pct": null,
+    "room_rent_category": "Any Room Category",
+    "icu_cap_pct": null,
+    "copay_pct": 0.0,
+    "copay_conditions": "Zero co-pay",
+    "cashless_notice_planned_hours": 48,
+    "cashless_notice_emergency_hours": 24,
+    "major_exclusions": [
+      "Unproven treatments",
+      "Diagnostic without in-patient treatment"
+    ]
+  },
+  {
+    "policy_id": "icici-lombard-complete-template",
+    "insurer": "ICICI Lombard General Insurance Co Ltd",
+    "uin": "ICIHLIP21187V012021",
+    "initial_waiting_period_days": 30,
+    "ped_waiting_period_months": 24,
+    "specific_disease_waiting_months": 24,
+    "room_rent_cap_pct": 1.0,
+    "room_rent_category": "Twin Sharing / Single Private Room",
+    "icu_cap_pct": 2.0,
+    "copay_pct": 20.0,
+    "copay_conditions": "Non-network hospital treatment",
+    "cashless_notice_planned_hours": 48,
+    "cashless_notice_emergency_hours": 24,
+    "major_exclusions": [
+      "Self-inflicted injury",
+      "Cosmetic surgery"
+    ]
+  }
+]

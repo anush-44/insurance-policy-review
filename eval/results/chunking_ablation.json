@@ -1,0 +1,24 @@
+{
+  "file": "sample_policy.pdf",
+  "total_policy_pages": 4,
+  "clause_aware": {
+    "total_chunks": 13,
+    "char_length_min": 186,
+    "char_length_max": 1039,
+    "char_length_mean": 380.2,
+    "char_length_std": 238.2,
+    "cross_references_detected": 6,
+    "clause_boundary_preservation_pct": 100.0,
+    "section_context_preservation_pct": 100.0
+  },
+  "fixed_size_baseline": {
+    "total_chunks": 9,
+    "char_length_min": 282,
+    "char_length_max": 600,
+    "char_length_mean": 564.1,
+    "char_length_std": 105.8,
+    "cross_references_detected": 7,
+    "clause_boundary_preservation_pct": 0.0,
+    "section_context_preservation_pct": 0.0
+  }
+}
