@@ -43,6 +43,18 @@ unstructured = [
     "unstructured>=0.13.0",
 ]
 
+[tool.setuptools]
+packages = [
+    "app",
+    "app.api",
+    "app.core",
+    "app.indexing",
+    "app.ingestion",
+    "app.rag",
+    "app.retrieval",
+    "eval",
+]
+
 [tool.ruff]
 line-length = 100
 target-version = "py311"

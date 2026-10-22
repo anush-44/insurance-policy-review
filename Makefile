@@ -1,4 +1,4 @@
-.PHONY: test lint format eval run-api run-ui clean sample-pdf
+.PHONY: test lint format eval run-api run-ui clean sample-pdf ingest list-policies
 
 PYTHON := python
 VENV_PYTHON := .venv/Scripts/python
@@ -41,3 +41,11 @@ run-ui:
 clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} +
 	find . -type d -name ".pytest_cache" -exec rm -rf {} +
+
+# Ingest a PDF: make ingest PDF=path/to/policy.pdf INSURER="HDFC ERGO"
+ingest:
+	$(VENV_PYTHON) -m app.cli ingest $(PDF) --insurer "$(INSURER)"
+
+# List all indexed policies
+list-policies:
+	$(VENV_PYTHON) -m app.cli list-policies
