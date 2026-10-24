@@ -1,4 +1,4 @@
-.PHONY: test lint format eval run-api run-ui clean sample-pdf ingest list-policies
+.PHONY: test lint format eval eval-validate eval-retrieval run-api run-ui clean sample-pdf ingest list-policies
 
 PYTHON := python
 VENV_PYTHON := .venv/Scripts/python
@@ -25,9 +25,15 @@ sample-pdf:
 parser-eval:
 	$(VENV_PYTHON) -m eval.run_parser_comparison --pdf data/sample_policy.pdf
 
-# Run full evaluation harness
-eval:
-	$(VENV_PYTHON) -m eval.run_all
+# Validate manually labeled evaluation assets (no external API calls)
+eval: eval-validate
+
+eval-validate:
+	$(VENV_PYTHON) -m eval.validate_eval_data
+
+# Controlled ablation (set POLICY_ID and PDF; requires real embedding model files)
+eval-retrieval:
+	$(VENV_PYTHON) -m eval.run_retrieval_ablation --policy-id $(POLICY_ID) --pdf $(PDF) --reranker
 
 # Run backend API locally
 run-api:

@@ -105,6 +105,7 @@ For each red flag return:
 - clause_id (str): source clause
 - page (int): page number
 - description (str): Plain-language explanation of why this is unfavourable (1-2 sentences)
+- evidence_quote (str): Verbatim supporting wording from the context
 - severity (str): "high" | "medium" | "low"
 
 Respond as JSON: {{ "red_flags": [ ... ] }}
@@ -153,13 +154,15 @@ Compare both policies for the above scenario. Return JSON:
       "policy_a_summary": "<what policy A says, with clause_id>",
       "policy_a_clause_id": "<clause id>",
       "policy_a_page": 0,
+      "policy_a_evidence_quote": "<verbatim quote from policy A>",
       "policy_b_summary": "<what policy B says, with clause_id>",
       "policy_b_clause_id": "<clause id>",
       "policy_b_page": 0,
+      "policy_b_evidence_quote": "<verbatim quote from policy B>",
       "verdict": "A is better or B is better or Similar or Insufficient data"
     }}
   ],
-  "overall_verdict": "<1-2 sentence plain-language recommendation>"
+  "overall_verdict": "<evidence-limited summary; use Insufficient evidence if either policy lacks relevant support>"
 }}
 Only use information from the provided context.
 """

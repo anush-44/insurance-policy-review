@@ -3,14 +3,13 @@
 import pytest
 
 from app.core.llm import MockLLMClient
-from app.core.schemas import ChunkType, GroundedAnswer, PolicyChunk, PolicyDocument, Section, Clause
+from app.core.schemas import ChunkType, Clause, GroundedAnswer, PolicyChunk, PolicyDocument, Section
 from app.indexing.bm25_index import BM25Index
 from app.indexing.chunker import ClauseAwareChunker
 from app.indexing.embeddings import DeterministicMockEmbeddingModel
 from app.indexing.qdrant_client import QdrantVectorStore, get_qdrant_client
 from app.rag.pipeline import RAGPipeline
-from app.rag.prompts import build_qa_prompt, build_summary_prompt, build_red_flags_prompt
-
+from app.rag.prompts import build_qa_prompt, build_red_flags_prompt, build_summary_prompt
 
 # ── Fixtures ──────────────────────────────────────────────────────────────────
 
@@ -158,6 +157,24 @@ class TestRAGPipeline:
         result = indexed_pipeline.detect_red_flags(policy_id="test_policy")
         assert isinstance(result, RedFlagsReport)
         assert isinstance(result.red_flags, list)
+        for flag in result.red_flags:
+            assert flag.evidence_quote
+
+    def test_comparison_abstains_instead_of_ranking_keyword_overlap(self, indexed_pipeline: RAGPipeline) -> None:
+        class BrokenLLM:
+            def generate(self, **kwargs):
+                raise RuntimeError("provider unavailable")
+
+        indexed_pipeline.llm = BrokenLLM()
+        result = indexed_pipeline.compare(
+            scenario="knee replacement",
+            policy_id_a="policy_a",
+            policy_name_a="Policy A",
+            policy_id_b="policy_b",
+            policy_name_b="Policy B",
+        )
+        assert result.comparison_points == []
+        assert "could not be completed" in result.overall_verdict
 
     def test_summarise_returns_card(self, indexed_pipeline: RAGPipeline) -> None:
         """Summary extraction returns a PolicySummaryCard."""

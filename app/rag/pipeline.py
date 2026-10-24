@@ -10,6 +10,7 @@ Orchestrates:
 """
 
 import json
+import re
 from typing import Any
 
 from app.core.config import settings
@@ -29,6 +30,7 @@ from app.rag.prompts import (
 from app.rag.schemas import (
     PolicyComparisonResult,
     PolicySummaryCard,
+    RedFlag,
     RedFlagsReport,
 )
 from app.retrieval.hybrid import HybridRetriever
@@ -67,15 +69,29 @@ class RAGPipeline:
     def _keyword_overlap(query: str, text: str) -> int:
         query_tokens = {
             token
-            for token in __import__("re").sub(r"[^a-z0-9]+", " ", query.lower()).split()
+            for token in re.sub(r"[^a-z0-9]+", " ", query.lower()).split()
             if token
         }
         text_tokens = {
             token
-            for token in __import__("re").sub(r"[^a-z0-9]+", " ", text.lower()).split()
+            for token in re.sub(r"[^a-z0-9]+", " ", text.lower()).split()
             if token
         }
         return len(query_tokens & text_tokens)
+
+    @staticmethod
+    def _safe_json_loads(raw_text: str) -> dict[str, Any]:
+        text = (raw_text or "").strip()
+        if not text:
+            raise ValueError("Empty model response")
+        if text.startswith("```"):
+            text = text.split("```", 2)[1] if "```" in text else text
+            if text.lower().startswith("json"):
+                text = text[4:]
+        text = text.strip()
+        if not text:
+            raise ValueError("Empty JSON payload")
+        return json.loads(text)
 
     def _fallback_grounded_answer(self, query: str, chunks: list[PolicyChunk]) -> GroundedAnswer:
         best = max(chunks, key=lambda c: self._keyword_overlap(query, c.text), default=None)
@@ -250,13 +266,7 @@ class RAGPipeline:
                 system_instruction="You are a structured data extractor. Return only valid JSON.",
                 temperature=0.0,
             )
-            # Strip markdown code fences if present
-            raw_text = raw_text.strip()
-            if raw_text.startswith("```"):
-                raw_text = raw_text.split("```")[1]
-                if raw_text.startswith("json"):
-                    raw_text = raw_text[4:]
-            data: dict[str, Any] = json.loads(raw_text)
+            data: dict[str, Any] = self._safe_json_loads(raw_text)
             card = PolicySummaryCard(**data)
         except Exception as exc:
             logger.error(f"Summary extraction failed: {exc}")
@@ -304,16 +314,50 @@ class RAGPipeline:
                 system_instruction="You are a consumer protection expert. Return only valid JSON.",
                 temperature=0.0,
             )
-            raw_text = raw_text.strip()
-            if raw_text.startswith("```"):
-                raw_text = raw_text.split("```")[1]
-                if raw_text.startswith("json"):
-                    raw_text = raw_text[4:]
-            data = json.loads(raw_text)
+            data = self._safe_json_loads(raw_text)
             report = RedFlagsReport(**data)
         except Exception as exc:
             logger.error(f"Red flags detection failed: {exc}")
             report = RedFlagsReport(red_flags=[])
+
+        if not report.red_flags and chunks:
+            for chunk in chunks:
+                text = chunk.text.lower()
+                if any(k in text for k in ["waiting period", "pre-existing", "co-pay", "copay", "sub-limit", "room rent", "exclusion"]):
+                    if "waiting period" in text or "pre-existing" in text:
+                        description = "Coverage for the described illness or treatment is delayed for the period stated in this clause."
+                    elif "exclusion" in text or "not covered" in text:
+                        description = "The stated treatment or expense is excluded, subject to any exceptions in the clause."
+                    elif "co-pay" in text or "copay" in text:
+                        description = "The insured may have to pay a specified share of an admissible claim out of pocket."
+                    else:
+                        description = "The clause limits eligible charges or benefits; check the stated cap and its conditions."
+                    severity = "high" if any(k in text for k in ["waiting period", "pre-existing", "exclusion", "not covered"]) else "medium"
+                    report.red_flags.append(
+                        RedFlag(
+                            flag_type="Restrictive clause",
+                            clause_id=chunk.clause_id,
+                            page=chunk.page_start,
+                            description=description,
+                            evidence_quote=chunk.text[:300],
+                            severity=severity,
+                        )
+                    )
+
+        # A generated flag without a matching source excerpt is not safe to return.
+        grounded_flags: list[RedFlag] = []
+        for flag in report.red_flags:
+            if flag.evidence_quote:
+                grounded_flags.append(flag)
+                continue
+            support = next((
+                chunk for chunk in chunks
+                if chunk.clause_id == flag.clause_id and chunk.page_start <= flag.page <= chunk.page_end
+            ), None)
+            if support:
+                flag.evidence_quote = support.text[:300]
+                grounded_flags.append(flag)
+        report.red_flags = grounded_flags
 
         logger.info(f"Red flags detected: {len(report.red_flags)} for policy_id={policy_id}")
         return report
@@ -369,12 +413,7 @@ class RAGPipeline:
                 system_instruction="You are an insurance expert. Return only valid JSON.",
                 temperature=0.0,
             )
-            raw_text = raw_text.strip()
-            if raw_text.startswith("```"):
-                raw_text = raw_text.split("```")[1]
-                if raw_text.startswith("json"):
-                    raw_text = raw_text[4:]
-            data = json.loads(raw_text)
+            data = self._safe_json_loads(raw_text)
             result = PolicyComparisonResult(**data)
         except Exception as exc:
             logger.error(f"Comparison failed: {exc}")
@@ -382,8 +421,48 @@ class RAGPipeline:
                 scenario=scenario,
                 policy_a_name=policy_name_a,
                 policy_b_name=policy_name_b,
+                comparison_points=[],
                 overall_verdict="Comparison could not be completed due to an internal error.",
             )
+
+        evidence_gap = False
+        for point in result.comparison_points:
+            support_a = next((
+                chunk for chunk in chunks_a
+                if chunk.clause_id == point.policy_a_clause_id
+                and (point.policy_a_page <= 0 or chunk.page_start <= point.policy_a_page <= chunk.page_end)
+            ), None)
+            support_b = next((
+                chunk for chunk in chunks_b
+                if chunk.clause_id == point.policy_b_clause_id
+                and (point.policy_b_page <= 0 or chunk.page_start <= point.policy_b_page <= chunk.page_end)
+            ), None)
+            if support_a:
+                point.policy_a_page = point.policy_a_page or support_a.page_start
+                point.policy_a_evidence_quote = support_a.text[:300]
+            else:
+                point.policy_a_summary = "Evidence not retrieved for this policy."
+                point.policy_a_clause_id = ""
+                point.policy_a_page = 0
+                point.policy_a_evidence_quote = ""
+                evidence_gap = True
+            if support_b:
+                point.policy_b_page = point.policy_b_page or support_b.page_start
+                point.policy_b_evidence_quote = support_b.text[:300]
+            else:
+                point.policy_b_summary = "Evidence not retrieved for this policy."
+                point.policy_b_clause_id = ""
+                point.policy_b_page = 0
+                point.policy_b_evidence_quote = ""
+                evidence_gap = True
+            if not support_a or not support_b:
+                point.verdict = "Insufficient data"
+
+        if evidence_gap:
+            result.overall_verdict = "Insufficient evidence retrieved for one or both policies; no comparative conclusion is available."
+
+        if not result.overall_verdict:
+            result.overall_verdict = "Insufficient evidence to compare the policies for this scenario."
 
         logger.info(
             f"Comparison '{scenario}': {len(result.comparison_points)} aspects compared"

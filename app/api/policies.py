@@ -1,6 +1,5 @@
 """FastAPI router: /api/v1/policies — ingestion and policy management."""
 
-import json
 import tempfile
 from pathlib import Path
 from typing import Annotated
@@ -84,12 +83,18 @@ async def list_indexed_policies() -> list[dict]:
     summary="Remove a policy from the registry",
     response_model=dict,
 )
-async def remove_policy(policy_id: str) -> dict:
+async def remove_policy(policy_id: str, pipeline: PipelineDep) -> dict:
     """Delete a policy entry from the registry.
 
-    Note: Does not delete the Qdrant vector points.
+    Removes Qdrant points, the saved BM25 index, and registry metadata.
     """
-    success = delete_policy(policy_id)
+    try:
+        success = delete_policy(policy_id, vector_store=pipeline.retriever.vector_store)
+        if success:
+            reload_bm25(pipeline)
+    except Exception as exc:
+        logger.error(f"Policy deletion failed for {policy_id}: {exc}")
+        raise HTTPException(status_code=500, detail="Policy deletion failed; registry metadata was retained where possible.") from exc
     if not success:
         raise HTTPException(status_code=404, detail=f"Policy '{policy_id}' not found.")
     return {"deleted": policy_id}

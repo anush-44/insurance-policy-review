@@ -1,0 +1,155 @@
+{
+  "timestamp": "2026-10-24T07:24:00.160745+00:00",
+  "dataset": "eval\\qa_set.jsonl",
+  "dataset_sha256": "20c58c335947e00eecc285ca2593b093eb6dece2086038074351d27a0e0844af",
+  "policy_id": "care-supreme",
+  "pdf": "data\\raw\\care_supreme.pdf",
+  "pdf_sha256": "2ed123866ffe89b0ddc455ebe867273450b1dbe1d5e3f3040427b0c1ba4d0a4a",
+  "total_questions": 4,
+  "answerable_questions": 4,
+  "unanswerable_questions": 0,
+  "embedding_model": "BAAI/bge-base-en-v1.5",
+  "reranker_model": null,
+  "reranker_requested": false,
+  "evaluation_validity": "real_embeddings; LLM not used",
+  "results": [
+    {
+      "chunking": "clause_aware",
+      "retrieval": "bm25_only",
+      "retrieval_mode": "bm25",
+      "reranker_enabled": false,
+      "reranker_status_counts": {
+        "disabled": 4
+      },
+      "candidate_pool": 15,
+      "chunk_count": 234,
+      "metrics": {
+        "n_answerable": 4,
+        "hit_at_5": 0.75,
+        "recall_at_5": 0.75,
+        "mrr_at_5": 0.75,
+        "ndcg_at_5": 0.75,
+        "missing_evidence_rate": 0.25
+      },
+      "latency_ms_mean": 2.54,
+      "latency_ms_median": 2.31,
+      "query_failures": 0,
+      "unanswerable_questions_not_scored_for_recall": 0
+    },
+    {
+      "chunking": "clause_aware",
+      "retrieval": "dense_only",
+      "retrieval_mode": "dense",
+      "reranker_enabled": false,
+      "reranker_status_counts": {
+        "disabled": 4
+      },
+      "candidate_pool": 15,
+      "chunk_count": 234,
+      "metrics": {
+        "n_answerable": 4,
+        "hit_at_5": 0.75,
+        "recall_at_5": 0.75,
+        "mrr_at_5": 0.425,
+        "ndcg_at_5": 0.5044456402014998,
+        "missing_evidence_rate": 0.25
+      },
+      "latency_ms_mean": 88.32,
+      "latency_ms_median": 89.04,
+      "query_failures": 0,
+      "unanswerable_questions_not_scored_for_recall": 0
+    },
+    {
+      "chunking": "clause_aware",
+      "retrieval": "hybrid_rrf",
+      "retrieval_mode": "hybrid",
+      "reranker_enabled": false,
+      "reranker_status_counts": {
+        "disabled": 4
+      },
+      "candidate_pool": 15,
+      "chunk_count": 234,
+      "metrics": {
+        "n_answerable": 4,
+        "hit_at_5": 0.75,
+        "recall_at_5": 0.75,
+        "mrr_at_5": 0.425,
+        "ndcg_at_5": 0.5044456402014998,
+        "missing_evidence_rate": 0.25
+      },
+      "latency_ms_mean": 96.64,
+      "latency_ms_median": 95.38,
+      "query_failures": 0,
+      "unanswerable_questions_not_scored_for_recall": 0
+    },
+    {
+      "chunking": "fixed_size",
+      "retrieval": "bm25_only",
+      "retrieval_mode": "bm25",
+      "reranker_enabled": false,
+      "reranker_status_counts": {
+        "disabled": 4
+      },
+      "candidate_pool": 15,
+      "chunk_count": 339,
+      "metrics": {
+        "n_answerable": 4,
+        "hit_at_5": 0.75,
+        "recall_at_5": 0.75,
+        "mrr_at_5": 0.75,
+        "ndcg_at_5": 0.75,
+        "missing_evidence_rate": 0.25
+      },
+      "latency_ms_mean": 1.98,
+      "latency_ms_median": 1.91,
+      "query_failures": 0,
+      "unanswerable_questions_not_scored_for_recall": 0
+    },
+    {
+      "chunking": "fixed_size",
+      "retrieval": "dense_only",
+      "retrieval_mode": "dense",
+      "reranker_enabled": false,
+      "reranker_status_counts": {
+        "disabled": 4
+      },
+      "candidate_pool": 15,
+      "chunk_count": 339,
+      "metrics": {
+        "n_answerable": 4,
+        "hit_at_5": 0.75,
+        "recall_at_5": 0.75,
+        "mrr_at_5": 0.4583333333333333,
+        "ndcg_at_5": 0.5327324383928644,
+        "missing_evidence_rate": 0.25
+      },
+      "latency_ms_mean": 95.93,
+      "latency_ms_median": 82.73,
+      "query_failures": 0,
+      "unanswerable_questions_not_scored_for_recall": 0
+    },
+    {
+      "chunking": "fixed_size",
+      "retrieval": "hybrid_rrf",
+      "retrieval_mode": "hybrid",
+      "reranker_enabled": false,
+      "reranker_status_counts": {
+        "disabled": 4
+      },
+      "candidate_pool": 15,
+      "chunk_count": 339,
+      "metrics": {
+        "n_answerable": 4,
+        "hit_at_5": 0.75,
+        "recall_at_5": 0.75,
+        "mrr_at_5": 0.5833333333333334,
+        "ndcg_at_5": 0.625,
+        "missing_evidence_rate": 0.25
+      },
+      "latency_ms_mean": 81.74,
+      "latency_ms_median": 81.32,
+      "query_failures": 0,
+      "unanswerable_questions_not_scored_for_recall": 0
+    }
+  ]
+}

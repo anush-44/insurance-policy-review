@@ -241,12 +241,23 @@ class FixedSizeChunker:
     def chunk(self, doc: PolicyDocument) -> list[PolicyChunk]:
         """Chunk entire document into fixed character windows regardless of clause boundaries."""
         # Concatenate text page-by-page
-        page_texts: list[tuple[int, str]] = []
+        page_texts: list[tuple[int, str, int, int]] = []
         for section in doc.sections:
             for clause in section.clauses:
-                page_texts.append((clause.page_start, clause.text))
+                page_texts.append((clause.page_start, clause.text, clause.page_start, clause.page_end))
 
-        full_doc_text = "\n\n".join(txt for _, txt in page_texts)
+        parts: list[str] = []
+        spans: list[tuple[int, int, int, int]] = []
+        char_offset = 0
+        for _, text, page_start, page_end in page_texts:
+            if parts:
+                parts.append("\n\n")
+                char_offset += 2
+            start = char_offset
+            parts.append(text)
+            char_offset += len(text)
+            spans.append((start, char_offset, page_start, page_end))
+        full_doc_text = "".join(parts)
         chunks: list[PolicyChunk] = []
         step = self.chunk_size - self.chunk_overlap
         idx = 1
@@ -256,6 +267,14 @@ class FixedSizeChunker:
             if not window.strip():
                 continue
 
+            window_end = i + len(window)
+            overlapping_pages = [
+                (page_start, page_end)
+                for start, end, page_start, page_end in spans
+                if start < window_end and end > i
+            ]
+            page_start = min((span[0] for span in overlapping_pages), default=1)
+            page_end = max((span[1] for span in overlapping_pages), default=doc.total_pages)
             chunks.append(
                 PolicyChunk(
                     chunk_id=f"{doc.policy_id}_fixed_{idx}",
@@ -265,8 +284,8 @@ class FixedSizeChunker:
                     clause_id=f"FIXED-{idx}",
                     clause_title=f"Fixed Chunk {idx}",
                     text=window.strip(),
-                    page_start=1,
-                    page_end=doc.total_pages,
+                    page_start=page_start,
+                    page_end=page_end,
                     chunk_type=ChunkType.OTHER,
                     cross_references=extract_cross_references(window),
                     metadata={"chunker": "fixed_size", "window_size": self.chunk_size},

@@ -1,201 +1,137 @@
-# PolicyLens 🔍
+# PolicyLens
 
-> **AI-Powered Indian Health Insurance Policy Analyser**
-> Grounded RAG system with citation-level evidence for every answer.
+PolicyLens is a Python application for exploring Indian health-insurance policy wording. It parses PDFs, indexes clause-aware chunks in Qdrant and BM25, and exposes retrieval and analysis through FastAPI and Streamlit.
 
-[![CI](https://github.com/your-org/policylens/actions/workflows/ci.yml/badge.svg)](https://github.com/your-org/policylens/actions/workflows/ci.yml)
-[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.11x-green)](https://fastapi.tiangolo.com)
-[![Qdrant](https://img.shields.io/badge/Qdrant-Local%2FServer-red)](https://qdrant.tech)
+The project is under active evaluation. Claims in this README describe implemented code; they do not imply that a policy has been indexed, an answer is accurate, or an external service is connected. See [RESULTS.md](RESULTS.md) and [PROJECT_PROGRESS.md](PROJECT_PROGRESS.md) for verified status.
 
----
-
-## What is PolicyLens?
-
-PolicyLens is a **production-grade Retrieval-Augmented Generation (RAG)** application for Indian retail health insurance policies. It answers buyer questions grounded in the exact wording of a policy document, never hallucinating.
-
-### Features
-
-| Feature | Description |
-|---|---|
-| **📤 PDF Ingestion** | Upload any policy PDF — auto-parsed, chunked by clause, and indexed |
-| **💬 Grounded Q&A** | Answers with `clause_id + page + verbatim quote` citations, or abstains |
-| **📋 Summary Card** | Auto-extracts waiting periods, room rent, co-pay, exclusions, claim process |
-| **🚩 Red Flag Scanner** | Finds buyer-unfriendly clauses with severity ratings |
-| **⚖️ Policy Comparison** | Side-by-side scenario comparison (e.g. knee replacement, maternity) with citations |
-
----
-
-## Architecture
+## Architecture and data flow
 
 ```mermaid
-graph TD
-    U[User / Streamlit UI] -->|HTTP| API[FastAPI Backend]
-    API -->|Hybrid Retrieve| R[HybridRetriever]
-    R -->|Dense| Q[Qdrant Vector Store]
-    R -->|Keyword| B[BM25 Index]
-    R -->|RRF Fusion| LLM[Gemini / OpenAI LLM]
-    LLM -->|GroundedAnswer| API
-    PDF[Policy PDF] -->|PyMuPDF Parser| C[ClauseAwareChunker]
-    C -->|BGE Embeddings| Q
-    C --> B
+flowchart LR
+  PDF[Policy wording PDF] --> PARSE[PyMuPDF parser]
+  PARSE --> CHUNK[Clause-aware or fixed-size chunker]
+  CHUNK --> EMBED[BGE embeddings]
+  EMBED --> QDRANT[Qdrant]
+  CHUNK --> BM25[BM25 index]
+  QDRANT --> DENSE[Dense retrieval]
+  BM25 --> KEYWORD[BM25 retrieval]
+  DENSE --> RRF[Reciprocal Rank Fusion]
+  KEYWORD --> RRF
+  RRF --> RERANK[Optional cross-encoder]
+  RERANK --> LLM[Configured LLM]
+  LLM --> API[FastAPI]
+  API --> UI[Streamlit]
 ```
 
-### Key Design Decisions
+- The parser extracts selectable text and PyMuPDF tables. It records clause identifiers, sections, UIN when detected, and page spans. Scanned PDFs without useful text are not OCR-processed.
+- The clause-aware chunker preserves clause and table context; the fixed-size chunker is available as an evaluation baseline.
+- Qdrant stores vectors and payloads. BM25 indexes clause text. Hybrid retrieval combines both lists with RRF. A sentence-transformers cross-encoder can rerank the candidate pool when `RERANKER_ENABLED=true`; if its model cannot load, a warning is logged and RRF order is returned.
+- The application currently implements the Gemini API and an explicit mock provider. Configuring an unsupported provider fails visibly; it does not silently select the mock.
+- Policy metadata and serialized BM25 indexes are stored under `QDRANT_LOCAL_PATH`. Re-ingestion and deletion have rollback handling across the vector points and local metadata files.
 
-| Decision | Choice | Rationale |
-|---|---|---|
-| PDF Parsing | PyMuPDF | Best table extraction, free, fast (see ADR 001) |
-| Chunking | Clause-Aware | Preserves legal clause boundaries; superior to fixed-size |
-| Embeddings | BAAI/bge-base-en-v1.5 | Strong retrieval performance, 768-dim, Apache 2.0 |
-| Retrieval | Dense + BM25 → RRF | Hybrid catches both semantic and exact-match queries |
-| LLM | Gemini 1.5 Flash | Structured JSON output, citation-or-abstain enforcement |
-| Storage | Qdrant Local | No Docker needed for dev; swap to server mode for prod |
+## Installation and configuration
 
----
+Python 3.11 or newer is required.
 
-## Project Structure
-
-```
-policylens/
-├── app/
-│   ├── core/           # Config, schemas, LLM abstraction, logging
-│   ├── ingestion/      # PyMuPDF parser, table extraction, clause classification
-│   ├── indexing/       # BGE embeddings, Qdrant vector store, BM25 index, chunker
-│   ├── retrieval/      # HybridRetriever, Reciprocal Rank Fusion
-│   ├── rag/            # RAGPipeline, prompts, response schemas
-│   ├── api/            # FastAPI routers (policies, qa, analyse)
-│   ├── cli.py          # Ingestion CLI
-│   └── main.py         # FastAPI app entry point
-├── ui/
-│   └── app.py          # Streamlit frontend
-├── tests/
-│   ├── unit/           # 25 unit tests (offline, <5s)
-│   └── integration/    # 9 API integration tests (TestClient)
-├── eval/               # Q&A evaluation set, comparison cases, ablation scripts
-├── data/               # Sample policy PDF and generator script
-└── docs/               # Architecture Decision Records
-```
-
----
-
-## Quick Start
-
-### 1. Prerequisites
-
-- Python 3.11+
-- Git
-
-### 2. Clone and Set Up
-
-```bash
-git clone https://github.com/your-org/policylens.git
-cd policylens
+```powershell
 python -m venv .venv
-.venv\Scripts\activate          # Windows
-# source .venv/bin/activate     # Linux/macOS
-pip install -e ".[dev]"
+.venv\Scripts\Activate.ps1
+python -m pip install -e ".[dev]"
+Copy-Item .env.example .env
 ```
 
-### 3. Configure
+Set `LLM_PROVIDER=gemini` and `GEMINI_API_KEY` for live generation. For explicit offline API development, use `LLM_PROVIDER=mock`; mock outputs are not evaluation evidence. The BGE embedding model is downloaded by `sentence-transformers` on first use unless it is already cached.
 
-```bash
-cp .env.example .env
-# Edit .env and set: GEMINI_API_KEY=your_key_here
+Relevant settings include `EMBEDDING_MODEL`, `EMBEDDING_DEVICE`, `RERANKER_MODEL`, `RERANKER_ENABLED`, `RERANKER_CANDIDATE_POOL`, `QDRANT_MODE`, `QDRANT_LOCAL_PATH`, `QDRANT_HOST`, and `QDRANT_PORT`. Never commit `.env` or credentials.
+
+## Official policy acquisition
+
+`data/policies.csv` is the manifest. It records product, UIN, source URL, local path, date, page count, hash, and validation status. The current manifest has six policy entries with insurer-hosted or insurer-linked wording URLs. Direct downloads are subject to network access and each resulting PDF must pass content, UIN, page-count, and text checks.
+
+```powershell
+.venv\Scripts\python.exe -m data.acquire_policies
 ```
 
-### 4. Ingest a Policy PDF
+The command retries transient errors, follows HTTPS redirects, checks that the final host is approved for the insurer, validates the PDF, hashes it, and writes `data/acquisition_report.json`. It skips valid files, does not replace a different version without `--refresh`, and distinguishes a local PDF whose source provenance is unknown. PDFs downloaded into `data/raw/` are ignored by Git; keep the manifest and report with the project.
 
-```bash
-# CLI ingestion (one-time per policy)
-python -m app.cli ingest data/sample_policy.pdf --insurer "HDFC ERGO"
+## Ingestion and indexing
 
-# List indexed policies
-python -m app.cli list-policies
+Ingest a single validated wording:
+
+```powershell
+.venv\Scripts\python.exe -m app.cli ingest data/raw/care_supreme.pdf --policy-id care-supreme --insurer "Care Health Insurance Limited"
+.venv\Scripts\python.exe -m app.cli list-policies
 ```
 
-### 5. Start the API
+Ingest manifest entries whose validation status is `valid` or `valid_uin_not_detected`:
 
-```bash
-uvicorn app.main:app --reload --port 8000
-# API docs: http://localhost:8000/docs
+```powershell
+.venv\Scripts\python.exe -m data.ingest_policies
 ```
 
-### 6. Start the UI
+Local PDFs with unverified source provenance require the explicit `--include-unverified-local` option. Successful ingestion writes a per-policy report under `data/ingestion_reports/` with page count, selectable text, clause and chunk counts, warnings, and vector cleanup. Low parser counts are flagged for review. Repeated ingestion replaces stale chunks for that policy; deletion removes its Qdrant points, BM25 file, and registry entry.
 
-```bash
-streamlit run ui/app.py
-# Open: http://localhost:8501
+## Retrieval, API, and UI
+
+```powershell
+.venv\Scripts\python.exe -m uvicorn app.main:app --reload --port 8000
+.venv\Scripts\python.exe -m streamlit run ui/app.py
 ```
 
----
+FastAPI docs are at `http://localhost:8000/docs`. Routes include policy ingestion/list/deletion, Q&A, summaries, red-flag analysis, and policy comparison. The Q&A schema supports clause/page/quote citations and abstention. Red flags and comparison points include supporting wording when the source clause is retrieved. Summary fields still lack field-level citations and should be treated as unverified structured extraction.
 
-## API Reference
-
-| Method | Endpoint | Description |
-|---|---|---|
-| `POST` | `/api/v1/policies/ingest` | Upload and index a policy PDF |
-| `GET` | `/api/v1/policies` | List indexed policies |
-| `POST` | `/api/v1/qa` | Grounded Q&A with citations |
-| `GET` | `/api/v1/analyse/summary/{id}` | Policy summary card |
-| `GET` | `/api/v1/analyse/red-flags/{id}` | Red flag detection |
-| `POST` | `/api/v1/analyse/compare` | Side-by-side policy comparison |
-
-Full interactive docs at `http://localhost:8000/docs` (Swagger UI).
-
----
-
-## Running Tests
-
-```bash
-# All tests (35 total, ~8 seconds, no API key needed)
-python -m pytest tests/ -v
-
-# Unit tests only
-python -m pytest tests/unit/ -v
-
-# Integration tests (TestClient, no live server needed)
-python -m pytest tests/integration/ -v
-```
-
----
-
-## Docker (Optional)
-
-```bash
-# Start Qdrant server (optional — local mode works without Docker)
-docker compose up qdrant -d
-
-# Full stack
-docker compose up
-```
-
----
+For reranking, enable it with `RERANKER_ENABLED=true`. Set `false` to use RRF output only. An unavailable model triggers an observable fallback; the API continues with RRF.
 
 ## Evaluation
 
-The `eval/` directory contains:
-- **`qa_set.jsonl`** — 30 grounded Q&A pairs with expected citations
-- **`compare_cases.jsonl`** — 10 scenario comparison cases  
-- **`extraction_labels.json`** — Golden labels for summary extraction
+Validate the manually labeled data and source references:
 
----
+```powershell
+.venv\Scripts\python.exe -m eval.validate_eval_data
+```
 
-## Limitations
+Run the retrieval and chunking ablation on the same policy, labels, and corpus:
 
-- Designed for **Indian IRDAI-regulated health insurance** PDFs; other document types may parse poorly.
-- Complex scanned PDFs (image-only) require OCR pre-processing (not included).
-- LLM answers are bounded by the quality of retrieval — very small/obscure clauses may be missed.
-- This tool does **not** constitute insurance advice.
+```powershell
+.venv\Scripts\python.exe -m eval.run_retrieval_ablation --policy-id icici-complete-health --pdf data/icici_complete_health.pdf --reranker
+```
 
----
+This evaluates BM25-only, dense-only, hybrid RRF, and hybrid with a cross-encoder across clause-aware and fixed-size chunks. The cross-encoder configuration may report an explicit RRF fallback if the model is unavailable. `--mock-embeddings` is for diagnostic runs only and must not be used to claim retrieval quality.
 
-## ⚠️ Disclaimer
+The QA dataset schema is documented in [eval/README.md](eval/README.md). Extraction scoring accepts a predictions JSON file:
 
-> PolicyLens is for **informational purposes only**. It does not provide insurance, legal, or financial advice. Always refer to the official policy wording document and consult a licensed insurance advisor for decisions.
+```powershell
+.venv\Scripts\python.exe -m eval.score_extraction --predictions path\to\predictions.json --out eval/results/extraction.json
+```
 
----
+RAGAS is optional (`pip install -e ".[eval]"`). `eval/run_ragas.py` requires a validated corpus, the app's real provider configuration, and `OPENAI_API_KEY` for the default RAGAS judge. It reports dependency/key/provider errors instead of inventing metrics. RAGAS has not been run on this checkout.
 
-## License
+## Tests
 
-MIT © PolicyLens Contributors
+```powershell
+.venv\Scripts\python.exe -m pytest tests/ -q -p no:cacheprovider --basetemp=E:\Insurance\pytest-temp
+```
+
+The workspace temp path avoids the restricted host temp directory in this environment.
+
+## Docker
+
+```powershell
+docker compose up --build
+```
+
+Compose defines persistent Qdrant data and a separate volume for API-side BM25/registry metadata, plus Qdrant and API health checks. Docker was not available in the evaluation environment, so the build, startup, health checks, and ingestion flow are unverified. Set `GEMINI_API_KEY` in the environment before starting the default Gemini configuration.
+
+## Langfuse
+
+The repository has Langfuse settings and Compose environment passthrough, but there is no tracing call in the active retrieval/generation path. Tracing is not implemented or verified; setting credentials alone does not produce traces.
+
+## Current limitations
+
+- Only one local policy PDF has been content-validated in this environment. Its title and UIN match an official ICICI Lombard wording source, but its acquisition provenance has not been verified against downloaded bytes.
+- Other insurer PDFs could not be downloaded because outbound sockets are blocked. No policy in the manifest is claimed as successfully downloaded unless its report says so.
+- The manually checked QA set has 33 questions across five officially validated policy wordings and one local source-unverified wording. Its PDF page references pass validation. This small set is not evidence of general answer accuracy.
+- Extraction labels contain 7 manually referenced verified fields for one policy; predicted extraction accuracy has not been measured.
+- OCR is not included. RAGAS, live Gemini quality, Docker, and Langfuse remain unverified.
+- `eval/compare_cases.jsonl` and older parser/chunking result artifacts are synthetic or unvalidated and must not be presented as real-policy evaluation.
+- PolicyLens is informational only and is not insurance, legal, or financial advice.

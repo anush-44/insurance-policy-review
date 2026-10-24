@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     )
 
     # LLM Settings
-    llm_provider: Literal["gemini", "openai", "anthropic"] = "gemini"
+    llm_provider: Literal["gemini", "mock", "openai", "anthropic"] = "gemini"
     gemini_api_key: str = Field(default="", validation_alias="GEMINI_API_KEY")
     openai_api_key: str = Field(default="", validation_alias="OPENAI_API_KEY")
     anthropic_api_key: str = Field(default="", validation_alias="ANTHROPIC_API_KEY")
@@ -36,6 +36,8 @@ class Settings(BaseSettings):
     embedding_model: str = "BAAI/bge-base-en-v1.5"
     reranker_model: str = "BAAI/bge-reranker-base"
     embedding_device: str = "cpu"
+    reranker_enabled: bool = False
+    reranker_candidate_pool: int = 30
 
     # Qdrant Vector DB
     qdrant_mode: Literal["server", "local"] = "local"
@@ -52,6 +54,7 @@ class Settings(BaseSettings):
     top_k_bm25: int = 15
     top_k_rerank: int = 5
     rrf_k: int = 60
+    retrieval_mode: Literal["hybrid", "dense", "bm25"] = "hybrid"
     abstention_threshold: float = 0.35
 
     # Observability

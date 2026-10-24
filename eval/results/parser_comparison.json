@@ -1,12 +1,12 @@
 {
   "file": "sample_policy.pdf",
-  "timestamp": "2026-10-22 11:16:34",
+  "timestamp": "2026-10-24 11:20:43",
   "parsers": {
     "PyMuPDF": {
-      "latency_seconds": 0.978,
-      "latency_per_page_sec": 0.2446,
+      "latency_seconds": 1.74,
+      "latency_per_page_sec": 0.435,
       "total_pages": 4,
-      "total_clauses": 14,
+      "total_clauses": 13,
       "tables_detected": 1,
       "markdown_validity": 1.0,
       "cell_fill_rate": 1.0,

@@ -1,0 +1,81 @@
+{
+  "generated_at": "2026-10-24T07:00:32.178665+00:00",
+  "manifest": "E:\\Insurance\\data\\policies.csv",
+  "results": [
+    {
+      "policy_id": "icici-complete-health",
+      "source_url": "https://www.icicilombard.com/docs/default-source/apps/chirenewal/assets/pdf/chi_policy_wordings_new.pdf",
+      "status": "existing_local_file_source_unverified",
+      "pages": 63,
+      "text_chars": 167191,
+      "uin_detected": [
+        "ICIHLIP25035V082425"
+      ],
+      "product_found": true,
+      "sha256": "b5425731688630ea194018b1c195ee6d313a27d06316d73b10811a187f81d8dc"
+    },
+    {
+      "policy_id": "care-supreme",
+      "source_url": "https://cms.careinsurance.com/cms/public/uploads/download_center/care-supreme---policy-terms-and-conditions.pdf",
+      "status": "downloaded_and_validated",
+      "pages": 45,
+      "text_chars": 142165,
+      "uin_detected": [
+        "CHIHLIP23128V012223"
+      ],
+      "product_found": true,
+      "final_url": "https://cms.careinsurance.com/cms/public/uploads/download_center/care-supreme---policy-terms-and-conditions.pdf",
+      "sha256": "2ed123866ffe89b0ddc455ebe867273450b1dbe1d5e3f3040427b0c1ba4d0a4a"
+    },
+    {
+      "policy_id": "hdfc-optima-secure",
+      "source_url": "https://customer-portal-assets.hdfcergo.com/documents/PolicyWordings_myOptimaSecure-318158523271.pdf",
+      "status": "reused_validated_file",
+      "pages": 69,
+      "text_chars": 174140,
+      "uin_detected": [
+        "HDFHLIP26058V082526"
+      ],
+      "product_found": true,
+      "sha256": "694c0540cb341ec9254c08a41668174b60d4a7ebc4833d78505052367c0b6ab3"
+    },
+    {
+      "policy_id": "niva-reassure-2",
+      "source_url": "https://www.nivabupa.com/content/dam/nivabupa/PDF/reassure-2-0/ReAssure%202.0%20-%20PolicyWording.pdf",
+      "status": "downloaded_and_validated",
+      "pages": 36,
+      "text_chars": 84659,
+      "uin_detected": [
+        "NBHHLIP26042V022526"
+      ],
+      "product_found": true,
+      "final_url": "https://www.nivabupa.com/content/dam/nivabupa/PDF/reassure-2-0/ReAssure%202.0%20-%20PolicyWording.pdf",
+      "sha256": "8b00f5307e46553b955c3e21d0adea417e206a635b936f0623109fbec2f8c1bb"
+    },
+    {
+      "policy_id": "aditya-activ-one",
+      "source_url": "https://adityabirlacapital.com/healthinsurance/assets/pdf/active-one/MAX/product-information/policy-document.pdf",
+      "status": "downloaded_and_validated",
+      "pages": 56,
+      "text_chars": 261726,
+      "uin_detected": [
+        "ADIHLIP24097V012324"
+      ],
+      "product_found": true,
+      "final_url": "https://www.adityabirlahealthinsurance.com/assets/pdf/active-one/MAX/product-information/policy-document.pdf",
+      "sha256": "e94f3734458ececa858a7dd51a78e832a6db333a851fdbd3d5f330ac6b1b60dd"
+    },
+    {
+      "policy_id": "star-comprehensive",
+      "source_url": "https://d28c6jni2fmamz.cloudfront.net/Policy_Star_Comprehensive_Insurance_Policy_V_21_3a414ab104.pdf",
+      "status": "reused_validated_file",
+      "pages": 48,
+      "text_chars": 134253,
+      "uin_detected": [
+        "SHAHLIP26044V092526"
+      ],
+      "product_found": true,
+      "sha256": "b1dbe8fb78646f75566d47c32b7ebfa27c4071941c8f548224c461ee35a8021f"
+    }
+  ]
+}

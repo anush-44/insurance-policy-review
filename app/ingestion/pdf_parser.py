@@ -113,13 +113,17 @@ class PyMuPDFParser:
 
     # Matches patterns like '4.1 Waiting Periods', 'Section 3. Scope', 'Clause 5.2', 'IV. Exclusions'
     CLAUSE_HEADER_PATTERN = re.compile(
-        r"^(?P<prefix>(?:Section\s+[0-9A-Za-z\.]+|Clause\s+[0-9A-Za-z\.]+|Annexure\s+[0-9A-Za-z\.]+|[A-Z]\.\s+|\b[0-9]+\.[0-9]+(?:\.[0-9]+)*\b\.?))\s*(?P<title>[A-Za-z][^\n]{2,80})$",
+        r"^(?P<prefix>(?:(?:Section|Clause|Annexure|Schedule|Part)\s+(?:\d+(?:\.\d+)*|[A-Z]+)|\d+\.\d+(?:\.\d+)*\.?|\d+\.|[A-Za-z]\.|[IVXLC]{1,8}\.))\s+(?P<title>[A-Za-z][^\n]{2,110})$",
         re.MULTILINE,
     )
 
     SECTION_HEADER_PATTERN = re.compile(
         r"^(?:SECTION|PART)\s+(?:[0-9]+|[A-Z]+)\s*[:\-–]?\s*(?P<title>[^\n]+)",
-        re.IGNORECASE | re.MULTILINE,
+        re.MULTILINE,
+    )
+    LETTER_SECTION_PATTERN = re.compile(
+        r"^(?P<id>[A-Z])\.\s+(?P<title>(?:(?:Basic|Optional|Additional|Waiting|Permanent|General|Policy|Covered|Coverage|Benefits|Exclusions|Definitions|Claims)\b[^\n]{0,90}))$",
+        re.IGNORECASE,
     )
 
     def __init__(self) -> None:
@@ -199,147 +203,121 @@ class PyMuPDFParser:
             policy_id=policy_id,
             policy_name=policy_name,
             insurer=insurer,
-            uin=uin,
+            uin=uin or self._detect_uin(page_data),
             total_pages=total_pages,
             sections=sections,
-            metadata={"parser": "PyMuPDF", "version": pymupdf.__version__},
+            metadata={
+                "parser": "PyMuPDF",
+                "version": pymupdf.__version__,
+                "selectable_text_chars": sum(len(str(page["text"]).strip()) for page in page_data),
+            },
         )
 
+    @staticmethod
+    def _detect_uin(page_data: list[dict]) -> str | None:
+        """Detect a policy UIN from early page text when the caller did not supply one."""
+        first_pages = "\n".join(str(page.get("text", "")) for page in page_data[:5])
+        match = re.search(r"\b[A-Z]{2,8}HLIP\d{5}V\d{6}\b", first_pages.upper())
+        return match.group(0) if match else None
+
     def _build_sections(self, page_data: list[dict]) -> list[Section]:
-        """Group parsed pages into sections and clauses based on header matching."""
+        """Group clause headings and body text without losing page boundaries."""
         sections: list[Section] = []
-        current_section = Section(
-            section_id="SEC-0",
-            title="General Policy Terms",
-            page_start=1,
-            page_end=1,
-            clauses=[],
-        )
+        current_section = Section(section_id="SEC-1", title="General Policy Terms", page_start=1, page_end=1, clauses=[])
         current_clause: Clause | None = None
-        clause_counter = 1
+
+        def finish_clause() -> None:
+            nonlocal current_clause
+            if current_clause is not None:
+                current_clause.text = current_clause.text.strip()
+                current_clause.chunk_type = classify_clause_type(current_section.title, current_clause.title, current_clause.text)
+                if current_clause.text:
+                    current_section.clauses.append(current_clause)
+                current_clause = None
+
+        def finish_section() -> None:
+            if current_section.clauses:
+                current_section.page_end = max(clause.page_end for clause in current_section.clauses)
+                sections.append(current_section)
 
         for page in page_data:
             page_num = page["page_num"]
-            lines = page["text"].split("\n")
-            current_clause_lines: list[str] = []
+            lines = page["text"].splitlines()
+            normalized_lines: list[str] = []
+            line_index = 0
+            while line_index < len(lines):
+                line = lines[line_index].strip()
+                # Some policy PDFs put a numbered heading marker (for example,
+                # "4.") on its own line and the heading text on the next line.
+                if (
+                    re.fullmatch(r"(?:\d+(?:\.\d+)*|[IVXLC]{1,8})\.", line, re.IGNORECASE)
+                    and line_index + 1 < len(lines)
+                ):
+                    next_line = re.sub(r"[\x00-\x1f\x7f-\x9f]", "", lines[line_index + 1]).strip()
+                    if next_line and re.match(r"^[A-Za-z]", next_line):
+                        normalized_lines.append(f"{line} {next_line}")
+                        line_index += 2
+                        continue
+                normalized_lines.append(lines[line_index])
+                line_index += 1
 
-            for line in lines:
+            for line in normalized_lines:
                 stripped = line.strip()
                 if not stripped:
                     continue
-
-                # Check if this line is a top-level section header
-                sec_match = self.SECTION_HEADER_PATTERN.match(stripped)
-                if sec_match:
-                    # Flush current clause
-                    if current_clause and current_clause_lines:
-                        current_clause.text += "\n" + "\n".join(current_clause_lines)
-                        current_clause.page_end = page_num
-                        current_section.clauses.append(current_clause)
-                        current_clause = None
-                        current_clause_lines = []
-
-                    # If previous section has clauses or content, push it
-                    if current_section.clauses:
-                        current_section.page_end = page_num
-                        sections.append(current_section)
-
-                    sec_title = sec_match.group("title").strip()
+                section_match = self.SECTION_HEADER_PATTERN.match(stripped)
+                letter_match = self.LETTER_SECTION_PATTERN.match(stripped)
+                if section_match or letter_match:
+                    finish_clause()
+                    finish_section()
+                    title = (section_match or letter_match).group("title").strip()
                     current_section = Section(
-                        section_id=f"SEC-{len(sections) + 1}",
-                        title=sec_title,
-                        page_start=page_num,
-                        page_end=page_num,
-                        clauses=[],
+                        section_id=f"SEC-{len(sections) + 1}", title=title,
+                        page_start=page_num, page_end=page_num, clauses=[]
                     )
                     continue
 
-                # Check if this line is a clause header (e.g., '4.1 Waiting Periods')
-                clause_match = self.CLAUSE_HEADER_PATTERN.match(stripped)
-                if clause_match:
-                    prefix = clause_match.group("prefix").strip(". ")
-                    title = clause_match.group("title").strip()
-
-                    # Save existing clause
-                    if current_clause:
-                        if current_clause_lines:
-                            current_clause.text += "\n" + "\n".join(current_clause_lines)
-                        current_clause.page_end = page_num
-                        current_clause.chunk_type = classify_clause_type(
-                            current_section.title, current_clause.title, current_clause.text
-                        )
-                        current_section.clauses.append(current_clause)
-                        current_clause_lines = []
-
-                    clause_id = prefix if prefix else f"C-{clause_counter}"
-                    clause_counter += 1
-
+                header = self.CLAUSE_HEADER_PATTERN.match(stripped)
+                if header:
+                    clause_id = header.group("prefix").strip(". ")
+                    title = header.group("title").strip()
+                    # Avoid treating running addresses or prose as structural headings.
+                    if len(clause_id) > 18 or title.lower().startswith(("the company shall", "registered office")):
+                        if current_clause:
+                            current_clause.text += "\n" + stripped
+                            current_clause.page_end = page_num
+                        continue
+                    finish_clause()
                     current_clause = Clause(
-                        clause_id=clause_id,
-                        title=title,
-                        text=stripped,
-                        page_start=page_num,
-                        page_end=page_num,
-                        parent_section=current_section.title,
-                        tables=[],
+                        clause_id=clause_id, title=title, text=stripped,
+                        page_start=page_num, page_end=page_num,
+                        parent_section=current_section.title, tables=[]
+                    )
+                elif current_clause is None:
+                    current_clause = Clause(
+                        clause_id="PREAMBLE", title="Preamble / General", text=stripped,
+                        page_start=page_num, page_end=page_num,
+                        parent_section=current_section.title, tables=[]
                     )
                 else:
-                    if current_clause:
-                        current_clause_lines.append(stripped)
-                    else:
-                        # Before first clause, accumulate into a preliminary clause
-                        if not current_section.clauses:
-                            current_clause = Clause(
-                                clause_id="PREAMBLE",
-                                title="Preamble / General",
-                                text=stripped,
-                                page_start=page_num,
-                                page_end=page_num,
-                                parent_section=current_section.title,
-                            )
-                        else:
-                            current_clause_lines.append(stripped)
+                    current_clause.text += "\n" + stripped
+                    current_clause.page_end = page_num
 
-            # Page transition: flush lines to active clause
-            if current_clause and current_clause_lines:
-                current_clause.text += "\n" + "\n".join(current_clause_lines)
-                current_clause.page_end = page_num
-                current_clause_lines = []
-
-            # Attach page tables to the active clause or section
-            if page["tables"]:
+            for table in page["tables"]:
                 if current_clause:
-                    current_clause.tables.extend(page["tables"])
-                    # Append markdown representation to clause text for searchability
-                    for t in page["tables"]:
-                        current_clause.text += f"\n\n[Table: Page {page_num}]\n{t.markdown}\n"
+                    current_clause.tables.append(table)
+                    current_clause.text += f"\n\n[Table: Page {page_num}]\n{table.markdown}\n"
+                    current_clause.page_end = page_num
                 else:
-                    # Create a standalone table clause
-                    for t in page["tables"]:
-                        t_clause = Clause(
-                            clause_id=f"TABLE-P{page_num}-{clause_counter}",
-                            title=f"Schedule / Table (Page {page_num})",
-                            text=t.markdown,
-                            page_start=page_num,
-                            page_end=page_num,
-                            chunk_type=ChunkType.TABLE,
-                            parent_section=current_section.title,
-                            tables=[t],
-                        )
-                        clause_counter += 1
-                        current_section.clauses.append(t_clause)
+                    current_section.clauses.append(Clause(
+                        clause_id=f"TABLE-P{page_num}-{len(current_section.clauses) + 1}",
+                        title=f"Schedule / Table (Page {page_num})", text=table.markdown,
+                        page_start=page_num, page_end=page_num, chunk_type=ChunkType.TABLE,
+                        parent_section=current_section.title, tables=[table]
+                    ))
 
-        # End of document: flush final clause and section
-        if current_clause:
-            current_clause.chunk_type = classify_clause_type(
-                current_section.title, current_clause.title, current_clause.text
-            )
-            current_section.clauses.append(current_clause)
-
-        if current_section.clauses:
-            current_section.page_end = page_data[-1]["page_num"] if page_data else 1
-            sections.append(current_section)
-
+        finish_clause()
+        finish_section()
         return sections
 
     def _fallback_sections(self, page_data: list[dict]) -> list[Section]:

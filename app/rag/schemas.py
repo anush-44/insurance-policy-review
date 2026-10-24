@@ -2,9 +2,6 @@
 
 from pydantic import BaseModel, Field
 
-from app.core.schemas import Citation, GroundedAnswer
-
-
 # ── Policy Summary Card ──────────────────────────────────────────────────────
 
 
@@ -16,7 +13,7 @@ class PolicySummaryCard(BaseModel):
     waiting_period_ped: str = "Not specified"
     waiting_period_specific: str = "Not specified"
     room_rent_cap: str = "Not specified"
-    copay_percent: str = "None"
+    copay_percent: str = "Not established from retrieved clauses"
     restoration_benefit: str = "Not specified"
     no_claim_bonus: str = "Not specified"
     key_sublimits: list[str] = Field(default_factory=list)
@@ -34,6 +31,7 @@ class RedFlag(BaseModel):
     clause_id: str
     page: int = 0
     description: str
+    evidence_quote: str = ""
     severity: str = Field(
         default="medium",
         description="'high' | 'medium' | 'low'",
@@ -59,6 +57,8 @@ class ComparisonPoint(BaseModel):
     policy_b_summary: str
     policy_b_clause_id: str = ""
     policy_b_page: int = 0
+    policy_a_evidence_quote: str = ""
+    policy_b_evidence_quote: str = ""
     verdict: str = "Insufficient data"
 
 

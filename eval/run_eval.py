@@ -15,14 +15,13 @@ Or with the MockLLMClient (no API key, for CI verification):
 import argparse
 import json
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 from app.core.config import settings
 from app.core.llm import MockLLMClient, get_llm_client
 from app.core.logging import logger
-from app.core.schemas import PolicyChunk
 from app.indexing.bm25_index import BM25Index
 from app.indexing.chunker import ClauseAwareChunker
 from app.indexing.embeddings import BGEEmbeddingModel, DeterministicMockEmbeddingModel
@@ -30,7 +29,6 @@ from app.indexing.qdrant_client import QdrantVectorStore, get_qdrant_client
 from app.ingestion.pdf_parser import PyMuPDFParser
 from app.rag.pipeline import RAGPipeline
 from eval.validate_eval_data import QAPair, validate_qa_set
-
 
 # ── Metrics ───────────────────────────────────────────────────────────────────
 
@@ -62,10 +60,15 @@ def ingest_for_eval(
     pdf_path: Path,
     policy_id: str,
     use_mock_embeddings: bool = False,
-) -> tuple[QdrantVectorStore, BM25Index]:
+) -> tuple[QdrantVectorStore, BM25Index, Any]:
     """Parse and index a PDF into in-memory stores for eval (no disk writes)."""
     parser = PyMuPDFParser()
-    doc = parser.parse(pdf_path=pdf_path, policy_id=policy_id, insurer="EvalInsurer")
+    doc = parser.parse(
+        file_source=pdf_path,
+        policy_id=policy_id,
+        policy_name=pdf_path.stem,
+        insurer="EvalInsurer",
+    )
     chunker = ClauseAwareChunker()
     chunks = chunker.chunk(doc)
     logger.info(f"[eval] Parsed {doc.total_pages} pages → {len(chunks)} chunks")
@@ -177,7 +180,7 @@ def run_evaluation(
 
     return {
         "policy_id": policy_id,
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
         "aggregate": aggregate,
         "category_summary": category_summary,
         "results": results,
@@ -226,12 +229,7 @@ def main() -> None:
 """,
     )
     parser.add_argument("--policy-id", default="care-adv-sample", help="Policy ID to evaluate")
-    parser.add_argument(
-        "--pdf",
-        default="data/sample_policy.pdf",
-        type=Path,
-        help="Path to the policy PDF to ingest for eval",
-    )
+    parser.add_argument("--pdf", default=None, type=Path, help="Policy PDF (defaults to manifest path for the selected policy)")
     parser.add_argument(
         "--mock",
         action="store_true",
@@ -257,10 +255,16 @@ def main() -> None:
         return
 
     # Ingest PDF
-    pdf_path = Path(args.pdf)
+    pdf_path = Path(args.pdf) if args.pdf else None
+    if pdf_path is None:
+        import csv
+
+        with Path("data/policies.csv").open(newline="", encoding="utf-8-sig") as stream:
+            row = next((r for r in csv.DictReader(stream) if r["policy_id"] == args.policy_id), None)
+        pdf_path = Path(row["local_path"]) if row and row["local_path"] else Path("data/sample_policy.pdf")
     if not pdf_path.exists():
-        print(f"PDF not found: {pdf_path}. Using sample_policy.pdf as fallback.")
-        pdf_path = Path("data/sample_policy.pdf")
+        print(f"PDF not found: {pdf_path}")
+        return
 
     print(f"\nIngesting {pdf_path}...")
     vs, bm25, emb = ingest_for_eval(
