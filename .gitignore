@@ -71,7 +71,6 @@ eval/results/*.jsonl
 # Local completion notes
 /PROJECT_PROGRESS.md
 /RESUME_BULLETS.md
-/eval/README.md
 
 # OS files
 .DS_Store

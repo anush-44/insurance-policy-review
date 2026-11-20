@@ -2,7 +2,7 @@
 
 PolicyLens is a Python application for exploring Indian health-insurance policy wording. It parses PDFs, indexes clause-aware chunks in Qdrant and BM25, and exposes retrieval and analysis through FastAPI and Streamlit.
 
-The project is under active evaluation. Claims in this README describe implemented code; they do not imply that a policy has been indexed, an answer is accurate, or an external service is connected. See [RESULTS.md](RESULTS.md) and [PROJECT_PROGRESS.md](PROJECT_PROGRESS.md) for verified status.
+The project is under active evaluation. Claims in this README describe implemented code; they do not imply that a policy has been indexed, an answer is accurate, or an external service is connected. See [RESULTS.md](RESULTS.md) for verified status.
 
 ## Architecture and data flow
 
