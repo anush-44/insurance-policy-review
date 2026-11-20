@@ -229,7 +229,12 @@ def main() -> None:
 """,
     )
     parser.add_argument("--policy-id", default="care-adv-sample", help="Policy ID to evaluate")
-    parser.add_argument("--pdf", default=None, type=Path, help="Policy PDF (defaults to manifest path for the selected policy)")
+    parser.add_argument(
+        "--pdf",
+        default=None,
+        type=Path,
+        help="Policy PDF (defaults to manifest path for the selected policy)",
+    )
     parser.add_argument(
         "--mock",
         action="store_true",
@@ -260,8 +265,12 @@ def main() -> None:
         import csv
 
         with Path("data/policies.csv").open(newline="", encoding="utf-8-sig") as stream:
-            row = next((r for r in csv.DictReader(stream) if r["policy_id"] == args.policy_id), None)
-        pdf_path = Path(row["local_path"]) if row and row["local_path"] else Path("data/sample_policy.pdf")
+            row = next(
+                (r for r in csv.DictReader(stream) if r["policy_id"] == args.policy_id), None
+            )
+        pdf_path = (
+            Path(row["local_path"]) if row and row["local_path"] else Path("data/sample_policy.pdf")
+        )
     if not pdf_path.exists():
         print(f"PDF not found: {pdf_path}")
         return

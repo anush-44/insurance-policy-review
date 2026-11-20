@@ -94,7 +94,10 @@ async def remove_policy(policy_id: str, pipeline: PipelineDep) -> dict:
             reload_bm25(pipeline)
     except Exception as exc:
         logger.error(f"Policy deletion failed for {policy_id}: {exc}")
-        raise HTTPException(status_code=500, detail="Policy deletion failed; registry metadata was retained where possible.") from exc
+        raise HTTPException(
+            status_code=500,
+            detail="Policy deletion failed; registry metadata was retained where possible.",
+        ) from exc
     if not success:
         raise HTTPException(status_code=404, detail=f"Policy '{policy_id}' not found.")
     return {"deleted": policy_id}

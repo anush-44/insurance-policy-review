@@ -203,7 +203,9 @@ def get_llm_client(provider: str | None = None) -> LLMClient:
         return MockLLMClient()
     if selected_provider == "gemini":
         if not settings.gemini_api_key:
-            raise ValueError("LLM_PROVIDER=gemini requires GEMINI_API_KEY. Set LLM_PROVIDER=mock for offline mode.")
+            raise ValueError(
+                "LLM_PROVIDER=gemini requires GEMINI_API_KEY. Set LLM_PROVIDER=mock for offline mode."
+            )
         return GeminiLLMClient()
     raise NotImplementedError(
         f"LLM provider '{selected_provider}' is configured but not implemented. Use 'gemini' or explicit 'mock'."

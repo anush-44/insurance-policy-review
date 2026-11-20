@@ -4,13 +4,13 @@ Start with:
     uvicorn app.main:app --reload --port 8000
 """
 
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
-from typing import AsyncIterator
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import create_rag_pipeline, get_pipeline
+from app.api import get_pipeline
 from app.api.analyse import router as analyse_router
 from app.api.policies import router as policies_router
 from app.api.qa import router as qa_router

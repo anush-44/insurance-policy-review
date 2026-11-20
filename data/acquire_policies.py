@@ -25,8 +25,17 @@ import pymupdf
 
 ROOT = Path(__file__).resolve().parents[1]
 FIELDS = [
-    "policy_id", "insurer", "product_name", "uin", "plan_type", "pages",
-    "source_url", "download_date", "sha256", "local_path", "validation_status",
+    "policy_id",
+    "insurer",
+    "product_name",
+    "uin",
+    "plan_type",
+    "pages",
+    "source_url",
+    "download_date",
+    "sha256",
+    "local_path",
+    "validation_status",
 ]
 OFFICIAL_HOSTS: dict[str, tuple[str, ...]] = {
     "icici lombard": ("icicilombard.com",),
@@ -59,17 +68,29 @@ def validate_pdf(path: Path, row: dict[str, str]) -> dict[str, object]:
     try:
         with path.open("rb") as stream:
             if stream.read(5) != b"%PDF-":
-                return {"status": "invalid_pdf_signature", "pages": None, "text_chars": 0, "uin_detected": None}
+                return {
+                    "status": "invalid_pdf_signature",
+                    "pages": None,
+                    "text_chars": 0,
+                    "uin_detected": None,
+                }
         with pymupdf.open(path) as doc:
             pages = doc.page_count
             text = "\n".join(page.get_text("text") for page in doc)
     except Exception as exc:
-        return {"status": "corrupt_or_unreadable_pdf", "error": str(exc), "pages": None, "text_chars": 0, "uin_detected": None}
+        return {
+            "status": "corrupt_or_unreadable_pdf",
+            "error": str(exc),
+            "pages": None,
+            "text_chars": 0,
+            "uin_detected": None,
+        }
 
     flat_text = re.sub(r"\s+", " ", text).lower()
     generic_tokens = {"health", "insurance", "policy", "plan", "the", "and"}
     product_tokens = [
-        token.lower() for token in re.findall(r"[a-z0-9]+", row["product_name"])
+        token.lower()
+        for token in re.findall(r"[a-z0-9]+", row["product_name"])
         if len(token) > 2 and token.lower() not in generic_tokens
     ]
     product_found = bool(product_tokens) and all(token in flat_text for token in product_tokens)
@@ -159,17 +180,23 @@ def run(manifest: Path, refresh: bool, retries: int, timeout: float, report_path
             digest = sha256_file(target)
             old_digest = row["sha256"].strip()
             checked = validate_pdf(target, row)
-            if checked["status"] in {"valid", "valid_uin_not_detected"} and (not old_digest or digest == old_digest):
+            if checked["status"] in {"valid", "valid_uin_not_detected"} and (
+                not old_digest or digest == old_digest
+            ):
                 row["pages"] = str(checked["pages"])
                 row["sha256"] = digest
                 # A locally supplied file has no acquisition timestamp unless the
                 # manifest already records one; content validation cannot prove provenance.
                 row["validation_status"] = (
-                    str(checked["status"]) if row["download_date"] else "valid_pdf_source_unverified"
+                    str(checked["status"])
+                    if row["download_date"]
+                    else "valid_pdf_source_unverified"
                 )
                 result.update(checked)
                 result["status"] = (
-                    "reused_validated_file" if row["download_date"] else "existing_local_file_source_unverified"
+                    "reused_validated_file"
+                    if row["download_date"]
+                    else "existing_local_file_source_unverified"
                 )
                 result["sha256"] = digest
                 results.append(result)
@@ -182,13 +209,24 @@ def run(manifest: Path, refresh: bool, retries: int, timeout: float, report_path
 
         temp_name = ""
         try:
-            with tempfile.NamedTemporaryFile(prefix="policylens-", suffix=".part", delete=False, dir=target.parent) as temp:
+            with tempfile.NamedTemporaryFile(
+                prefix="policylens-", suffix=".part", delete=False, dir=target.parent
+            ) as temp:
                 temp_name = temp.name
             temp_path = Path(temp_name)
             final_url = download(row["source_url"], temp_path, retries, timeout)
             final_host = (urlparse(final_url).hostname or "").lower()
-            allowed = next((domains for name, domains in OFFICIAL_HOSTS.items() if name in row["insurer"].lower()), ())
-            if not any(final_host == domain or final_host.endswith("." + domain) for domain in allowed):
+            allowed = next(
+                (
+                    domains
+                    for name, domains in OFFICIAL_HOSTS.items()
+                    if name in row["insurer"].lower()
+                ),
+                (),
+            )
+            if not any(
+                final_host == domain or final_host.endswith("." + domain) for domain in allowed
+            ):
                 raise ValueError(f"Redirect ended on unexpected host: {final_host}")
             checked = validate_pdf(temp_path, row)
             result.update(checked)
@@ -207,7 +245,9 @@ def run(manifest: Path, refresh: bool, retries: int, timeout: float, report_path
             row["download_date"] = date.today().isoformat()
             row["sha256"] = new_hash
             row["validation_status"] = str(checked["status"])
-            result.update({"status": "downloaded_and_validated", "final_url": final_url, "sha256": new_hash})
+            result.update(
+                {"status": "downloaded_and_validated", "final_url": final_url, "sha256": new_hash}
+            )
         except Exception as exc:
             result["status"] = "download_or_validation_error"
             result["error"] = str(exc)
@@ -225,9 +265,13 @@ def run(manifest: Path, refresh: bool, retries: int, timeout: float, report_path
     report_path.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
     for item in results:
         print(f"{item['policy_id']}: {item['status']}")
-    good = sum(item["status"] in {"downloaded_and_validated", "reused_validated_file"} for item in results)
+    good = sum(
+        item["status"] in {"downloaded_and_validated", "reused_validated_file"} for item in results
+    )
     local_only = sum(item["status"] == "existing_local_file_source_unverified" for item in results)
-    print(f"Officially acquired and validated: {good}/{len(rows)}; local files with unverified provenance: {local_only}; report: {report_path}")
+    print(
+        f"Officially acquired and validated: {good}/{len(rows)}; local files with unverified provenance: {local_only}; report: {report_path}"
+    )
     return 0 if good else 1
 
 
@@ -235,7 +279,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=Path, default=ROOT / "data/policies.csv")
     parser.add_argument("--report", type=Path, default=ROOT / "data/acquisition_report.json")
-    parser.add_argument("--refresh", action="store_true", help="Allow replacing existing files with newly validated versions")
+    parser.add_argument(
+        "--refresh",
+        action="store_true",
+        help="Allow replacing existing files with newly validated versions",
+    )
     parser.add_argument("--retries", type=int, default=3)
     parser.add_argument("--timeout", type=float, default=30.0)
     args = parser.parse_args()

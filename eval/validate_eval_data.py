@@ -126,7 +126,9 @@ def validate_qa_references(
             normalized_page = re.sub(r"\s+", " ", pages[page_no - 1])
             normalized_clause = re.sub(r"\s+", " ", clause_id)
             if not re.search(re.escape(normalized_clause), normalized_page, re.IGNORECASE):
-                errors.append(f"{pair.id}: gold clause/reference {clause_id!r} not found on page {page_no}")
+                errors.append(
+                    f"{pair.id}: gold clause/reference {clause_id!r} not found on page {page_no}"
+                )
     return {
         "questions": len(pairs),
         "policies": sorted({pair.policy_id for pair in pairs}),
@@ -175,15 +177,24 @@ def validate_extraction_references(
                 continue
             verified_fields += 1
             pages = field.get("gold_pages", [])
-            if any(not isinstance(page, int) or page < 1 or page > len(page_texts) for page in pages):
+            if any(
+                not isinstance(page, int) or page < 1 or page > len(page_texts) for page in pages
+            ):
                 errors.append(f"{record['policy_id']}.{field_name}: page outside PDF bounds")
                 continue
             context = " ".join(page_texts[page - 1] for page in pages)
             for clause_id in field.get("gold_clause_ids", []):
                 reference = re.sub(r"\s+", " ", str(clause_id))
                 if not re.search(re.escape(reference), context, re.IGNORECASE):
-                    errors.append(f"{record['policy_id']}.{field_name}: reference {clause_id!r} not found on labeled pages")
-    return {"policies": len(records), "verified_fields": verified_fields, "errors": errors, "valid": not errors}
+                    errors.append(
+                        f"{record['policy_id']}.{field_name}: reference {clause_id!r} not found on labeled pages"
+                    )
+    return {
+        "policies": len(records),
+        "verified_fields": verified_fields,
+        "errors": errors,
+        "valid": not errors,
+    }
 
 
 def validate_extraction_labels(
@@ -197,12 +208,20 @@ def validate_extraction_labels(
     with open(path, encoding="utf-8") as f:
         data = json.load(f)
 
-    if not isinstance(data, dict) or data.get("schema_version") != 1 or not isinstance(data.get("policies"), list):
+    if (
+        not isinstance(data, dict)
+        or data.get("schema_version") != 1
+        or not isinstance(data.get("policies"), list)
+    ):
         raise ValueError("extraction_labels.json must use schema_version 1 with a policies list")
     policies = data["policies"]
     seen: set[str] = set()
     for item in policies:
-        if not isinstance(item, dict) or not item.get("policy_id") or not isinstance(item.get("fields"), dict):
+        if (
+            not isinstance(item, dict)
+            or not item.get("policy_id")
+            or not isinstance(item.get("fields"), dict)
+        ):
             raise ValueError("Each extraction policy needs policy_id and a fields object")
         if item["policy_id"] in seen:
             raise ValueError(f"Duplicate extraction policy_id: {item['policy_id']}")
@@ -210,8 +229,12 @@ def validate_extraction_labels(
         for field_name, field in item["fields"].items():
             if not isinstance(field, dict) or "gold_value" not in field or "status" not in field:
                 raise ValueError(f"{item['policy_id']}.{field_name} needs gold_value and status")
-            if field["status"] == "verified" and (not field.get("gold_clause_ids") or not field.get("gold_pages")):
-                raise ValueError(f"{item['policy_id']}.{field_name} verified label needs clause and page references")
+            if field["status"] == "verified" and (
+                not field.get("gold_clause_ids") or not field.get("gold_pages")
+            ):
+                raise ValueError(
+                    f"{item['policy_id']}.{field_name} verified label needs clause and page references"
+                )
     return policies
 
 
@@ -258,7 +281,9 @@ if __name__ == "__main__":
 
     try:
         report = validate_qa_references()
-        print(f"[{'PASS' if report['valid'] else 'FAIL'}] QA references: {report['questions']} questions, {len(report['policies'])} policies")
+        print(
+            f"[{'PASS' if report['valid'] else 'FAIL'}] QA references: {report['questions']} questions, {len(report['policies'])} policies"
+        )
         for error in report["errors"]:
             print(f"  - {error}")
     except Exception as e:
@@ -266,7 +291,9 @@ if __name__ == "__main__":
 
     try:
         report = validate_extraction_references()
-        print(f"[{'PASS' if report['valid'] else 'FAIL'}] Extraction references: {report['verified_fields']} verified fields")
+        print(
+            f"[{'PASS' if report['valid'] else 'FAIL'}] Extraction references: {report['verified_fields']} verified fields"
+        )
         for error in report["errors"]:
             print(f"  - {error}")
     except Exception as e:

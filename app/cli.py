@@ -58,8 +58,7 @@ def ingest_pdf(
         insurer=insurer,
     )
     logger.info(
-        f"Parsed '{doc.policy_name}' — {doc.total_pages} pages, "
-        f"{len(doc.all_clauses())} clauses"
+        f"Parsed '{doc.policy_name}' — {doc.total_pages} pages, {len(doc.all_clauses())} clauses"
     )
 
     # 2. Chunk → PolicyChunks
@@ -91,7 +90,9 @@ def ingest_pdf(
         try:
             registry = json.loads(old_registry)
         except json.JSONDecodeError as exc:
-            raise ValueError(f"Existing policy registry is invalid; refusing to overwrite it: {registry_path}") from exc
+            raise ValueError(
+                f"Existing policy registry is invalid; refusing to overwrite it: {registry_path}"
+            ) from exc
     old_points = vector_store.snapshot_policy_points(derived_id)
 
     # Serialize chunk texts + ids for BM25 re-hydration on startup
@@ -115,7 +116,9 @@ def ingest_pdf(
     stale_count = 0
     try:
         vector_store.upsert_chunks(chunks=chunks, vectors=vectors)
-        stale_count = vector_store.prune_policy_chunks(derived_id, {chunk.chunk_id for chunk in chunks})
+        stale_count = vector_store.prune_policy_chunks(
+            derived_id, {chunk.chunk_id for chunk in chunks}
+        )
         bm25_tmp = bm25_path.with_suffix(".json.tmp")
         bm25_tmp.write_text(json.dumps(bm25_data, ensure_ascii=False, indent=2), encoding="utf-8")
         os.replace(bm25_tmp, bm25_path)
@@ -129,7 +132,9 @@ def ingest_pdf(
             "uin": doc.uin,
         }
         registry_tmp = registry_path.with_suffix(".json.tmp")
-        registry_tmp.write_text(json.dumps(registry, ensure_ascii=False, indent=2), encoding="utf-8")
+        registry_tmp.write_text(
+            json.dumps(registry, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
         os.replace(registry_tmp, registry_path)
     except Exception as exc:
         rollback_errors: list[str] = []
@@ -148,8 +153,12 @@ def ingest_pdf(
             except Exception as rollback_exc:
                 rollback_errors.append(f"{path.name} rollback failed: {rollback_exc}")
         details = "; ".join(rollback_errors) if rollback_errors else "all previous state restored"
-        raise RuntimeError(f"Ingestion persistence failed ({exc}); rollback result: {details}") from exc
-    logger.info(f"BM25 index and registry committed for {derived_id}; stale vectors removed={stale_count}")
+        raise RuntimeError(
+            f"Ingestion persistence failed ({exc}); rollback result: {details}"
+        ) from exc
+    logger.info(
+        f"BM25 index and registry committed for {derived_id}; stale vectors removed={stale_count}"
+    )
 
     clause_counts: dict[str, int] = {}
     for section in doc.sections:
@@ -157,7 +166,9 @@ def ingest_pdf(
             clause_counts[str(clause.page_start)] = clause_counts.get(str(clause.page_start), 0) + 1
     warnings = []
     if len(doc.all_clauses()) < max(5, doc.total_pages // 5):
-        warnings.append("Suspiciously low detected clause count; inspect parser output before trusting retrieval.")
+        warnings.append(
+            "Suspiciously low detected clause count; inspect parser output before trusting retrieval."
+        )
     report = {
         "policy_id": derived_id,
         "policy_name": doc.policy_name,

@@ -145,9 +145,7 @@ class TestRAGPipeline:
 
     def test_retrieved_chunk_ids_populated(self, indexed_pipeline: RAGPipeline) -> None:
         """retrieved_chunk_ids is always populated when chunks exist."""
-        result = indexed_pipeline.answer(
-            query="What is the co-pay?", policy_id="test_policy"
-        )
+        result = indexed_pipeline.answer(query="What is the co-pay?", policy_id="test_policy")
         assert result.retrieved_chunk_ids is not None
 
     def test_detect_red_flags_returns_report(self, indexed_pipeline: RAGPipeline) -> None:
@@ -160,7 +158,9 @@ class TestRAGPipeline:
         for flag in result.red_flags:
             assert flag.evidence_quote
 
-    def test_comparison_abstains_instead_of_ranking_keyword_overlap(self, indexed_pipeline: RAGPipeline) -> None:
+    def test_comparison_abstains_instead_of_ranking_keyword_overlap(
+        self, indexed_pipeline: RAGPipeline
+    ) -> None:
         class BrokenLLM:
             def generate(self, **kwargs):
                 raise RuntimeError("provider unavailable")

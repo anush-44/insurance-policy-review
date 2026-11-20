@@ -68,6 +68,11 @@ eval/results/*.parquet
 eval/results/*.jsonl
 !eval/results/RESULTS.md
 
+# Local completion notes
+/PROJECT_PROGRESS.md
+/RESUME_BULLETS.md
+/eval/README.md
+
 # OS files
 .DS_Store
 Thumbs.db

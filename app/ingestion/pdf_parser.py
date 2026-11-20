@@ -223,21 +223,27 @@ class PyMuPDFParser:
     def _build_sections(self, page_data: list[dict]) -> list[Section]:
         """Group clause headings and body text without losing page boundaries."""
         sections: list[Section] = []
-        current_section = Section(section_id="SEC-1", title="General Policy Terms", page_start=1, page_end=1, clauses=[])
+        current_section = Section(
+            section_id="SEC-1", title="General Policy Terms", page_start=1, page_end=1, clauses=[]
+        )
         current_clause: Clause | None = None
 
         def finish_clause() -> None:
             nonlocal current_clause
             if current_clause is not None:
                 current_clause.text = current_clause.text.strip()
-                current_clause.chunk_type = classify_clause_type(current_section.title, current_clause.title, current_clause.text)
+                current_clause.chunk_type = classify_clause_type(
+                    current_section.title, current_clause.title, current_clause.text
+                )
                 if current_clause.text:
                     current_section.clauses.append(current_clause)
                 current_clause = None
 
         def finish_section() -> None:
             if current_section.clauses:
-                current_section.page_end = max(clause.page_end for clause in current_section.clauses)
+                current_section.page_end = max(
+                    clause.page_end for clause in current_section.clauses
+                )
                 sections.append(current_section)
 
         for page in page_data:
@@ -249,10 +255,9 @@ class PyMuPDFParser:
                 line = lines[line_index].strip()
                 # Some policy PDFs put a numbered heading marker (for example,
                 # "4.") on its own line and the heading text on the next line.
-                if (
-                    re.fullmatch(r"(?:\d+(?:\.\d+)*|[IVXLC]{1,8})\.", line, re.IGNORECASE)
-                    and line_index + 1 < len(lines)
-                ):
+                if re.fullmatch(
+                    r"(?:\d+(?:\.\d+)*|[IVXLC]{1,8})\.", line, re.IGNORECASE
+                ) and line_index + 1 < len(lines):
                     next_line = re.sub(r"[\x00-\x1f\x7f-\x9f]", "", lines[line_index + 1]).strip()
                     if next_line and re.match(r"^[A-Za-z]", next_line):
                         normalized_lines.append(f"{line} {next_line}")
@@ -272,8 +277,11 @@ class PyMuPDFParser:
                     finish_section()
                     title = (section_match or letter_match).group("title").strip()
                     current_section = Section(
-                        section_id=f"SEC-{len(sections) + 1}", title=title,
-                        page_start=page_num, page_end=page_num, clauses=[]
+                        section_id=f"SEC-{len(sections) + 1}",
+                        title=title,
+                        page_start=page_num,
+                        page_end=page_num,
+                        clauses=[],
                     )
                     continue
 
@@ -282,22 +290,32 @@ class PyMuPDFParser:
                     clause_id = header.group("prefix").strip(". ")
                     title = header.group("title").strip()
                     # Avoid treating running addresses or prose as structural headings.
-                    if len(clause_id) > 18 or title.lower().startswith(("the company shall", "registered office")):
+                    if len(clause_id) > 18 or title.lower().startswith(
+                        ("the company shall", "registered office")
+                    ):
                         if current_clause:
                             current_clause.text += "\n" + stripped
                             current_clause.page_end = page_num
                         continue
                     finish_clause()
                     current_clause = Clause(
-                        clause_id=clause_id, title=title, text=stripped,
-                        page_start=page_num, page_end=page_num,
-                        parent_section=current_section.title, tables=[]
+                        clause_id=clause_id,
+                        title=title,
+                        text=stripped,
+                        page_start=page_num,
+                        page_end=page_num,
+                        parent_section=current_section.title,
+                        tables=[],
                     )
                 elif current_clause is None:
                     current_clause = Clause(
-                        clause_id="PREAMBLE", title="Preamble / General", text=stripped,
-                        page_start=page_num, page_end=page_num,
-                        parent_section=current_section.title, tables=[]
+                        clause_id="PREAMBLE",
+                        title="Preamble / General",
+                        text=stripped,
+                        page_start=page_num,
+                        page_end=page_num,
+                        parent_section=current_section.title,
+                        tables=[],
                     )
                 else:
                     current_clause.text += "\n" + stripped
@@ -309,12 +327,18 @@ class PyMuPDFParser:
                     current_clause.text += f"\n\n[Table: Page {page_num}]\n{table.markdown}\n"
                     current_clause.page_end = page_num
                 else:
-                    current_section.clauses.append(Clause(
-                        clause_id=f"TABLE-P{page_num}-{len(current_section.clauses) + 1}",
-                        title=f"Schedule / Table (Page {page_num})", text=table.markdown,
-                        page_start=page_num, page_end=page_num, chunk_type=ChunkType.TABLE,
-                        parent_section=current_section.title, tables=[table]
-                    ))
+                    current_section.clauses.append(
+                        Clause(
+                            clause_id=f"TABLE-P{page_num}-{len(current_section.clauses) + 1}",
+                            title=f"Schedule / Table (Page {page_num})",
+                            text=table.markdown,
+                            page_start=page_num,
+                            page_end=page_num,
+                            chunk_type=ChunkType.TABLE,
+                            parent_section=current_section.title,
+                            tables=[table],
+                        )
+                    )
 
         finish_clause()
         finish_section()

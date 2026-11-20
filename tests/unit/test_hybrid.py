@@ -4,9 +4,16 @@ from app.retrieval.hybrid import HybridRetriever
 
 def chunk(chunk_id: str) -> PolicyChunk:
     return PolicyChunk(
-        chunk_id=chunk_id, policy_id="p1", insurer="Insurer", section="Coverage",
-        clause_id=chunk_id, clause_title=chunk_id, text=f"Text for {chunk_id}",
-        page_start=1, page_end=1, chunk_type=ChunkType.COVERAGE,
+        chunk_id=chunk_id,
+        policy_id="p1",
+        insurer="Insurer",
+        section="Coverage",
+        clause_id=chunk_id,
+        clause_title=chunk_id,
+        text=f"Text for {chunk_id}",
+        page_start=1,
+        page_end=1,
+        chunk_type=ChunkType.COVERAGE,
     )
 
 
@@ -33,8 +40,12 @@ class FakeCrossEncoder:
 
 def test_cross_encoder_reranks_candidate_pool() -> None:
     retriever = HybridRetriever(
-        FakeVectorStore(), FakeBM25(), FakeEmbeddings(), reranker_enabled=True,
-        reranker=FakeCrossEncoder(), retrieval_mode="dense",
+        FakeVectorStore(),
+        FakeBM25(),
+        FakeEmbeddings(),
+        reranker_enabled=True,
+        reranker=FakeCrossEncoder(),
+        retrieval_mode="dense",
     )
     results = retriever.retrieve("query", limit=2)
     assert [item[0].chunk_id for item in results] == ["second", "first"]
@@ -47,8 +58,12 @@ def test_reranker_failure_falls_back_observably() -> None:
             raise RuntimeError("model offline")
 
     retriever = HybridRetriever(
-        FakeVectorStore(), FakeBM25(), FakeEmbeddings(), reranker_enabled=True,
-        reranker=BrokenReranker(), retrieval_mode="dense",
+        FakeVectorStore(),
+        FakeBM25(),
+        FakeEmbeddings(),
+        reranker_enabled=True,
+        reranker=BrokenReranker(),
+        retrieval_mode="dense",
     )
     results = retriever.retrieve("query", limit=2)
     assert [item[0].chunk_id for item in results] == ["first", "second"]

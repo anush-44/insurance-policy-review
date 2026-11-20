@@ -52,10 +52,13 @@ def create_rag_pipeline() -> RAGPipeline:
     # Use real embeddings if sentence_transformers is installed, else mock
     try:
         from sentence_transformers import SentenceTransformer  # noqa: F401
+
         embedding_model = BGEEmbeddingModel()
         logger.info("Using BGEEmbeddingModel for embeddings")
     except ImportError:
-        logger.warning("sentence_transformers not installed — using DeterministicMockEmbeddingModel")
+        logger.warning(
+            "sentence_transformers not installed — using DeterministicMockEmbeddingModel"
+        )
         embedding_model = DeterministicMockEmbeddingModel(dimension=768)
 
     bm25_index = _load_bm25_from_storage()

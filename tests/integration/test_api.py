@@ -3,24 +3,18 @@
 Tests all three API routers: /api/v1/policies, /api/v1/qa, /api/v1/analyse.
 """
 
-import json
-import tempfile
-from io import BytesIO
-from pathlib import Path
-from typing import Generator
 from unittest.mock import patch
 
 import pytest
 from fastapi.testclient import TestClient
 
 from app.core.llm import MockLLMClient
-from app.core.schemas import ChunkType, PolicyChunk, PolicyDocument, Section, Clause
+from app.core.schemas import ChunkType, Clause, PolicyDocument, Section
 from app.indexing.bm25_index import BM25Index
 from app.indexing.chunker import ClauseAwareChunker
 from app.indexing.embeddings import DeterministicMockEmbeddingModel
 from app.indexing.qdrant_client import QdrantVectorStore, get_qdrant_client
 from app.rag.pipeline import RAGPipeline
-
 
 # ── Fixtures ──────────────────────────────────────────────────────────────────
 
@@ -104,8 +98,8 @@ def mock_pipeline() -> RAGPipeline:
 @pytest.fixture(scope="module")
 def client(mock_pipeline: RAGPipeline, tmp_path_factory) -> TestClient:
     """TestClient with the RAG pipeline patched to use our in-memory mock."""
-    from app.main import app
     from app import api as api_module
+    from app.main import app
 
     # Patch the pipeline singleton
     api_module._rag_pipeline = mock_pipeline

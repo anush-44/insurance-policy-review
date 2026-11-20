@@ -126,4 +126,7 @@ def test_fixed_size_chunker(dummy_policy_document: PolicyDocument) -> None:
         assert chunk.clause_id.startswith("FIXED-")
         assert len(chunk.text) <= 150
         assert 1 <= chunk.page_start <= chunk.page_end <= dummy_policy_document.total_pages
-    assert any(chunk.page_start > 1 or chunk.page_end < dummy_policy_document.total_pages for chunk in chunks)
+    assert any(
+        chunk.page_start > 1 or chunk.page_end < dummy_policy_document.total_pages
+        for chunk in chunks
+    )

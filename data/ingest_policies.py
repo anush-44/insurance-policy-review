@@ -21,13 +21,30 @@ def ingest_manifest(manifest_path: Path, include_unverified_local: bool = False)
     results: list[dict[str, Any]] = []
     for row in rows:
         status = row.get("validation_status", "")
-        if status not in ACCEPTED and not (include_unverified_local and status == "valid_pdf_source_unverified"):
-            results.append({"policy_id": row.get("policy_id"), "status": "skipped_unvalidated", "validation_status": status})
+        if status not in ACCEPTED and not (
+            include_unverified_local and status == "valid_pdf_source_unverified"
+        ):
+            results.append(
+                {
+                    "policy_id": row.get("policy_id"),
+                    "status": "skipped_unvalidated",
+                    "validation_status": status,
+                }
+            )
             continue
         pdf_path = ROOT / row["local_path"]
         try:
-            response = ingest_pdf(pdf_path=pdf_path, policy_id=row["policy_id"], insurer=row["insurer"])
-            results.append({"policy_id": row["policy_id"], "status": response.status, "pages": response.total_pages, "chunks": response.total_chunks})
+            response = ingest_pdf(
+                pdf_path=pdf_path, policy_id=row["policy_id"], insurer=row["insurer"]
+            )
+            results.append(
+                {
+                    "policy_id": row["policy_id"],
+                    "status": response.status,
+                    "pages": response.total_pages,
+                    "chunks": response.total_chunks,
+                }
+            )
         except Exception as exc:
             failure = {
                 "policy_id": row.get("policy_id"),
@@ -47,7 +64,13 @@ def ingest_manifest(manifest_path: Path, include_unverified_local: bool = False)
             (report_dir / f"{row.get('policy_id', 'unknown')}.json").write_text(
                 json.dumps(failure, indent=2), encoding="utf-8"
             )
-            results.append({"policy_id": row.get("policy_id"), "status": "ingestion_failed", "error": failure["errors"][0]})
+            results.append(
+                {
+                    "policy_id": row.get("policy_id"),
+                    "status": "ingestion_failed",
+                    "error": failure["errors"][0],
+                }
+            )
     return {
         "timestamp": datetime.now(UTC).isoformat(),
         "manifest": str(manifest_path),
@@ -62,7 +85,11 @@ def main() -> None:
     parser.add_argument("--include-unverified-local", action="store_true")
     args = parser.parse_args()
     report = ingest_manifest(args.manifest, args.include_unverified_local)
-    output = ROOT / "data/ingestion_reports" / f"manifest_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    output = (
+        ROOT
+        / "data/ingestion_reports"
+        / f"manifest_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    )
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(report, indent=2), encoding="utf-8")
     for item in report["results"]:

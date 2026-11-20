@@ -2,221 +2,171 @@
 
 ## Purpose
 
-PolicyLens is a Python application for exploring Indian health-insurance policy
-wording. It ingests PDF policy documents, indexes clause-sized text, and offers
-question answering and policy-analysis endpoints with citations and
-abstention-oriented behavior.
+PolicyLens is a Python prototype for grounded exploration of Indian
+health-insurance policy wording. It parses policy PDFs, indexes clause-level
+chunks, combines dense and keyword retrieval, and exposes question answering,
+summaries, red flags, and policy comparison through FastAPI and Streamlit.
 
-This document describes the current repository state. It distinguishes
-implemented features from measured quality and from work that is not yet
-complete. The project is a prototype; repository configuration alone does not
-prove production deployment or production-level accuracy.
+This overview describes repository state and verified evidence. It does not
+turn configuration or code presence into a claim about live answer accuracy,
+deployment, or production readiness.
 
-## What is implemented
+## Implemented capabilities
 
-### Policy ingestion
+### Ingestion
 
-- PDF text and table extraction with PyMuPDF.
-- Clause-aware chunking that retains policy, section, clause, and page metadata.
-- Dense embeddings using `BAAI/bge-base-en-v1.5`.
-- Local Qdrant vector indexing and a BM25 keyword index.
-- CLI commands to ingest a PDF, list indexed policies, and remove registry
-  metadata.
-- FastAPI PDF upload endpoint for policy ingestion.
-- An indexed-policy registry and serialized BM25 data under the configured
-  local Qdrant storage directory.
+- PyMuPDF extraction for selectable text and tables.
+- Clause-aware chunking plus a fixed-size chunker for controlled evaluation.
+- UIN and page-span metadata, policy/insurer metadata, and per-policy ingestion
+  reports.
+- A deterministic policy acquisition workflow with an HTTPS source allowlist,
+  retries, PDF/UIN/text/page validation, SHA-256 hashes, and no-overwrite
+  behavior.
+- CLI and FastAPI ingestion, policy listing, and policy deletion.
+- Local Qdrant storage, a serialized BM25 index, and an indexed-policy registry.
+- Re-ingestion replaces stale Qdrant points and BM25/registry data with
+  rollback-oriented cleanup.
 
-### Retrieval and answer generation
+### Retrieval and generation
 
-- Dense Qdrant retrieval and BM25 retrieval.
-- Reciprocal-rank fusion (RRF) combines the two ranked lists.
-- A provider abstraction is present for Gemini and mock/offline operation.
-- Q&A response schemas include answer text, citations, confidence, abstention
-  status, caveats, and retrieved chunk IDs.
-- A low-evidence fallback can cite a matching retrieved clause or abstain.
-- The API appends an informational-use disclaimer to Q&A responses.
+- Dense retrieval with `BAAI/bge-base-en-v1.5`.
+- BM25 keyword retrieval.
+- Reciprocal-rank fusion (RRF) for dense and keyword results.
+- Optional `BAAI/bge-reranker-base` cross-encoder reranking.
+- Cross-encoder errors fall back to RRF order and record an observable status.
+- Gemini generation and an explicit mock provider.
+- Configurable OpenAI and Anthropic fields exist, but the current LLM factory
+  only implements Gemini and mock. Unsupported providers fail visibly.
+- Q&A schemas support clause/page/quote citations, confidence, abstention,
+  caveats, and retrieved chunk IDs.
+- Summary, red-flag, and comparison pipelines are evidence-oriented:
+  unsupported values abstain or remain unavailable, and source evidence is
+  required where claims are returned.
 
-**Not implemented in the checked retrieval path:** cross-encoder reranking.
-Although a reranker model name exists in configuration, the retrieval code does
-not load or execute a cross-encoder.
+### API and UI
 
-### Policy analysis
+- FastAPI routes for ingestion, listing, deletion, Q&A, summaries, red flags,
+  and side-by-side comparison.
+- Interactive OpenAPI documentation at `/docs`.
+- Streamlit pages for ingestion, Q&A, summaries, red flags, and comparison.
+- Liveness health endpoints for API/container use.
+- Dockerfiles and Docker Compose configuration for API, UI, and Qdrant.
 
-- Pydantic response schemas and pipeline methods for summary cards, red flags,
-  and side-by-side scenario comparison.
-- API routes for summary and red-flag analysis on an indexed policy.
-- API route for comparing two indexed policies for a scenario.
-- Deterministic fallback logic exists for some missing or invalid model
-  responses.
+## Local corpus and registry
 
-The presence of these features does not establish high factual accuracy.
-Fallback outputs, especially red flags and summaries, should be verified
-against the source policy.
+The repository manifests and/or validates five insurer-hosted or
+insurer-linked policy PDFs plus one pre-existing local ICICI PDF:
 
-### API and user interface
+- Care Supreme
+- HDFC ERGO my:Optima Secure
+- Niva Bupa ReAssure 2.0
+- Aditya Birla Activ One
+- Star Comprehensive
+- ICICI Lombard Complete Health, with unverified local acquisition provenance
 
-- FastAPI application with health endpoints and automatically generated API
-  documentation at `/docs`.
-- REST endpoints:
+The verified official documents account for 1,474 indexed chunks in the local
+evaluation state. The separate ICICI entry has 188 chunks and was not rebuilt
+as part of the manifest ingestion. Policy acquisition and ingestion reports are
+kept under `data/` and should be checked before citing document provenance.
 
-  | Method | Endpoint | Purpose |
-  |---|---|---|
-  | `POST` | `/api/v1/policies/ingest` | Upload and index a PDF |
-  | `GET` | `/api/v1/policies` | List indexed policies |
-  | `DELETE` | `/api/v1/policies/{policy_id}` | Remove policy registry entry |
-  | `POST` | `/api/v1/qa` | Ask a policy-grounded question |
-  | `GET` | `/api/v1/analyse/summary/{policy_id}` | Get a structured summary |
-  | `GET` | `/api/v1/analyse/red-flags/{policy_id}` | Get potential restrictive clauses |
-  | `POST` | `/api/v1/analyse/compare` | Compare two indexed policies |
+## Evaluation status
 
-- Streamlit UI with pages for PDF ingestion, Q&A, summary, red flags, and
-  comparison.
+### QA dataset
 
-### Packaging and operations
+`eval/qa_set.jsonl` contains 33 manually referenced questions across the local
+ICICI document and five validated policy documents. PDF and page-reference
+validation passes. This is a small benchmark and not evidence of general answer
+accuracy.
 
-- Python package configuration and optional development/evaluation dependency
-  groups are defined in `pyproject.toml`.
-- Dockerfiles exist for the API and UI.
-- Docker Compose defines API, UI, and Qdrant services.
-- Local mode uses embedded Qdrant storage by default; the Compose setup uses a
-  Qdrant server.
-- Environment configuration includes fields for Gemini, OpenAI, Anthropic,
-  Qdrant, and optional Langfuse settings. Gemini is the implemented live LLM
-  client; OpenAI and Anthropic are not implemented by the current client
-  factory, which falls back to the mock client for other provider selections.
+The extraction-label file contains 7 verified fields for the local ICICI policy.
+Its references pass, but no live extraction predictions or measured accuracy
+have been produced.
 
-Langfuse configuration and an optional dependency are present, but active
-tracing instrumentation or collected traces have not been verified. Docker
-configuration exists, but an actual deployment has not been verified.
+### Retrieval
 
-## Current local data
+A real-embedding, controlled retrieval/chunking ablation was run for Care
+Supreme over four answerable questions. Across BM25, dense, hybrid RRF,
+clause-aware chunks, and fixed-size chunks:
 
-At the last verification in this workspace:
+- Hit@5: 0.75 for all evaluated configurations
+- MRR@5: 0.425–0.750
+- nDCG@5: 0.504–0.750
 
-- `data/sample_policy.pdf` is generated sample/test data, not an official
-  insurance policy.
-- `data/icici_complete_health.pdf` is a 63-page ICICI Lombard policy PDF.
-- The local registry listed the ICICI policy as `icici_complete_health`, with
-  188 indexed chunks. The parser reported 12 clauses for that PDF.
-- The additional policies mentioned outside this workspace are not included
-  in the verified local corpus.
+These are one-policy diagnostic results. They do not support a claim of
+improvement across the full corpus. Cross-encoder reranking was not included
+because reranker weights are not cached locally.
 
-The parser's clause count and segmentation should be manually checked for long
-or complex policies; a high chunk count does not itself demonstrate complete
-or correct clause extraction.
+### Tests
 
-## Evaluation and test status
+The latest baseline suite ran successfully with:
 
-### Automated tests
+- **43 tests passed**
+- Pydantic and parser paths covered
+- FastAPI TestClient integration coverage
+- Hybrid retrieval and reranking fallback unit coverage
 
-The project test suite was run successfully:
+The test suite uses mock or deterministic components in many cases and does not
+prove live Gemini quality or real-policy factual accuracy.
 
-- **35 passed**
-- **1 Pydantic serializer warning** in the red-flags integration test.
+### Not measured
 
-The integration tests use a synthetic in-memory policy; they do not establish
-live Gemini answer quality for every indexed document.
+- RAGAS faithfulness, answer relevance, context precision, and context recall
+- Live Gemini answer accuracy
+- Extraction field accuracy and field-level precision/recall
+- 15-policy or corpus-wide retrieval improvement
+- Cross-encoder reranking quality
+- Langfuse trace volume or latency
+- Docker Compose build/start/health behavior
+- Real deployment uptime or scaling
 
-### Checked-in evaluation artifacts
+## Operational gaps
 
-- `eval/qa_set.jsonl`: 50 labeled questions for `care-adv-sample`.
-- `eval/extraction_labels.json`: 5 policy label records.
-- `eval/compare_cases.jsonl`: comparison scenarios.
-- `eval/results/chunking_ablation.json`: chunking measurements on the generated
-  four-page sample.
-- `eval/results/parser_comparison.json`: parser comparison output. Unstructured
-  was unavailable during the latest run, so this is not a valid head-to-head
-  parser comparison.
+1. RAGAS requires optional dependencies and an evaluator API key.
+2. Live Gemini evaluation requires explicit approval for sending local policy
+   text and questions to the external service.
+3. Langfuse settings and Compose environment passthrough exist, but no active
+   tracing calls are implemented.
+4. Docker and Docker Compose were unavailable during verification.
+5. OCR is not implemented for scanned or image-only PDFs.
+6. The Star parser repair and re-ingestion improved clause detection, but
+   citation-sensitive quality across every policy still needs manual review.
+7. Summary field-level citations and end-to-end answer scoring remain areas for
+   future improvement.
 
-The sample chunking evaluation reported:
-
-| Metric | Clause-aware | Fixed-size baseline |
-|---|---:|---:|
-| Chunks | 13 | 9 |
-| Clause-boundary preservation | 100.0% | 0.0% |
-| Section-context preservation | 100.0% | 0.0% |
-
-These are structural chunking metrics on one generated sample policy, not
-retrieval or answer-quality scores.
-
-A separate offline prototype check found BM25-only Hit@5 of 40/40 (100%) and
-dense + BM25/RRF Hit@5 of 40/40 (100%) across the 40 answerable questions for
-that same sample policy. The measured gain was zero percentage points. The
-offline deterministic summary fallback matched 4/13 labeled fields (30.8%)
-for the one matching sample-policy label. These small, single-policy prototype
-checks do not represent live-model performance or the full real-policy corpus.
-Details and scoring caveats are in `docs/RESUME_METRICS.md` and
-`eval/results/RESUME_BULLETS.md`.
-
-### Evaluation gaps
-
-- RAGAS faithfulness and answer-relevance metrics have not been measured.
-- No reproducible corpus-wide Hit@5 comparison or 15-policy evaluation has
-  been produced.
-- No live-model extraction-accuracy score has been produced.
-- Cross-encoder reranking has not been implemented or evaluated.
-- The Makefile's `eval` target refers to `eval.run_all`, which is absent. Thus
-  `make eval` is not currently a working full-evaluation command. The individual
-  scripts `eval.run_chunking_ablation` and `eval.run_parser_comparison` are
-  available; `eval.run_eval` is also present but has not been established as a
-  complete replacement for `run_all`.
-
-## Known gaps and risks
-
-1. **Reranking:** model configuration exists, but no cross-encoder execution.
-2. **Evaluation completeness:** no active RAGAS runner, no measured extraction
-   accuracy evaluator, and no full `run_all` module.
-3. **Limited evidence scope:** the reproducible retrieval figures cover one
-   generated sample policy; the external 15-PDF corpus has not been validated
-   in this workspace.
-4. **Fallback accuracy:** offline deterministic summary and red-flag fallbacks
-   are useful for exercising the pipeline but are not substitutes for verified
-   model analysis.
-5. **PDF parsing:** image-only/scanned PDFs need OCR support, which is not
-   included. Complex layouts and tables may need manual validation.
-6. **Observability and deployment:** Langfuse instrumentation and real Docker
-   deployment are not evidenced by the current repository artifacts.
-7. **Red-flag response typing:** the test suite currently emits a Pydantic
-   serializer warning because fallback red flags are assembled as dictionaries
-   instead of `RedFlag` model instances.
-8. **Policy deletion:** the current CLI/API documentation notes that deletion
-   removes the registry entry but does not delete the associated Qdrant points.
-
-## Running locally
-
-From the repository root on Windows:
+## Run locally
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -e ".[dev]"
+.\\.venv\\Scripts\\Activate.ps1
+python -m pip install -e ".[dev]"
 Copy-Item .env.example .env
-# Add the selected provider's key to .env when live LLM calls are desired.
-python -m app.cli ingest "path\to\policy.pdf" --policy-id policy_name --insurer "Insurer"
-python -m app.cli list-policies
-python -m uvicorn app.main:app --reload --port 8000
 ```
 
-In a second terminal:
+Set `LLM_PROVIDER=mock` for explicit offline operation, or configure Gemini
+for live generation:
+
+```dotenv
+LLM_PROVIDER=gemini
+GEMINI_API_KEY=your_key_here
+```
+
+Start the API and UI:
 
 ```powershell
-.\.venv\Scripts\Activate.ps1
-python -m streamlit run ui/app.py --server.port 8501
+.\\.venv\\Scripts\\python.exe -m uvicorn app.main:app --reload --port 8000
+.\\.venv\\Scripts\\python.exe -m streamlit run ui/app.py
 ```
 
-To run the tests:
+Validate the project and evaluation assets:
 
 ```powershell
-python -m pytest -q
+.\\.venv\\Scripts\\python.exe -m pytest tests/ -q -p no:cacheprovider --basetemp=E:\Insurance\pytest-temp
+.\\.venv\\Scripts\\python.exe -m eval.validate_eval_data
 ```
-
-The default Q&A provider is Gemini when a Gemini key is configured; without a
-key, the application falls back to its mock client. Offline/mock behavior is
-appropriate for tests and local plumbing checks, not for asserting live model
-quality.
 
 ## Safety note
 
-PolicyLens is an informational prototype, not insurance, legal, or financial
-advice. Users should verify every conclusion against the official policy
-wording and consult a qualified advisor for coverage decisions.
+PolicyLens is informational only. It is not insurance, legal, or financial
+advice. Every answer, red flag, summary, and comparison must be checked against
+the official policy wording and a qualified adviser where coverage or claim
+decisions matter.

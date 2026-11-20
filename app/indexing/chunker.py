@@ -244,7 +244,9 @@ class FixedSizeChunker:
         page_texts: list[tuple[int, str, int, int]] = []
         for section in doc.sections:
             for clause in section.clauses:
-                page_texts.append((clause.page_start, clause.text, clause.page_start, clause.page_end))
+                page_texts.append(
+                    (clause.page_start, clause.text, clause.page_start, clause.page_end)
+                )
 
         parts: list[str] = []
         spans: list[tuple[int, int, int, int]] = []

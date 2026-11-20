@@ -118,7 +118,9 @@ class QdrantVectorStore:
         """Delete all points belonging to a policy and return the deleted count."""
         if not self.client.collection_exists(self.collection_name):
             return 0
-        policy_filter = Filter(must=[FieldCondition(key="policy_id", match=MatchValue(value=policy_id))])
+        policy_filter = Filter(
+            must=[FieldCondition(key="policy_id", match=MatchValue(value=policy_id))]
+        )
         count = self.client.count(
             collection_name=self.collection_name, count_filter=policy_filter, exact=True
         ).count
@@ -132,14 +134,18 @@ class QdrantVectorStore:
                 collection_name=self.collection_name, count_filter=policy_filter, exact=True
             ).count
             if remaining:
-                raise RuntimeError(f"Qdrant still contains {remaining} points for policy '{policy_id}'")
+                raise RuntimeError(
+                    f"Qdrant still contains {remaining} points for policy '{policy_id}'"
+                )
         return count
 
     def snapshot_policy_points(self, policy_id: str) -> list[PointStruct]:
         """Capture a policy's current Qdrant points for safe ingestion rollback."""
         if not self.client.collection_exists(self.collection_name):
             return []
-        policy_filter = Filter(must=[FieldCondition(key="policy_id", match=MatchValue(value=policy_id))])
+        policy_filter = Filter(
+            must=[FieldCondition(key="policy_id", match=MatchValue(value=policy_id))]
+        )
         snapshot: list[PointStruct] = []
         offset = None
         while True:
@@ -151,7 +157,9 @@ class QdrantVectorStore:
                 with_payload=True,
                 with_vectors=True,
             )
-            snapshot.extend(PointStruct(id=p.id, vector=p.vector, payload=p.payload or {}) for p in points)
+            snapshot.extend(
+                PointStruct(id=p.id, vector=p.vector, payload=p.payload or {}) for p in points
+            )
             if offset is None:
                 return snapshot
 
@@ -172,7 +180,9 @@ class QdrantVectorStore:
         """Remove stale points after an upsert so repeated ingestion is idempotent."""
         if not self.client.collection_exists(self.collection_name):
             return 0
-        policy_filter = Filter(must=[FieldCondition(key="policy_id", match=MatchValue(value=policy_id))])
+        policy_filter = Filter(
+            must=[FieldCondition(key="policy_id", match=MatchValue(value=policy_id))]
+        )
         points, _ = self.client.scroll(
             collection_name=self.collection_name,
             scroll_filter=policy_filter,
@@ -180,9 +190,15 @@ class QdrantVectorStore:
             with_payload=["chunk_id"],
             with_vectors=False,
         )
-        stale_ids = [point.id for point in points if (point.payload or {}).get("chunk_id") not in keep_chunk_ids]
+        stale_ids = [
+            point.id
+            for point in points
+            if (point.payload or {}).get("chunk_id") not in keep_chunk_ids
+        ]
         if stale_ids:
-            self.client.delete(collection_name=self.collection_name, points_selector=stale_ids, wait=True)
+            self.client.delete(
+                collection_name=self.collection_name, points_selector=stale_ids, wait=True
+            )
         return len(stale_ids)
 
     def search(

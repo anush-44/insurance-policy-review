@@ -53,10 +53,11 @@ def _relevant_references(chunk: PolicyChunk, pair: QAPair) -> set[int]:
 
 def _metrics(results: list[dict[str, Any]]) -> dict[str, float | int]:
     n = len(results)
-    hits = [item for item in results if any(rank <= 5 for rank in item["ranks_by_reference"].values())]
+    hits = [
+        item for item in results if any(rank <= 5 for rank in item["ranks_by_reference"].values())
+    ]
     recall = [
-        len(item["references_found_at_5"]) / max(1, item["total_references"])
-        for item in results
+        len(item["references_found_at_5"]) / max(1, item["total_references"]) for item in results
     ]
     reciprocal_ranks = []
     for item in results:
@@ -64,7 +65,9 @@ def _metrics(results: list[dict[str, Any]]) -> dict[str, float | int]:
         reciprocal_ranks.append(1 / min(relevant_ranks) if relevant_ranks else 0.0)
     ndcgs: list[float] = []
     for item in results:
-        dcg = sum(1 / math.log2(rank + 1) for rank in item["ranks_by_reference"].values() if rank <= 5)
+        dcg = sum(
+            1 / math.log2(rank + 1) for rank in item["ranks_by_reference"].values() if rank <= 5
+        )
         ideal_count = min(5, item["total_references"])
         ideal = sum(1 / math.log2(rank + 1) for rank in range(1, ideal_count + 1))
         ndcgs.append(dcg / ideal if ideal else 0.0)
@@ -78,11 +81,15 @@ def _metrics(results: list[dict[str, Any]]) -> dict[str, float | int]:
     }
 
 
-def run_ablation(policy_id: str, pdf_path: Path, mock_embeddings: bool, reranker: bool) -> dict[str, Any]:
+def run_ablation(
+    policy_id: str, pdf_path: Path, mock_embeddings: bool, reranker: bool
+) -> dict[str, Any]:
     qa_path = Path("eval/qa_set.jsonl")
     validation = validate_qa_references(qa_path)
     if not validation["valid"]:
-        raise ValueError("QA labels/reference validation failed: " + "; ".join(validation["errors"]))
+        raise ValueError(
+            "QA labels/reference validation failed: " + "; ".join(validation["errors"])
+        )
     pairs = [pair for pair in validate_qa_set(qa_path) if pair.policy_id == policy_id]
     answerable = [pair for pair in pairs if pair.answerability == "answerable"]
     unanswerable = len(pairs) - len(answerable)
@@ -90,7 +97,9 @@ def run_ablation(policy_id: str, pdf_path: Path, mock_embeddings: bool, reranker
         raise ValueError(f"No answerable QA pairs for {policy_id}")
 
     with Path("data/policies.csv").open(newline="", encoding="utf-8-sig") as stream:
-        manifest_row = next((row for row in csv.DictReader(stream) if row["policy_id"] == policy_id), None)
+        manifest_row = next(
+            (row for row in csv.DictReader(stream) if row["policy_id"] == policy_id), None
+        )
     if manifest_row is None:
         raise ValueError(f"Unknown policy ID in data/policies.csv: {policy_id}")
     doc = PyMuPDFParser().parse(
@@ -147,34 +156,42 @@ def run_ablation(policy_id: str, pdf_path: Path, mock_embeddings: bool, reranker
                             ranks_by_reference.setdefault(ref_index, idx)
                             if idx <= 5:
                                 references_found_at_5.add(ref_index)
-                    question_results.append({
-                        "ranks_by_reference": ranks_by_reference,
-                        "references_found_at_5": references_found_at_5,
-                        "total_references": len(pair.gold_clause_ids),
-                    })
+                    question_results.append(
+                        {
+                            "ranks_by_reference": ranks_by_reference,
+                            "references_found_at_5": references_found_at_5,
+                            "total_references": len(pair.gold_clause_ids),
+                        }
+                    )
                 except Exception:
                     errors += 1
-                    question_results.append({
-                        "ranks_by_reference": {},
-                        "references_found_at_5": set(),
-                        "total_references": len(pair.gold_clause_ids),
-                    })
+                    question_results.append(
+                        {
+                            "ranks_by_reference": {},
+                            "references_found_at_5": set(),
+                            "total_references": len(pair.gold_clause_ids),
+                        }
+                    )
                 latencies.append((time.perf_counter() - start) * 1000)
             metrics = _metrics(question_results)
-            outputs.append({
-                "chunking": chunker_name,
-                "retrieval": name,
-                "retrieval_mode": mode,
-                "reranker_enabled": use_reranker,
-                "reranker_status_counts": dict(reranker_statuses),
-                "candidate_pool": settings.reranker_candidate_pool if use_reranker else max(settings.top_k_dense, settings.top_k_bm25),
-                "chunk_count": len(chunks),
-                "metrics": metrics,
-                "latency_ms_mean": round(statistics.mean(latencies), 2),
-                "latency_ms_median": round(statistics.median(latencies), 2),
-                "query_failures": errors,
-                "unanswerable_questions_not_scored_for_recall": unanswerable,
-            })
+            outputs.append(
+                {
+                    "chunking": chunker_name,
+                    "retrieval": name,
+                    "retrieval_mode": mode,
+                    "reranker_enabled": use_reranker,
+                    "reranker_status_counts": dict(reranker_statuses),
+                    "candidate_pool": settings.reranker_candidate_pool
+                    if use_reranker
+                    else max(settings.top_k_dense, settings.top_k_bm25),
+                    "chunk_count": len(chunks),
+                    "metrics": metrics,
+                    "latency_ms_mean": round(statistics.mean(latencies), 2),
+                    "latency_ms_median": round(statistics.median(latencies), 2),
+                    "query_failures": errors,
+                    "unanswerable_questions_not_scored_for_recall": unanswerable,
+                }
+            )
     return {
         "timestamp": datetime.now(UTC).isoformat(),
         "dataset": str(qa_path),
@@ -185,10 +202,14 @@ def run_ablation(policy_id: str, pdf_path: Path, mock_embeddings: bool, reranker
         "total_questions": len(pairs),
         "answerable_questions": len(answerable),
         "unanswerable_questions": unanswerable,
-        "embedding_model": "deterministic-mock-64 (diagnostic only)" if mock_embeddings else settings.embedding_model,
+        "embedding_model": "deterministic-mock-64 (diagnostic only)"
+        if mock_embeddings
+        else settings.embedding_model,
         "reranker_model": settings.reranker_model if reranker else None,
         "reranker_requested": reranker,
-        "evaluation_validity": "diagnostic_only_mock_embeddings" if mock_embeddings else "real_embeddings; LLM not used",
+        "evaluation_validity": "diagnostic_only_mock_embeddings"
+        if mock_embeddings
+        else "real_embeddings; LLM not used",
         "results": outputs,
     }
 
@@ -202,11 +223,17 @@ def main() -> None:
     parser.add_argument("--out", type=Path)
     args = parser.parse_args()
     report = run_ablation(args.policy_id, args.pdf, args.mock_embeddings, args.reranker)
-    out_path = args.out or Path("eval/results") / f"retrieval_ablation_{args.policy_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    out_path = (
+        args.out
+        or Path("eval/results")
+        / f"retrieval_ablation_{args.policy_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    )
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(f"Saved {len(report['results'])} controlled configurations to {out_path}")
-    print(f"Dataset size: {report['total_questions']} ({report['answerable_questions']} answerable)")
+    print(
+        f"Dataset size: {report['total_questions']} ({report['answerable_questions']} answerable)"
+    )
 
 
 if __name__ == "__main__":

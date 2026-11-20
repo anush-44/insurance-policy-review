@@ -28,12 +28,16 @@ class HybridRetriever:
         self.top_k_dense = top_k_dense or settings.top_k_dense
         self.top_k_bm25 = top_k_bm25 or settings.top_k_bm25
         self.rrf_k = rrf_k or settings.rrf_k
-        self.reranker_enabled = settings.reranker_enabled if reranker_enabled is None else reranker_enabled
+        self.reranker_enabled = (
+            settings.reranker_enabled if reranker_enabled is None else reranker_enabled
+        )
         self._reranker = reranker
         self.retrieval_mode = retrieval_mode or settings.retrieval_mode
         self.last_reranker_status = "disabled"
 
-    def _rerank(self, query: str, candidates: list[tuple[PolicyChunk, float]], limit: int) -> list[tuple[PolicyChunk, float]]:
+    def _rerank(
+        self, query: str, candidates: list[tuple[PolicyChunk, float]], limit: int
+    ) -> list[tuple[PolicyChunk, float]]:
         if not self.reranker_enabled:
             self.last_reranker_status = "disabled"
             return candidates[:limit]
@@ -41,12 +45,18 @@ class HybridRetriever:
             if self._reranker is None:
                 from sentence_transformers import CrossEncoder
 
-                self._reranker = CrossEncoder(settings.reranker_model, device=settings.embedding_device)
+                self._reranker = CrossEncoder(
+                    settings.reranker_model, device=settings.embedding_device
+                )
             pairs = [(query, chunk.text) for chunk, _ in candidates]
             scores = self._reranker.predict(pairs)
             ranked = sorted(
-                ((chunk, float(score)) for (chunk, _), score in zip(candidates, scores, strict=True)),
-                key=lambda item: item[1], reverse=True,
+                (
+                    (chunk, float(score))
+                    for (chunk, _), score in zip(candidates, scores, strict=True)
+                ),
+                key=lambda item: item[1],
+                reverse=True,
             )
             self.last_reranker_status = "applied"
             return ranked[:limit]
@@ -82,7 +92,9 @@ class HybridRetriever:
                 chunk_types=chunk_types,
             )
 
-        candidate_limit = max(limit, settings.reranker_candidate_pool) if self.reranker_enabled else limit
+        candidate_limit = (
+            max(limit, settings.reranker_candidate_pool) if self.reranker_enabled else limit
+        )
         if self.retrieval_mode == "dense":
             fused = dense_results[:candidate_limit]
         elif self.retrieval_mode == "bm25":

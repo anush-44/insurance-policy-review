@@ -38,16 +38,28 @@ def test_clause_header_recognizes_single_level_number_and_rejects_bare_number() 
 
 def test_parser_keeps_clause_page_spans_and_detects_uin() -> None:
     parser = PyMuPDFParser()
-    sections = parser._build_sections([
-        {"page_num": 1, "text": "UIN: ICIHLIP25035V082425\n1. Waiting Period\nThis clause continues", "tables": []},
-        {"page_num": 2, "text": "on the next page.\n2. Exclusions\nCosmetic surgery is excluded.", "tables": []},
-    ])
+    sections = parser._build_sections(
+        [
+            {
+                "page_num": 1,
+                "text": "UIN: ICIHLIP25035V082425\n1. Waiting Period\nThis clause continues",
+                "tables": [],
+            },
+            {
+                "page_num": 2,
+                "text": "on the next page.\n2. Exclusions\nCosmetic surgery is excluded.",
+                "tables": [],
+            },
+        ]
+    )
     clauses = [clause for section in sections for clause in section.clauses]
     waiting = next(clause for clause in clauses if clause.clause_id == "1")
     assert waiting.page_start == 1
     assert waiting.page_end == 2
     assert "continues" in waiting.text and "next page" in waiting.text
-    assert PyMuPDFParser._detect_uin([{"text": "UIN: ICIHLIP25035V082425"}]) == "ICIHLIP25035V082425"
+    assert (
+        PyMuPDFParser._detect_uin([{"text": "UIN: ICIHLIP25035V082425"}]) == "ICIHLIP25035V082425"
+    )
     assert (
         classify_clause_type("Section 4", "Exclusions", "Plastic surgery is not covered")
         == ChunkType.EXCLUSION

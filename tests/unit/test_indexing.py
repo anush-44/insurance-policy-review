@@ -77,9 +77,7 @@ def test_qdrant_memory_indexing_and_search(dummy_policy_document: PolicyDocument
     for c, _ in waiting_period_results:
         assert c.chunk_type == ChunkType.WAITING_PERIOD
 
-    removed = store.prune_policy_chunks(
-        dummy_policy_document.policy_id, {chunks[0].chunk_id}
-    )
+    removed = store.prune_policy_chunks(dummy_policy_document.policy_id, {chunks[0].chunk_id})
     assert removed == len(chunks) - 1
     assert store.delete_policy_chunks(dummy_policy_document.policy_id) == 1
     assert store.delete_policy_chunks(dummy_policy_document.policy_id) == 0

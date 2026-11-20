@@ -37,7 +37,9 @@ def main() -> None:
         from ragas import evaluate
         from ragas.metrics import answer_relevancy, context_precision, context_recall, faithfulness
     except ImportError as exc:
-        raise SystemExit("RAGAS evaluation is unavailable. Install the project eval extra: pip install -e '.[eval]'.") from exc
+        raise SystemExit(
+            "RAGAS evaluation is unavailable. Install the project eval extra: pip install -e '.[eval]'."
+        ) from exc
 
     openai_key = settings.openai_api_key or os.getenv("OPENAI_API_KEY", "")
     if not openai_key:
@@ -53,17 +55,26 @@ def main() -> None:
 
     pipeline = get_pipeline()
     if isinstance(pipeline.llm, MockLLMClient) and not args.allow_mock_app:
-        raise SystemExit("PolicyLens is using MockLLMClient (likely missing GEMINI_API_KEY); pass --allow-mock-app only for diagnostic runs.")
+        raise SystemExit(
+            "PolicyLens is using MockLLMClient (likely missing GEMINI_API_KEY); pass --allow-mock-app only for diagnostic runs."
+        )
     samples: list[dict[str, Any]] = []
     for pair in pairs:
         answer = pipeline.answer(pair.question, policy_id=pair.policy_id)
-        contexts = [chunk.text for chunk, _ in pipeline.retriever.retrieve(pair.question, limit=5, policy_id=pair.policy_id)]
-        samples.append({
-            "question": pair.question,
-            "answer": answer.answer,
-            "contexts": contexts,
-            "ground_truth": pair.gold_answer,
-        })
+        contexts = [
+            chunk.text
+            for chunk, _ in pipeline.retriever.retrieve(
+                pair.question, limit=5, policy_id=pair.policy_id
+            )
+        ]
+        samples.append(
+            {
+                "question": pair.question,
+                "answer": answer.answer,
+                "contexts": contexts,
+                "ground_truth": pair.gold_answer,
+            }
+        )
 
     metrics = [faithfulness, answer_relevancy, context_precision, context_recall]
     result = evaluate(Dataset.from_list(samples), metrics=metrics)

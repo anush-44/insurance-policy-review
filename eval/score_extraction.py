@@ -21,7 +21,9 @@ def normalize(value: Any) -> Any:
     if isinstance(value, dict):
         return {key: normalize(item) for key, item in sorted(value.items())}
     if isinstance(value, list):
-        return sorted((normalize(item) for item in value), key=lambda item: json.dumps(item, sort_keys=True))
+        return sorted(
+            (normalize(item) for item in value), key=lambda item: json.dumps(item, sort_keys=True)
+        )
     if isinstance(value, str):
         return re.sub(r"\s+", " ", value.strip().lower())
     return value
@@ -50,28 +52,38 @@ def score(labels_path: Path, predictions_path: Path) -> dict[str, Any]:
                 evidence = []
             else:
                 predicted_value = prediction.get("value")
-                predicted_status = prediction.get("status", "known" if predicted_value is not None else "unknown")
+                predicted_status = prediction.get(
+                    "status", "known" if predicted_value is not None else "unknown"
+                )
                 evidence = prediction.get("evidence", [])
             if status == "schedule_required":
                 matched = predicted_status == "unknown" or predicted_value is None
                 error = None if matched else "guessed_schedule_value"
             else:
                 matched = normalize(predicted_value) == normalize(gold["gold_value"])
-                error = None if matched else ("missing_value" if predicted_value is None else "incorrect_value")
+                error = (
+                    None
+                    if matched
+                    else ("missing_value" if predicted_value is None else "incorrect_value")
+                )
             overall[name].append(bool(matched))
-            entry = per_field.setdefault(name, {"status": status, "n": 0, "correct": 0, "predictions": []})
+            entry = per_field.setdefault(
+                name, {"status": status, "n": 0, "correct": 0, "predictions": []}
+            )
             entry["n"] += 1
             entry["correct"] += int(matched)
-            entry["predictions"].append({
-                "policy_id": policy["policy_id"],
-                "gold_value": gold["gold_value"],
-                "predicted_value": predicted_value,
-                "predicted_status": predicted_status,
-                "supporting_evidence": evidence,
-                "evidence_present": bool(evidence),
-                "matched": bool(matched),
-                "error_category": error,
-            })
+            entry["predictions"].append(
+                {
+                    "policy_id": policy["policy_id"],
+                    "gold_value": gold["gold_value"],
+                    "predicted_value": predicted_value,
+                    "predicted_status": predicted_status,
+                    "supporting_evidence": evidence,
+                    "evidence_present": bool(evidence),
+                    "matched": bool(matched),
+                    "error_category": error,
+                }
+            )
 
     for field in per_field.values():
         field["accuracy"] = field["correct"] / field["n"] if field["n"] else 0.0
@@ -81,7 +93,8 @@ def score(labels_path: Path, predictions_path: Path) -> dict[str, Any]:
         "predictions": str(predictions_path),
         "policies_scored": len(labels["policies"]),
         "fields_scored": sum(len(values) for values in overall.values()),
-        "accuracy": sum(sum(values) for values in overall.values()) / max(1, sum(map(len, overall.values()))),
+        "accuracy": sum(sum(values) for values in overall.values())
+        / max(1, sum(map(len, overall.values()))),
         "missing_predictions": missing_predictions,
         "per_field": per_field,
         "note": "Exact normalized value matching. No unsupported precision/recall calculation is made for single-valued fields.",
@@ -97,7 +110,9 @@ def main() -> None:
     report = score(args.labels, args.predictions)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
-    print(f"Scored {report['fields_scored']} field predictions; accuracy={report['accuracy']:.3f}; report={args.out}")
+    print(
+        f"Scored {report['fields_scored']} field predictions; accuracy={report['accuracy']:.3f}; report={args.out}"
+    )
 
 
 if __name__ == "__main__":

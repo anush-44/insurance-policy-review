@@ -29,8 +29,7 @@ def build_qa_prompt(query: str, chunks: list[PolicyChunk]) -> str:
     context_parts: list[str] = []
     for c in chunks:
         context_parts.append(
-            f"[Clause {c.clause_id} | {c.section} | Page {c.page_start}-{c.page_end}]\n"
-            f"{c.text}\n"
+            f"[Clause {c.clause_id} | {c.section} | Page {c.page_start}-{c.page_end}]\n{c.text}\n"
         )
     context = "\n---\n".join(context_parts)
 
@@ -127,9 +126,7 @@ def build_comparison_prompt(
     def fmt(chunks: list[PolicyChunk], name: str) -> str:
         parts = []
         for c in chunks[:15]:
-            parts.append(
-                f"  [{c.clause_id} | Page {c.page_start}] {c.text[:400]}"
-            )
+            parts.append(f"  [{c.clause_id} | Page {c.page_start}] {c.text[:400]}")
         return f"=== {name} ===\n" + "\n---\n".join(parts)
 
     ctx_a = fmt(chunks_a, policy_name_a)

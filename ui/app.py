@@ -141,7 +141,9 @@ def api_get(path: str, **params) -> dict | list | None:
         r.raise_for_status()
         return r.json()
     except httpx.ConnectError:
-        st.error("❌ Cannot reach the PolicyLens API. Start the server with:\n```\nuvicorn app.main:app --reload\n```")
+        st.error(
+            "❌ Cannot reach the PolicyLens API. Start the server with:\n```\nuvicorn app.main:app --reload\n```"
+        )
         return None
     except httpx.HTTPStatusError as e:
         st.error(f"API error {e.response.status_code}: {e.response.json().get('detail', str(e))}")
@@ -151,7 +153,9 @@ def api_get(path: str, **params) -> dict | list | None:
         return None
 
 
-def api_post(path: str, json: dict | None = None, data: dict | None = None, files=None) -> dict | None:
+def api_post(
+    path: str, json: dict | None = None, data: dict | None = None, files=None
+) -> dict | None:
     try:
         r = httpx.post(f"{API_BASE}{path}", json=json, data=data, files=files, timeout=120)
         r.raise_for_status()
@@ -305,7 +309,7 @@ elif page == "💬 Ask Questions":
             conf_color = "#22c55e" if conf >= 0.7 else "#f97316" if conf >= 0.4 else "#ef4444"
             st.markdown(
                 f"**Confidence:** {conf:.0%} "
-                f"<span style='color:{conf_color}'>{'●'*int(conf*10)}{'○'*(10-int(conf*10))}</span>",
+                f"<span style='color:{conf_color}'>{'●' * int(conf * 10)}{'○' * (10 - int(conf * 10))}</span>",
                 unsafe_allow_html=True,
             )
 
@@ -362,13 +366,20 @@ elif page == "📋 Policy Summary":
 
             col_left, col_right = st.columns(2)
             with col_left:
-                st.markdown("<div class='section-accent'>🔄 Restoration Benefit</div>", unsafe_allow_html=True)
+                st.markdown(
+                    "<div class='section-accent'>🔄 Restoration Benefit</div>",
+                    unsafe_allow_html=True,
+                )
                 st.write(resp.get("restoration_benefit", "Not specified"))
 
-                st.markdown("<div class='section-accent'>🎁 No-Claim Bonus</div>", unsafe_allow_html=True)
+                st.markdown(
+                    "<div class='section-accent'>🎁 No-Claim Bonus</div>", unsafe_allow_html=True
+                )
                 st.write(resp.get("no_claim_bonus", "Not specified"))
 
-                st.markdown("<div class='section-accent'>💊 Sub-Limits</div>", unsafe_allow_html=True)
+                st.markdown(
+                    "<div class='section-accent'>💊 Sub-Limits</div>", unsafe_allow_html=True
+                )
                 sublimits = resp.get("key_sublimits", [])
                 if sublimits:
                     for sl in sublimits:
@@ -377,7 +388,9 @@ elif page == "📋 Policy Summary":
                     st.write("None specified")
 
             with col_right:
-                st.markdown("<div class='section-accent'>🚫 Key Exclusions</div>", unsafe_allow_html=True)
+                st.markdown(
+                    "<div class='section-accent'>🚫 Key Exclusions</div>", unsafe_allow_html=True
+                )
                 exclusions = resp.get("key_exclusions", [])
                 if exclusions:
                     for ex in exclusions:
@@ -386,7 +399,9 @@ elif page == "📋 Policy Summary":
                     st.write("None specified")
 
             st.divider()
-            st.markdown("<div class='section-accent'>📝 Claim Process</div>", unsafe_allow_html=True)
+            st.markdown(
+                "<div class='section-accent'>📝 Claim Process</div>", unsafe_allow_html=True
+            )
             st.write(resp.get("claim_process_summary", "Not specified"))
 
             st.markdown(f"<div class='disclaimer'>{DISCLAIMER}</div>", unsafe_allow_html=True)
@@ -427,11 +442,16 @@ elif page == "🚩 Red Flags":
                 c3.metric("🟢 Low Severity", len(low))
                 st.divider()
 
-                for flag in sorted(flags, key=lambda x: {"high": 0, "medium": 1, "low": 2}.get(x.get("severity", "low"), 3)):
+                for flag in sorted(
+                    flags,
+                    key=lambda x: {"high": 0, "medium": 1, "low": 2}.get(
+                        x.get("severity", "low"), 3
+                    ),
+                ):
                     sev = flag.get("severity", "medium")
                     badge_class = f"badge-{sev}"
                     with st.expander(
-                        f"{'🔴' if sev=='high' else '🟠' if sev=='medium' else '🟢'} "
+                        f"{'🔴' if sev == 'high' else '🟠' if sev == 'medium' else '🟢'} "
                         f"{flag.get('flag_type', 'Issue')} — Clause {flag.get('clause_id', '?')} · Page {flag.get('page', '?')}",
                         expanded=sev == "high",
                     ):
@@ -511,8 +531,10 @@ elif page == "⚖️ Compare":
                 for pt in points:
                     verdict = pt.get("verdict", "")
                     verdict_class = (
-                        "verdict-better" if "A is better" in verdict
-                        else "verdict-worse" if "B is better" in verdict
+                        "verdict-better"
+                        if "A is better" in verdict
+                        else "verdict-worse"
+                        if "B is better" in verdict
                         else "verdict-same"
                     )
                     with st.expander(f"📌 {pt.get('aspect', 'Aspect')}", expanded=True):

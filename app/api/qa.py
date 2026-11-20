@@ -20,9 +20,7 @@ class QARequest(BaseModel):
     """Request body for the grounded Q&A endpoint."""
 
     question: str = Field(..., min_length=5, description="User's plain-language question")
-    policy_id: str | None = Field(
-        default=None, description="Restrict to a specific indexed policy"
-    )
+    policy_id: str | None = Field(default=None, description="Restrict to a specific indexed policy")
     top_k: int = Field(default=5, ge=1, le=20, description="Chunks to retrieve")
 
 

@@ -68,15 +68,9 @@ class RAGPipeline:
     @staticmethod
     def _keyword_overlap(query: str, text: str) -> int:
         query_tokens = {
-            token
-            for token in re.sub(r"[^a-z0-9]+", " ", query.lower()).split()
-            if token
+            token for token in re.sub(r"[^a-z0-9]+", " ", query.lower()).split() if token
         }
-        text_tokens = {
-            token
-            for token in re.sub(r"[^a-z0-9]+", " ", text.lower()).split()
-            if token
-        }
+        text_tokens = {token for token in re.sub(r"[^a-z0-9]+", " ", text.lower()).split() if token}
         return len(query_tokens & text_tokens)
 
     @staticmethod
@@ -112,7 +106,9 @@ class RAGPipeline:
                 citations=[],
                 confidence=0.0,
                 is_abstention=True,
-                caveats=["The retrieved clauses do not contain enough evidence for the requested question."],
+                caveats=[
+                    "The retrieved clauses do not contain enough evidence for the requested question."
+                ],
                 retrieved_chunk_ids=[c.chunk_id for c in chunks],
             )
 
@@ -323,7 +319,18 @@ class RAGPipeline:
         if not report.red_flags and chunks:
             for chunk in chunks:
                 text = chunk.text.lower()
-                if any(k in text for k in ["waiting period", "pre-existing", "co-pay", "copay", "sub-limit", "room rent", "exclusion"]):
+                if any(
+                    k in text
+                    for k in [
+                        "waiting period",
+                        "pre-existing",
+                        "co-pay",
+                        "copay",
+                        "sub-limit",
+                        "room rent",
+                        "exclusion",
+                    ]
+                ):
                     if "waiting period" in text or "pre-existing" in text:
                         description = "Coverage for the described illness or treatment is delayed for the period stated in this clause."
                     elif "exclusion" in text or "not covered" in text:
@@ -332,7 +339,14 @@ class RAGPipeline:
                         description = "The insured may have to pay a specified share of an admissible claim out of pocket."
                     else:
                         description = "The clause limits eligible charges or benefits; check the stated cap and its conditions."
-                    severity = "high" if any(k in text for k in ["waiting period", "pre-existing", "exclusion", "not covered"]) else "medium"
+                    severity = (
+                        "high"
+                        if any(
+                            k in text
+                            for k in ["waiting period", "pre-existing", "exclusion", "not covered"]
+                        )
+                        else "medium"
+                    )
                     report.red_flags.append(
                         RedFlag(
                             flag_type="Restrictive clause",
@@ -350,10 +364,15 @@ class RAGPipeline:
             if flag.evidence_quote:
                 grounded_flags.append(flag)
                 continue
-            support = next((
-                chunk for chunk in chunks
-                if chunk.clause_id == flag.clause_id and chunk.page_start <= flag.page <= chunk.page_end
-            ), None)
+            support = next(
+                (
+                    chunk
+                    for chunk in chunks
+                    if chunk.clause_id == flag.clause_id
+                    and chunk.page_start <= flag.page <= chunk.page_end
+                ),
+                None,
+            )
             if support:
                 flag.evidence_quote = support.text[:300]
                 grounded_flags.append(flag)
@@ -388,15 +407,11 @@ class RAGPipeline:
         """
         chunks_a = [
             c
-            for c, _ in self.retriever.retrieve(
-                query=scenario, limit=top_k, policy_id=policy_id_a
-            )
+            for c, _ in self.retriever.retrieve(query=scenario, limit=top_k, policy_id=policy_id_a)
         ]
         chunks_b = [
             c
-            for c, _ in self.retriever.retrieve(
-                query=scenario, limit=top_k, policy_id=policy_id_b
-            )
+            for c, _ in self.retriever.retrieve(query=scenario, limit=top_k, policy_id=policy_id_b)
         ]
 
         prompt = build_comparison_prompt(
@@ -427,16 +442,30 @@ class RAGPipeline:
 
         evidence_gap = False
         for point in result.comparison_points:
-            support_a = next((
-                chunk for chunk in chunks_a
-                if chunk.clause_id == point.policy_a_clause_id
-                and (point.policy_a_page <= 0 or chunk.page_start <= point.policy_a_page <= chunk.page_end)
-            ), None)
-            support_b = next((
-                chunk for chunk in chunks_b
-                if chunk.clause_id == point.policy_b_clause_id
-                and (point.policy_b_page <= 0 or chunk.page_start <= point.policy_b_page <= chunk.page_end)
-            ), None)
+            support_a = next(
+                (
+                    chunk
+                    for chunk in chunks_a
+                    if chunk.clause_id == point.policy_a_clause_id
+                    and (
+                        point.policy_a_page <= 0
+                        or chunk.page_start <= point.policy_a_page <= chunk.page_end
+                    )
+                ),
+                None,
+            )
+            support_b = next(
+                (
+                    chunk
+                    for chunk in chunks_b
+                    if chunk.clause_id == point.policy_b_clause_id
+                    and (
+                        point.policy_b_page <= 0
+                        or chunk.page_start <= point.policy_b_page <= chunk.page_end
+                    )
+                ),
+                None,
+            )
             if support_a:
                 point.policy_a_page = point.policy_a_page or support_a.page_start
                 point.policy_a_evidence_quote = support_a.text[:300]
@@ -462,9 +491,9 @@ class RAGPipeline:
             result.overall_verdict = "Insufficient evidence retrieved for one or both policies; no comparative conclusion is available."
 
         if not result.overall_verdict:
-            result.overall_verdict = "Insufficient evidence to compare the policies for this scenario."
+            result.overall_verdict = (
+                "Insufficient evidence to compare the policies for this scenario."
+            )
 
-        logger.info(
-            f"Comparison '{scenario}': {len(result.comparison_points)} aspects compared"
-        )
+        logger.info(f"Comparison '{scenario}': {len(result.comparison_points)} aspects compared")
         return result
