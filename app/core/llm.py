@@ -51,9 +51,11 @@ class GeminiLLMClient(LLMClient):
         self.api_key = api_key or settings.gemini_api_key
         self.model_name = model_name or settings.llm_model
         self.timeout = timeout_seconds
+        self.last_usage_metadata: dict[str, Any] = {}
+        self.last_model_version: str | None = None
 
     def _build_url(self) -> str:
-        return f"{self.BASE_URL}/{self.model_name}:generateContent?key={self.api_key}"
+        return f"{self.BASE_URL}/{self.model_name}:generateContent"
 
     def generate(
         self,
@@ -74,9 +76,14 @@ class GeminiLLMClient(LLMClient):
             payload["systemInstruction"] = {"parts": [{"text": system_instruction}]}
 
         with httpx.Client(timeout=self.timeout) as client:
-            resp = client.post(self._build_url(), json=payload)
+            resp = client.post(
+                self._build_url(), json=payload, headers={"x-goog-api-key": self.api_key}
+            )
             resp.raise_for_status()
             data = resp.json()
+
+        self.last_usage_metadata = data.get("usageMetadata", {})
+        self.last_model_version = data.get("modelVersion")
 
         try:
             return data["candidates"][0]["content"]["parts"][0]["text"]
@@ -103,16 +110,21 @@ class GeminiLLMClient(LLMClient):
             "generationConfig": {
                 "temperature": temperature,
                 "responseMimeType": "application/json",
-                "responseSchema": json_schema,
+                "responseJsonSchema": json_schema,
             },
         }
         if system_instruction:
             payload["systemInstruction"] = {"parts": [{"text": system_instruction}]}
 
         with httpx.Client(timeout=self.timeout) as client:
-            resp = client.post(self._build_url(), json=payload)
+            resp = client.post(
+                self._build_url(), json=payload, headers={"x-goog-api-key": self.api_key}
+            )
             resp.raise_for_status()
             data = resp.json()
+
+        self.last_usage_metadata = data.get("usageMetadata", {})
+        self.last_model_version = data.get("modelVersion")
 
         text_content = data["candidates"][0]["content"]["parts"][0]["text"]
         parsed_json = json.loads(text_content)

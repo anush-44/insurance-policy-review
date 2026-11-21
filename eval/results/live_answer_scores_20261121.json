@@ -1,0 +1,442 @@
+{
+  "predictions": "eval\\results\\live_answers_20261121.json",
+  "review": "eval\\results\\live_answer_review_20261121.json",
+  "reviewer": "assistant review; not independent human labels",
+  "model": "gemini-3.5-flash-lite",
+  "sample_size": 44,
+  "answerable": 40,
+  "unanswerable": 4,
+  "generation_statuses": {
+    "llm_cited": 42,
+    "llm_abstention": 2
+  },
+  "review_labels": {
+    "correct": 36,
+    "false_refusal": 1,
+    "incorrect": 2,
+    "partial": 1,
+    "correct_refusal": 3,
+    "missed_refusal": 1
+  },
+  "assistant_reviewed_answer_correctness": {
+    "correct": 36,
+    "total": 40,
+    "rate": 0.9,
+    "wilson_95_percent_ci": [
+      0.7695,
+      0.9604
+    ]
+  },
+  "refusal_accuracy": {
+    "correct": 3,
+    "total": 4,
+    "rate": 0.75,
+    "wilson_95_percent_ci": [
+      0.3006,
+      0.9544
+    ]
+  },
+  "false_refusal_rate": {
+    "count": 1,
+    "total": 40,
+    "rate": 0.025
+  },
+  "citation_checks": {
+    "citations": 53,
+    "valid_pdf_pages": 53,
+    "exact_quotes_on_cited_pdf_page": 39,
+    "exact_quote_rate": 0.7358490566037735,
+    "answerable_questions_with_gold_page_citation": 24,
+    "answerable_questions_total": 40,
+    "gold_page_match_is_not_source_accuracy": true,
+    "details": [
+      {
+        "id": "care-001",
+        "page": 25,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "care-002",
+        "page": 17,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "care-003",
+        "page": 18,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "care-003",
+        "page": 18,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "hdfc-001",
+        "page": 19,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "hdfc-002",
+        "page": 30,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "hdfc-002",
+        "page": 26,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "hdfc-002",
+        "page": 26,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "hdfc-003",
+        "page": 32,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "hdfc-003",
+        "page": 32,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "hdfc-004",
+        "page": 27,
+        "valid_page": true,
+        "exact_quote_on_cited_page": false,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "hdfc-004",
+        "page": 26,
+        "valid_page": true,
+        "exact_quote_on_cited_page": false,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "hdfc-004",
+        "page": 62,
+        "valid_page": true,
+        "exact_quote_on_cited_page": false,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "niva-001",
+        "page": 1,
+        "valid_page": true,
+        "exact_quote_on_cited_page": false,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "niva-002",
+        "page": 6,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "niva-003",
+        "page": 17,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "niva-004",
+        "page": 26,
+        "valid_page": true,
+        "exact_quote_on_cited_page": false,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "aditya-001",
+        "page": 1,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "aditya-002",
+        "page": 17,
+        "valid_page": true,
+        "exact_quote_on_cited_page": false,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "aditya-003",
+        "page": 9,
+        "valid_page": true,
+        "exact_quote_on_cited_page": false,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "aditya-003",
+        "page": 32,
+        "valid_page": true,
+        "exact_quote_on_cited_page": false,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "aditya-004",
+        "page": 9,
+        "valid_page": true,
+        "exact_quote_on_cited_page": false,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "star-001",
+        "page": 14,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "star-002",
+        "page": 6,
+        "valid_page": true,
+        "exact_quote_on_cited_page": false,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "star-002",
+        "page": 30,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "star-003",
+        "page": 29,
+        "valid_page": true,
+        "exact_quote_on_cited_page": false,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "star-004",
+        "page": 42,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "star-004",
+        "page": 42,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "care-enhance-001",
+        "page": 27,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "care-enhance-002",
+        "page": 16,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "care-enhance-003",
+        "page": 8,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "hdfc-restore-001",
+        "page": 47,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "hdfc-restore-002",
+        "page": 5,
+        "valid_page": true,
+        "exact_quote_on_cited_page": false,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "hdfc-restore-003",
+        "page": 21,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "acko-iii-001",
+        "page": 1,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "acko-iii-002",
+        "page": 8,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "acko-iii-003",
+        "page": 9,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "tata-select-001",
+        "page": 1,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "tata-select-002",
+        "page": 21,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "tata-select-003",
+        "page": 14,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "care-ultimate-001",
+        "page": 30,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "care-ultimate-002",
+        "page": 30,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "care-ultimate-003",
+        "page": 33,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "care-ultimate-003",
+        "page": 40,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "care-ultimate-004",
+        "page": 30,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "care-ultimate-004",
+        "page": 30,
+        "valid_page": true,
+        "exact_quote_on_cited_page": false,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "care-ultimate-005",
+        "page": 40,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "care-joy-001",
+        "page": 1,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "care-joy-002",
+        "page": 29,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "care-joy-003",
+        "page": 29,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "care-joy-006",
+        "page": 16,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": false
+      },
+      {
+        "id": "care-joy-004",
+        "page": 30,
+        "valid_page": true,
+        "exact_quote_on_cited_page": true,
+        "page_in_gold_references": true
+      },
+      {
+        "id": "care-joy-005",
+        "page": 30,
+        "valid_page": true,
+        "exact_quote_on_cited_page": false,
+        "page_in_gold_references": false
+      }
+    ]
+  },
+  "latency_ms_final_attempt": {
+    "p50": 2652.31,
+    "p95": 5021.17
+  },
+  "api_attempts": 51,
+  "usage_tokens": {
+    "promptTokenCount": 62349,
+    "candidatesTokenCount": 9010,
+    "totalTokenCount": 71359
+  },
+  "limitations": [
+    "Answers were reviewed by the project assistant, not an independent human annotator.",
+    "Exact quote matching is conservative; PDF extraction order and typography can differ from a near-verbatim quote.",
+    "Gold pages are one reference set, so a different page may still be a valid source.",
+    "No faithfulness or red-flag precision/recall judge was run."
+  ]
+}

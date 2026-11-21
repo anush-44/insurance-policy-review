@@ -64,6 +64,7 @@ class RAGPipeline:
             if abstention_threshold is not None
             else settings.abstention_threshold
         )
+        self.last_answer_status = "not_run"
 
     @staticmethod
     def _keyword_overlap(query: str, text: str) -> int:
@@ -159,6 +160,7 @@ class RAGPipeline:
         chunks = [c for c, _ in retrieved]
 
         if not chunks:
+            self.last_answer_status = "no_retrieval"
             logger.warning(f"No chunks retrieved for query: '{query[:60]}'")
             return GroundedAnswer(
                 answer="I couldn't find relevant clauses in this policy to answer your question.",
@@ -179,14 +181,17 @@ class RAGPipeline:
                 temperature=0.0,
             )
         except Exception as exc:
+            self.last_answer_status = "llm_error_fallback"
             logger.error(f"LLM generation failed: {exc}")
             return self._fallback_grounded_answer(query=query, chunks=chunks)
 
         if result.citations:
+            self.last_answer_status = "llm_cited"
             result.retrieved_chunk_ids = [c.chunk_id for c in chunks]
             return result
 
         if result.confidence < self.abstention_threshold or result.is_abstention:
+            self.last_answer_status = "llm_abstention"
             result.is_abstention = True
             result.confidence = 0.0
             if not result.caveats:
@@ -195,6 +200,7 @@ class RAGPipeline:
             return result
 
         fallback = self._fallback_grounded_answer(query=query, chunks=chunks)
+        self.last_answer_status = "uncited_fallback"
         result.answer = fallback.answer
         result.citations = fallback.citations
         result.confidence = max(result.confidence, fallback.confidence)

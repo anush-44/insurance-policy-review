@@ -29,7 +29,7 @@ class Settings(BaseSettings):
     gemini_api_key: str = Field(default="", validation_alias="GEMINI_API_KEY")
     openai_api_key: str = Field(default="", validation_alias="OPENAI_API_KEY")
     anthropic_api_key: str = Field(default="", validation_alias="ANTHROPIC_API_KEY")
-    llm_model: str = "gemini-1.5-flash"
+    llm_model: str = "gemini-3.5-flash-lite"
     llm_temperature: float = 0.0
 
     # Embeddings & Reranker

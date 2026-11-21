@@ -26,7 +26,7 @@ flowchart LR
 - The parser extracts selectable text and PyMuPDF tables. It records clause identifiers, sections, UIN when detected, and page spans. Scanned PDFs without useful text are not OCR-processed.
 - The clause-aware chunker preserves clause and table context; the fixed-size chunker is available as an evaluation baseline.
 - Qdrant stores vectors and payloads. BM25 indexes clause text. Hybrid retrieval combines both lists with RRF. A sentence-transformers cross-encoder can rerank the candidate pool when `RERANKER_ENABLED=true`; if its model cannot load, a warning is logged and RRF order is returned.
-- The application currently implements the Gemini API and an explicit mock provider. Configuring an unsupported provider fails visibly; it does not silently select the mock.
+- The application currently implements the Gemini API and an explicit mock provider. Gemini uses an API-key header and JSON Schema structured output. Configuring an unsupported provider fails visibly; it does not silently select the mock.
 - Policy metadata and serialized BM25 indexes are stored under `QDRANT_LOCAL_PATH`. Re-ingestion and deletion have rollback handling across the vector points and local metadata files.
 
 ## Installation and configuration
@@ -46,7 +46,7 @@ Relevant settings include `EMBEDDING_MODEL`, `EMBEDDING_DEVICE`, `RERANKER_MODEL
 
 ## Official policy acquisition
 
-`data/policies.csv` is the manifest. It records product, UIN, source URL, local path, date, page count, hash, and validation status. The current manifest has six policy entries with insurer-hosted or insurer-linked wording URLs. Direct downloads are subject to network access and each resulting PDF must pass content, UIN, page-count, and text checks.
+`data/policies.csv` is the manifest. It records product, UIN, source URL, local path, date, page count, hash, and validation status. It currently lists twelve policies across eleven officially validated PDFs and one local PDF with unverified source provenance. Direct downloads are subject to network access and each resulting PDF must pass content, UIN, page-count, and text checks.
 
 ```powershell
 .venv\Scripts\python.exe -m data.acquire_policies
@@ -98,6 +98,14 @@ Run the retrieval and chunking ablation on the same policy, labels, and corpus:
 
 This evaluates BM25-only, dense-only, hybrid RRF, and hybrid with a cross-encoder across clause-aware and fixed-size chunks. The cross-encoder configuration may report an explicit RRF fallback if the model is unavailable. `--mock-embeddings` is for diagnostic runs only and must not be used to claim retrieval quality.
 
+Evaluate the existing indexed corpus across the verified-policy QA records without rebuilding document vectors:
+
+```powershell
+.venv\Scripts\python.exe -m eval.evaluate_indexed_retrieval
+```
+
+This produces Hit@1, Hit@5, Recall@5, Recall@10, MRR@10, per-question ranks, bootstrap intervals, and latency for BM25, dense, hybrid, and hybrid with a caller-supplied policy ID. The current questions are exploratory, not held out. See [RESULTS.md](RESULTS.md) for measured scores and limitations.
+
 The QA dataset schema is documented in [eval/README.md](eval/README.md). Extraction scoring accepts a predictions JSON file:
 
 ```powershell
@@ -105,6 +113,15 @@ The QA dataset schema is documented in [eval/README.md](eval/README.md). Extract
 ```
 
 RAGAS is optional (`pip install -e ".[eval]"`). `eval/run_ragas.py` requires a validated corpus, the app's real provider configuration, and `OPENAI_API_KEY` for the default RAGAS judge. It reports dependency/key/provider errors instead of inventing metrics. RAGAS has not been run on this checkout.
+
+With approval to send retrieved policy excerpts and questions to Gemini, collect and score live answers:
+
+```powershell
+.venv\Scripts\python.exe -m eval.run_live_answers --out eval/results/live_answers.json
+.venv\Scripts\python.exe -m eval.score_live_answers --predictions eval/results/live_answers.json --review eval/results/live_answer_review_20261121.json --out eval/results/live_answer_scores.json
+```
+
+The collector checkpoints each answer and records whether it came from Gemini or a local fallback. The scorer checks refusal flags, reviewed correctness, and citation quotes against the local PDFs. The current assistant review is not independent human labeling. The measured November 2026 results are in [RESULTS.md](RESULTS.md).
 
 ## Tests
 
@@ -128,10 +145,9 @@ The repository has Langfuse settings and Compose environment passthrough, but th
 
 ## Current limitations
 
-- Only one local policy PDF has been content-validated in this environment. Its title and UIN match an official ICICI Lombard wording source, but its acquisition provenance has not been verified against downloaded bytes.
-- Other insurer PDFs could not be downloaded because outbound sockets are blocked. No policy in the manifest is claimed as successfully downloaded unless its report says so.
-- The manually checked QA set has 33 questions across five officially validated policy wordings and one local source-unverified wording. Its PDF page references pass validation. This small set is not evidence of general answer accuracy.
+- Eleven official policy PDFs were downloaded and content-validated. The separate local ICICI PDF has not had its acquisition provenance verified against downloaded bytes.
+- The manually checked QA set has 57 questions across eleven official wordings and the local ICICI wording. Its PDF page references pass validation, but the set is small and has no frozen held-out split.
 - Extraction labels contain 7 manually referenced verified fields for one policy; predicted extraction accuracy has not been measured.
-- OCR is not included. RAGAS, live Gemini quality, Docker, and Langfuse remain unverified.
+- OCR is not included. RAGAS, Docker, and Langfuse remain unverified. The 44-question live Gemini evaluation is exploratory and does not establish held-out or independent-human-validated accuracy.
 - `eval/compare_cases.jsonl` and older parser/chunking result artifacts are synthetic or unvalidated and must not be presented as real-policy evaluation.
 - PolicyLens is informational only and is not insurance, legal, or financial advice.

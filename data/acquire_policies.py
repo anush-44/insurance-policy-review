@@ -44,6 +44,8 @@ OFFICIAL_HOSTS: dict[str, tuple[str, ...]] = {
     "niva bupa": ("nivabupa.com", "transactions.nivabupa.com"),
     "aditya birla": ("adityabirlacapital.com", "adityabirlahealthinsurance.com"),
     "star health": ("starhealth.in", "d28c6jni2fmamz.cloudfront.net", "cdn.starhealth.in"),
+    "tata aig": ("tataaig.com",),
+    "acko": ("acko.com", "ackoassets.com"),
 }
 
 

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T07:00:32.178665+00:00",
+  "generated_at": "2026-11-21T11:30:20.497019+00:00",
   "manifest": "E:\\Insurance\\data\\policies.csv",
   "results": [
     {
@@ -17,14 +17,13 @@
     {
       "policy_id": "care-supreme",
       "source_url": "https://cms.careinsurance.com/cms/public/uploads/download_center/care-supreme---policy-terms-and-conditions.pdf",
-      "status": "downloaded_and_validated",
+      "status": "reused_validated_file",
       "pages": 45,
       "text_chars": 142165,
       "uin_detected": [
         "CHIHLIP23128V012223"
       ],
       "product_found": true,
-      "final_url": "https://cms.careinsurance.com/cms/public/uploads/download_center/care-supreme---policy-terms-and-conditions.pdf",
       "sha256": "2ed123866ffe89b0ddc455ebe867273450b1dbe1d5e3f3040427b0c1ba4d0a4a"
     },
     {
@@ -42,27 +41,25 @@
     {
       "policy_id": "niva-reassure-2",
       "source_url": "https://www.nivabupa.com/content/dam/nivabupa/PDF/reassure-2-0/ReAssure%202.0%20-%20PolicyWording.pdf",
-      "status": "downloaded_and_validated",
+      "status": "reused_validated_file",
       "pages": 36,
       "text_chars": 84659,
       "uin_detected": [
         "NBHHLIP26042V022526"
       ],
       "product_found": true,
-      "final_url": "https://www.nivabupa.com/content/dam/nivabupa/PDF/reassure-2-0/ReAssure%202.0%20-%20PolicyWording.pdf",
       "sha256": "8b00f5307e46553b955c3e21d0adea417e206a635b936f0623109fbec2f8c1bb"
     },
     {
       "policy_id": "aditya-activ-one",
       "source_url": "https://adityabirlacapital.com/healthinsurance/assets/pdf/active-one/MAX/product-information/policy-document.pdf",
-      "status": "downloaded_and_validated",
+      "status": "reused_validated_file",
       "pages": 56,
       "text_chars": 261726,
       "uin_detected": [
         "ADIHLIP24097V012324"
       ],
       "product_found": true,
-      "final_url": "https://www.adityabirlahealthinsurance.com/assets/pdf/active-one/MAX/product-information/policy-document.pdf",
       "sha256": "e94f3734458ececa858a7dd51a78e832a6db333a851fdbd3d5f330ac6b1b60dd"
     },
     {
@@ -76,6 +73,79 @@
       ],
       "product_found": true,
       "sha256": "b1dbe8fb78646f75566d47c32b7ebfa27c4071941c8f548224c461ee35a8021f"
+    },
+    {
+      "policy_id": "care-supreme-enhance",
+      "source_url": "https://cms.careinsurance.com/cms/public/uploads/download_center/supreme-enhance---policy-terms-and-conditions.pdf",
+      "status": "reused_validated_file",
+      "pages": 49,
+      "text_chars": 174613,
+      "uin_detected": [
+        "CHIHLIP25036V012425"
+      ],
+      "product_found": true,
+      "sha256": "cac3d77cbd7fd3e518433844c14f905598f1b0e14d844875bf66fde406e0abab"
+    },
+    {
+      "policy_id": "hdfc-optima-restore",
+      "source_url": "https://customer-portal-assets.hdfcergo.com/documents/PolicyWordings_OptimaRestore-811520192624.pdf",
+      "status": "reused_validated_file",
+      "pages": 53,
+      "text_chars": 127992,
+      "uin_detected": [
+        "HDFHLIP26055V102526"
+      ],
+      "product_found": true,
+      "sha256": "0058f205f552a171befda30071681626d19b4f8f116baa986d6318b3dae66907"
+    },
+    {
+      "policy_id": "acko-health-iii",
+      "source_url": "https://acko-cms.ackoassets.com/Policy_Wordings_ACKO_Health_III_de395d1997.pdf",
+      "status": "reused_validated_file",
+      "pages": 22,
+      "text_chars": 63130,
+      "uin_detected": [
+        "ACKHLIP27040V012627"
+      ],
+      "product_found": true,
+      "sha256": "ee30b58696e255594e0c76d792bcb687df84bab1815c1d9d4603e2a5c0ebf5e6"
+    },
+    {
+      "policy_id": "tata-medicare-select",
+      "source_url": "https://www.tataaig.com/s3/medicare_select_policy_wording_0faeeb61c5.pdf",
+      "status": "reused_validated_file",
+      "pages": 44,
+      "text_chars": 126649,
+      "uin_detected": [
+        "TATHLIP27061V022627"
+      ],
+      "product_found": true,
+      "sha256": "0739595ac7cb51b0e8a5edad7968d49a3185ca18b5f3754ec72e4f453049cd54"
+    },
+    {
+      "policy_id": "care-ultimate",
+      "source_url": "https://cms.careinsurance.com/cms/public/uploads/download_center/ultimate-care---policy-terms-%26-conditions-%28effective-from-16-january-2026%29.pdf",
+      "status": "reused_validated_file",
+      "pages": 121,
+      "text_chars": 233707,
+      "uin_detected": [
+        "CHIHLIP26058V022526"
+      ],
+      "product_found": true,
+      "sha256": "8fc212016eb59115e81a7bde8bc4ad1915fdc10e297f40627ace7e9c137d0b09"
+    },
+    {
+      "policy_id": "care-ultimate-joy",
+      "source_url": "https://cms.careinsurance.com/cms/public/uploads/download_center/ultimate-joy---policy-terms-and-conditions.pdf",
+      "status": "downloaded_and_validated",
+      "pages": 101,
+      "text_chars": 190722,
+      "uin_detected": [
+        "CHIHLIP27060V012627"
+      ],
+      "product_found": true,
+      "final_url": "https://cms.careinsurance.com/cms/public/uploads/download_center/ultimate-joy---policy-terms-and-conditions.pdf",
+      "sha256": "22ab0ac6cb3d86fda1fb126f9b0d9fe804ca4b653ad7762ddb161efa0f09d331"
     }
   ]
 }

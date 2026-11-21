@@ -1,0 +1,2284 @@
+{
+  "started_at": "2026-11-21T11:50:34.557115+00:00",
+  "dataset": "eval\\qa_set.jsonl",
+  "dataset_sha256": "054ed3967e728c2f2edec59a51b33deaa4cec1b59af2b9b292e42c5c30ecc08e",
+  "model": "gemini-3.5-flash-lite",
+  "max_retrieved_chunks": 5,
+  "evaluation_status": "live_predictions_unscored_for_correctness",
+  "records": [
+    {
+      "id": "care-001",
+      "policy_id": "care-supreme",
+      "question": "What UIN identifies the Care Supreme policy wording?",
+      "gold_answer": "CHIHLIP23128V012223.",
+      "gold_clause_ids": [
+        "CHIHLIP23128V012223"
+      ],
+      "gold_pages": [
+        45
+      ],
+      "answerability": "answerable",
+      "category": "general",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The Care Supreme policy wording is identified by the UIN CHIHLIP23128V012223.",
+        "citations": [
+          {
+            "clause_id": "Clause 5.7",
+            "page": 25,
+            "quote": "Care Supreme- CHIHLIP23128V012223"
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "care-supreme_5.7_145_16",
+          "care-supreme_3.2.16_106",
+          "care-supreme_20_138_7",
+          "care-supreme_5.7_145_12",
+          "care-supreme_2.1.23_22"
+        ]
+      },
+      "latency_ms": 5715.08,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1311,
+        "candidatesTokenCount": 161,
+        "totalTokenCount": 1472,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1311
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "care-002",
+      "policy_id": "care-supreme",
+      "question": "How long is the standard pre-existing disease waiting period?",
+      "gold_answer": "Expenses for a pre-existing disease and its direct complications are excluded until 36 months of continuous coverage have elapsed, subject to the wording?s conditions.",
+      "gold_clause_ids": [
+        "Pre-Existing Diseases"
+      ],
+      "gold_pages": [
+        17
+      ],
+      "answerability": "answerable",
+      "category": "waiting_period",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The standard pre-existing disease waiting period is 36 months of continuous coverage after the date of inception of the first policy with the insurer.",
+        "citations": [
+          {
+            "clause_id": "Clause a | General Policy Terms",
+            "page": 17,
+            "quote": "Expenses related to the treatment of a pre-existing Disease (PED) and its direct complications shall be excluded until the expiry of 36 months of continuous coverage after the date of inception of the first policy with insurer."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "care-supreme_2.1.36_35",
+          "care-supreme_c_110_1",
+          "care-supreme_c_110_2",
+          "care-supreme_12_79_11",
+          "care-supreme_a_108"
+        ]
+      },
+      "latency_ms": 4434.85,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1277,
+        "candidatesTokenCount": 186,
+        "totalTokenCount": 1463,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1277
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "care-003",
+      "policy_id": "care-supreme",
+      "question": "What is excluded by the initial 30-day waiting period, and what exception applies?",
+      "gold_answer": "Illness treatment within 30 days from the first policy commencement is excluded, except otherwise covered accident claims; the exclusion does not apply after more than 12 months of continuous coverage.",
+      "gold_clause_ids": [
+        "30-day waiting period- Code- Excl03"
+      ],
+      "gold_pages": [
+        18
+      ],
+      "answerability": "answerable",
+      "category": "waiting_period",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "Expenses related to the treatment of any illness within 30 days from the first policy commencement date are excluded. The exception is that claims arising due to an accident are covered, and this exclusion does not apply if the Insured Person has continuous coverage for more than twelve months.",
+        "citations": [
+          {
+            "clause_id": "Clause 14",
+            "page": 18,
+            "quote": "Expenses related to the treatment of any illness within 30 days from the first policy commencement date shall be excluded except claims arising due to an accident, provided the same are covered."
+          },
+          {
+            "clause_id": "Clause 14",
+            "page": 18,
+            "quote": "This exclusion shall not, however, apply if the Insured Person has Continuous Coverage for more than twelve months."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "care-supreme_14_117_1",
+          "care-supreme_2.1.48_47_3",
+          "care-supreme_c_110_1",
+          "care-supreme_c_110_2",
+          "care-supreme_2.1.48_47_1"
+        ]
+      },
+      "latency_ms": 4080.4,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1531,
+        "candidatesTokenCount": 260,
+        "totalTokenCount": 1791,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1531
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "care-004",
+      "policy_id": "care-supreme",
+      "question": "Up to what amount does the base road ambulance benefit pay?",
+      "gold_answer": "Up to the Sum Insured, subject to the policy?s linked hospitalization-claim conditions.",
+      "gold_clause_ids": [
+        "3.1.2 Benefit : Road Ambulance Cover"
+      ],
+      "gold_pages": [
+        11
+      ],
+      "answerability": "answerable",
+      "category": "coverage",
+      "status": "llm_abstention",
+      "answer": {
+        "answer": "I am sorry, but the provided context does not contain information about the specific monetary amount or limit paid by the base road ambulance benefit.",
+        "citations": [],
+        "confidence": 0.0,
+        "is_abstention": true,
+        "caveats": [
+          "The provided policy text mentions 'Road Ambulance Cover' under benefits and recharges, but does not specify the monetary payout limit for the base road ambulance benefit."
+        ],
+        "retrieved_chunk_ids": [
+          "care-supreme_12_79_6",
+          "care-supreme_12_79_5",
+          "care-supreme_3.2.14_102_1",
+          "care-supreme_12_173_5",
+          "care-supreme_12_173_3"
+        ]
+      },
+      "latency_ms": 3197.47,
+      "api_attempts": 2,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1933,
+        "candidatesTokenCount": 184,
+        "totalTokenCount": 2117,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1933
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "hdfc-001",
+      "policy_id": "hdfc-optima-secure",
+      "question": "What UIN identifies my:Optima Secure?",
+      "gold_answer": "HDFHLIP26058V082526.",
+      "gold_clause_ids": [
+        "HDFHLIP26058V082526"
+      ],
+      "gold_pages": [
+        1
+      ],
+      "answerability": "answerable",
+      "category": "general",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The UIN that identifies my: Optima Secure is HDFHLIP26058V082526.",
+        "citations": [
+          {
+            "clause_id": "Clause b",
+            "page": 19,
+            "quote": "UIN: my: Optima Secure - HDFHLIP26058V082526"
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "hdfc-optima-secure_b_80",
+          "hdfc-optima-secure_S_297_3",
+          "hdfc-optima-secure_b_230_3",
+          "hdfc-optima-secure_Section 2.9_112",
+          "hdfc-optima-secure_7.5_322_3"
+        ]
+      },
+      "latency_ms": 4743.05,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1886,
+        "candidatesTokenCount": 142,
+        "totalTokenCount": 2028,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1886
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "hdfc-002",
+      "policy_id": "hdfc-optima-secure",
+      "question": "How long is the pre-existing disease waiting period under this wording?",
+      "gold_answer": "The standard exclusion runs until 36 months of continuous coverage have elapsed, subject to the wording?s declaration, acceptance, and continuity provisions.",
+      "gold_clause_ids": [
+        "Pre-Existing Diseases"
+      ],
+      "gold_pages": [
+        30
+      ],
+      "answerability": "answerable",
+      "category": "waiting_period",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The pre-existing disease (PED) waiting period is 36 months of continuous coverage after the date of inception of the first policy with the insurer, unless specified otherwise in the Policy Schedule. Additionally, the policy mentions optional modifications of the PED waiting period to 24 months or 12 months.",
+        "citations": [
+          {
+            "clause_id": "PREAMBLE",
+            "page": 30,
+            "quote": "Expenses related to the treatment of a pre-existing disease (PED) and its direct complications shall be excluded until the expiry of 36 months (Unless specified otherwise in the Policy Schedule) of continuous coverage after the date of inception of the first policy with insurer."
+          },
+          {
+            "clause_id": "1",
+            "page": 26,
+            "quote": "Modification of PED waiting period from 36 months (as specified under Section C.1.a – Pre-Existing Diseases) to 24 months (2 years)"
+          },
+          {
+            "clause_id": "2",
+            "page": 26,
+            "quote": "Modification of PED waiting period from 36 months (as specified under Section C.1.a – Pre-Existing Diseases) to 12 months (1 year)"
+          }
+        ],
+        "confidence": 0.95,
+        "is_abstention": false,
+        "caveats": [
+          "The waiting period can be modified to 24 months or 12 months under specific options, or varied as specified in the Policy Schedule."
+        ],
+        "retrieved_chunk_ids": [
+          "hdfc-optima-secure_PREAMBLE_141_3",
+          "hdfc-optima-secure_1_120",
+          "hdfc-optima-secure_2_121",
+          "hdfc-optima-secure_PREAMBLE_141_1",
+          "hdfc-optima-secure_b_204"
+        ]
+      },
+      "latency_ms": 5323.65,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1405,
+        "candidatesTokenCount": 373,
+        "totalTokenCount": 1778,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1405
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "hdfc-003",
+      "policy_id": "hdfc-optima-secure",
+      "question": "What exception applies to the 30-day initial waiting period?",
+      "gold_answer": "Illness treatment within 30 days of first commencement is generally excluded, except claims arising from an otherwise covered accident; continuous-coverage conditions also apply.",
+      "gold_clause_ids": [
+        "30 days from the first"
+      ],
+      "gold_pages": [
+        32
+      ],
+      "answerability": "answerable",
+      "category": "waiting_period",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The 30-day initial waiting period does not apply to claims arising due to an accident, provided they are covered. Additionally, this exclusion does not apply if the Insured Person has continuous coverage for more than twelve months.",
+        "citations": [
+          {
+            "clause_id": "v",
+            "page": 32,
+            "quote": "Expenses related to the treatment of any illness within 30 days from the first Policy commencement date shall be excluded except claims arising due to an accident, provided the same are covered."
+          },
+          {
+            "clause_id": "v",
+            "page": 32,
+            "quote": "This exclusion shall not, however, apply if the Insured Person has continuous coverage for more than twelve months."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "hdfc-optima-secure_PREAMBLE_141_3",
+          "hdfc-optima-secure_PREAMBLE_141_1",
+          "hdfc-optima-secure_v_145_3",
+          "hdfc-optima-secure_a_209",
+          "hdfc-optima-secure_1.9_186_5"
+        ]
+      },
+      "latency_ms": 5021.17,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1789,
+        "candidatesTokenCount": 222,
+        "totalTokenCount": 2011,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1789
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "hdfc-004",
+      "policy_id": "hdfc-optima-secure",
+      "question": "Does the policy schedule state the same room-rent limit for every Optima Secure variant?",
+      "gold_answer": "No. The schedule table lists different room-rent terms across the available variants, so the applicable limit depends on the selected plan and schedule.",
+      "gold_clause_ids": [
+        "Room Rent"
+      ],
+      "gold_pages": [
+        61
+      ],
+      "answerability": "answerable",
+      "category": "room_rent",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "No, the policy does not state the same room-rent limit for every variant. Different variants have different room rent coverages and modification options available, as detailed in the policy schedule. For instance, the default in Optima Select is a Single Private room which can be modified to At Actuals or Shared room, whereas other plans like Optima Secure allow choosing coverage up to a Single Private room subject to underwriting.",
+        "citations": [
+          {
+            "clause_id": "Clause 3",
+            "page": 27,
+            "quote": "Modification of Room category coverage from Single Private room (default in Optima Select plan) to At Actuals... This option can be selected only by customers of Optima Select plan."
+          },
+          {
+            "clause_id": "Clause 2",
+            "page": 26,
+            "quote": "In Optima Secure plan, Optima Super Secure plan and Optima Secure + plan, customers may choose to be covered upto Single Private room while ICU / ICCU expenses shall be covered at Actuals."
+          },
+          {
+            "clause_id": "Clause 1.1.1",
+            "page": 62,
+            "quote": "2.13 Modification of Room Rent (Optional)... At Actuals OR Shared room (for Optima Select)"
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "hdfc-optima-secure_3_125",
+          "hdfc-optima-secure_2_123_1",
+          "hdfc-optima-secure_4_126",
+          "hdfc-optima-secure_1.1.1_305_16",
+          "hdfc-optima-secure_2_123_2"
+        ]
+      },
+      "latency_ms": 4042.41,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1522,
+        "candidatesTokenCount": 377,
+        "totalTokenCount": 1899,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1522
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "niva-001",
+      "policy_id": "niva-reassure-2",
+      "question": "What UIN identifies ReAssure 2.0?",
+      "gold_answer": "NBHHLIP26042V022526.",
+      "gold_clause_ids": [
+        "NBHHLIP26042V022526"
+      ],
+      "gold_pages": [
+        2
+      ],
+      "answerability": "answerable",
+      "category": "general",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The product ReAssure 2.0 is identified by the UIN NBHHLIP26042V022526.",
+        "citations": [
+          {
+            "clause_id": "Clause PREAMBLE",
+            "page": 1,
+            "quote": "Product Name: ReAssure 2.0, Product UIN: NBHHLIP26042V022526Preamble"
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "niva-reassure-2_3_77",
+          "niva-reassure-2_PREAMBLE_1",
+          "niva-reassure-2_5.1.1_131",
+          "niva-reassure-2_b_218_2",
+          "niva-reassure-2_5.1.9_157"
+        ]
+      },
+      "latency_ms": 3292.13,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 817,
+        "candidatesTokenCount": 167,
+        "totalTokenCount": 984,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 817
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "niva-002",
+      "policy_id": "niva-reassure-2",
+      "question": "What is the maximum air-ambulance benefit per hospitalization?",
+      "gold_answer": "For an emergency, the maximum is INR 2,50,000 per hospitalization, and the hospitalization claim must be paid by the insurer.",
+      "gold_clause_ids": [
+        "4.1.2. Air Ambulance",
+        "Maximum INR 2,50,000"
+      ],
+      "gold_pages": [
+        6,
+        6
+      ],
+      "answerability": "answerable",
+      "category": "coverage",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The maximum air-ambulance benefit is INR 2,50,000 per hospitalization, provided it is an emergency and the hospitalization claim is paid.",
+        "citations": [
+          {
+            "clause_id": "Clause 4.1.2",
+            "page": 6,
+            "quote": "Air Ambulance: Only in case of Emergency. Maximum INR 2,50,000 per hospitalization."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "niva-reassure-2_4.1.2_81",
+          "niva-reassure-2_1.10_104_9",
+          "niva-reassure-2_4.8_100_1",
+          "niva-reassure-2_4.7.1_95_1",
+          "niva-reassure-2_6.2.9_229_2"
+        ]
+      },
+      "latency_ms": 1938.72,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 2269,
+        "candidatesTokenCount": 161,
+        "totalTokenCount": 2430,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2269
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "niva-003",
+      "policy_id": "niva-reassure-2",
+      "question": "How long is the standard pre-existing disease waiting period?",
+      "gold_answer": "Expenses for a pre-existing disease and its direct complications are excluded until 36 months of continuous coverage have elapsed, subject to the policy wording.",
+      "gold_clause_ids": [
+        "Pre-existing Diseases",
+        "36 months of continuous coverage"
+      ],
+      "gold_pages": [
+        17,
+        17
+      ],
+      "answerability": "answerable",
+      "category": "waiting_period",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "Coverage under the policy for any Pre-existing Disease is available after the expiry of 36 months, subject to the disease being declared at the time of application and accepted by the insurer.",
+        "citations": [
+          {
+            "clause_id": "PREAMBLE",
+            "page": 17,
+            "quote": "Coverage under the Policy after the expiry of 36 months for any Pre-existing Disease is subject to the same being declared at the time of application and accepted by Us."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "niva-reassure-2_PREAMBLE_135",
+          "niva-reassure-2_c_138",
+          "niva-reassure-2_d_139",
+          "niva-reassure-2_5.2.1_169",
+          "niva-reassure-2_c_146"
+        ]
+      },
+      "latency_ms": 3143.56,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 801,
+        "candidatesTokenCount": 172,
+        "totalTokenCount": 973,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 801
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "niva-004",
+      "policy_id": "niva-reassure-2",
+      "question": "During what grace period does this wording say coverage is available?",
+      "gold_answer": "It states that coverage is available during the 30-day grace period for an annual installment, subject to the wording?s conditions.",
+      "gold_clause_ids": [
+        "Grace Period of 30 days",
+        "Coverage is available during the grace period"
+      ],
+      "gold_pages": [
+        21,
+        21
+      ],
+      "answerability": "answerable",
+      "category": "renewal",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The provided context states that coverage is available during the grace period, but it does not specify the exact duration or timeframe of this grace period.",
+        "citations": [
+          {
+            "clause_id": "6.2.4",
+            "page": 26,
+            "quote": "Coverage is available during the grace period."
+          }
+        ],
+        "confidence": 0.5,
+        "is_abstention": false,
+        "caveats": [
+          "The context mentions coverage is available during the grace period but does not specify how long the grace period lasts."
+        ],
+        "retrieved_chunk_ids": [
+          "niva-reassure-2_6.2.4_216",
+          "niva-reassure-2_B_201",
+          "niva-reassure-2_A_198",
+          "niva-reassure-2_6.2.3_212",
+          "niva-reassure-2_6.1.7_190"
+        ]
+      },
+      "latency_ms": 1950.38,
+      "api_attempts": 2,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 478,
+        "candidatesTokenCount": 168,
+        "totalTokenCount": 646,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 478
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "aditya-001",
+      "policy_id": "aditya-activ-one",
+      "question": "What UIN identifies Activ One?",
+      "gold_answer": "ADIHLIP24097V012324.",
+      "gold_clause_ids": [
+        "ADIHLIP24097V012324"
+      ],
+      "gold_pages": [
+        1
+      ],
+      "answerability": "answerable",
+      "category": "general",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The Activ One policy is identified by the Product UIN ADIHLIP24097V012324.",
+        "citations": [
+          {
+            "clause_id": "Clause b",
+            "page": 1,
+            "quote": "Product Name: Activ One, Product UIN: ADIHLIP24097V012324"
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "aditya-activ-one_e_293_48",
+          "aditya-activ-one_b_6_2",
+          "aditya-activ-one_8_365_38",
+          "aditya-activ-one_6_231",
+          "aditya-activ-one_8_365_44"
+        ]
+      },
+      "latency_ms": 1977.09,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 2339,
+        "candidatesTokenCount": 151,
+        "totalTokenCount": 2490,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2339
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "aditya-002",
+      "policy_id": "aditya-activ-one",
+      "question": "What grace-period lengths are stated for monthly versus other premium modes?",
+      "gold_answer": "Fifteen days for monthly premium payment and thirty days for all other modes; coverage during the grace period is available when premium is paid in installments during the policy period.",
+      "gold_clause_ids": [
+        "days where premium payment mode is monthly",
+        "Coverage is available during the Grace Period"
+      ],
+      "gold_pages": [
+        3,
+        3
+      ],
+      "answerability": "answerable",
+      "category": "renewal",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "A grace period of fifteen (15) days is provided for monthly premium policies, and a period of thirty (30) days is provided for other than monthly premium policies.",
+        "citations": [
+          {
+            "clause_id": "Clause v",
+            "page": 17,
+            "quote": "Grace Period of (15) ﬁfteen days in case of monthly premium policies, and a period of 30 days in case of other than monthly premium policies would be given to pay the instalment premium due for the policy."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "aditya-activ-one_v_148_9",
+          "aditya-activ-one_b_140_8",
+          "aditya-activ-one_b_25",
+          "aditya-activ-one_v_148_6",
+          "aditya-activ-one_v_148_7"
+        ]
+      },
+      "latency_ms": 2755.49,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1692,
+        "candidatesTokenCount": 180,
+        "totalTokenCount": 1872,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1692
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "aditya-003",
+      "policy_id": "aditya-activ-one",
+      "question": "Does the wording give one universal pre-existing disease waiting period for every member?",
+      "gold_answer": "No. The applicable years or months are specified in the Policy Schedule or Product Benefit Table, and coverage depends on the policy terms.",
+      "gold_clause_ids": [
+        "Pre-Existing Diseases (Code- Excl01)"
+      ],
+      "gold_pages": [
+        10
+      ],
+      "answerability": "answerable",
+      "category": "waiting_period",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "No, the pre-existing disease waiting period is specified in the Policy Schedule or Product Benefit Table, and can also be modified by optional covers such as the 'Reduction in Pre-Existing Disease Waiting Period' where the waiting period is reduced to a specified number of years mentioned in the Policy Schedule.",
+        "citations": [
+          {
+            "clause_id": "Clause 62",
+            "page": 9,
+            "quote": "Expenses related to the treatment of a pre-existing Disease (PED) and its direct complications shall be excluded until the expiry of years / months as specified in the Policy Schedule / Product Benefit Table of this Policy of continuous coverage after the date of inception of the first policy with Insurer."
+          },
+          {
+            "clause_id": "Clause e",
+            "page": 32,
+            "quote": "On availing this Optional Cover, at the inception of the first policy with Us, then We shall reduce the applicable Pre-Existing Disease Waiting Period under Section D for claims related to any Pre-Existing Disease specified in the Policy Schedule, to a specified number of years as mentioned in the Policy Schedule."
+          }
+        ],
+        "confidence": 0.9,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "aditya-activ-one_e_293_14",
+          "aditya-activ-one_62_98_3",
+          "aditya-activ-one_62_98_2",
+          "aditya-activ-one_v_148_11",
+          "aditya-activ-one_e_293_70"
+        ]
+      },
+      "latency_ms": 4142.66,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1794,
+        "candidatesTokenCount": 339,
+        "totalTokenCount": 2133,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1794
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "aditya-004",
+      "policy_id": "aditya-activ-one",
+      "question": "What is the initial illness waiting period and its accident exception?",
+      "gold_answer": "The standard initial waiting period is 30 days from first policy commencement; otherwise covered accident claims are excepted.",
+      "gold_clause_ids": [
+        "D.1.3 (30-day Waiting Period"
+      ],
+      "gold_pages": [
+        20
+      ],
+      "answerability": "answerable",
+      "category": "waiting_period",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The initial waiting period for illnesses (30-day Waiting Period) excludes expenses related to the treatment of any illness within 30 days from the first policy commencement date, with an exception for claims arising due to an accident.",
+        "citations": [
+          {
+            "clause_id": "Clause 62",
+            "page": 9,
+            "quote": "Expenses related to the treatment of any illness within 30 days from the ﬁrst policy commencement date shall be excluded except claims arising due to an accident, provided the same are covered."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "aditya-activ-one_e_293_18",
+          "aditya-activ-one_e_293_70",
+          "aditya-activ-one_62_98_10",
+          "aditya-activ-one_62_98_3",
+          "aditya-activ-one_8_365_8"
+        ]
+      },
+      "latency_ms": 2545.88,
+      "api_attempts": 2,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 2010,
+        "candidatesTokenCount": 172,
+        "totalTokenCount": 2182,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2010
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "star-001",
+      "policy_id": "star-comprehensive",
+      "question": "What UIN identifies Star Comprehensive Insurance Policy?",
+      "gold_answer": "SHAHLIP26044V092526.",
+      "gold_clause_ids": [
+        "SHAHLIP26044V092526"
+      ],
+      "gold_pages": [
+        4
+      ],
+      "answerability": "answerable",
+      "category": "general",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The UIN that identifies the Star Comprehensive Insurance Policy is SHAHLIP26044V092526.",
+        "citations": [
+          {
+            "clause_id": "Clause i",
+            "page": 14,
+            "quote": "Star Comprehensive Insurance Policy | UIN : SHAHLIP26044V092526"
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "star-comprehensive_i_62_3",
+          "star-comprehensive_v_122_2",
+          "star-comprehensive_4_36_6",
+          "star-comprehensive_i_4_2",
+          "star-comprehensive_7_135_2"
+        ]
+      },
+      "latency_ms": 3420.43,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1369,
+        "candidatesTokenCount": 232,
+        "totalTokenCount": 1601,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1369
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "star-002",
+      "policy_id": "star-comprehensive",
+      "question": "How long can the specific waiting period last, and what accident exception is stated?",
+      "gold_answer": "Up to 36 months from policy commencement; specified diseases or treatments are not covered during it, except when due to an accident.",
+      "gold_clause_ids": [
+        "Specific Waiting Period means"
+      ],
+      "gold_pages": [
+        7
+      ],
+      "answerability": "answerable",
+      "category": "waiting_period",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The specific waiting period is defined as a period up to 36 months from the commencement of a health insurance policy during which specified diseases/treatments are not covered. Regarding the accident exception, the specified disease/procedure waiting period exclusion is not applicable for claims arising due to an accident.",
+        "citations": [
+          {
+            "clause_id": "Clause i",
+            "page": 6,
+            "quote": "Specific Waiting Period means a period up to 36 months from the commencement of a health insurance policy during which period specified diseases/treatments (except due to an Accident) are not covered."
+          },
+          {
+            "clause_id": "Clause 2",
+            "page": 30,
+            "quote": "This exclusion shall not be applicable for claims arising due to an accident"
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "star-comprehensive_2_139",
+          "star-comprehensive_2_144_1",
+          "star-comprehensive_i_204",
+          "star-comprehensive_i_23_2",
+          "star-comprehensive_i_65"
+        ]
+      },
+      "latency_ms": 2111.61,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1370,
+        "candidatesTokenCount": 269,
+        "totalTokenCount": 1639,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1370
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "star-003",
+      "policy_id": "star-comprehensive",
+      "question": "What PED waiting period applies when the optional buy-back is selected and accepted?",
+      "gold_answer": "The optional buy-back can reduce the pre-existing disease waiting period from 36 months to 12 months, subject to eligibility, additional premium, screening, and insurer acceptance.",
+      "gold_clause_ids": [
+        "Optional Cover (Buy Back of Pre-Existing Disease Waiting Period)",
+        "Pre-Existing Diseases : Code Excl 01"
+      ],
+      "gold_pages": [
+        30,
+        30
+      ],
+      "answerability": "answerable",
+      "category": "waiting_period",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "When the optional buy-back of the Pre-Existing Disease waiting period (Optional Cover 25) is selected, paid for with an additional premium, and accepted after pre-acceptance medical screening, the waiting period in respect of Pre-Existing Diseases is reduced from 36 months to 12 months.",
+        "citations": [
+          {
+            "clause_id": "Clause 7",
+            "page": 29,
+            "quote": "Optional Cover (Buy Back of Pre-Existing Disease Waiting Period): On payment of additional premium the Insured Person has the option to opt for reduction of waiting period in respect of Pre-Existing Diseases from 36 months to 12 months."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [
+          "This option is available only for the first purchase of this Star Comprehensive Insurance Policy, up to the Sum Insured chosen at that time, and is not available for renewals or ported policies."
+        ],
+        "retrieved_chunk_ids": [
+          "star-comprehensive_2_144_1",
+          "star-comprehensive_7_135_2",
+          "star-comprehensive_2_139",
+          "star-comprehensive_1_143",
+          "star-comprehensive_i_62_1"
+        ]
+      },
+      "latency_ms": 2998.58,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1745,
+        "candidatesTokenCount": 255,
+        "totalTokenCount": 2000,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1745
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "star-004",
+      "policy_id": "star-comprehensive",
+      "question": "What grace period applies to monthly versus quarterly, half-yearly, or yearly installments?",
+      "gold_answer": "Fifteen days for monthly installments and 30 days for quarterly, half-yearly, and yearly installments. Paying within the applicable grace period preserves the listed continuity benefits.",
+      "gold_clause_ids": [
+        "Grace Period of 15 days",
+        "Grace Period of 30 days"
+      ],
+      "gold_pages": [
+        42,
+        42
+      ],
+      "answerability": "answerable",
+      "category": "renewal",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "A grace period of 15 days is given to pay the instalment premium due for the policy under the monthly instalment option. For quarterly, half-yearly, and yearly instalment options, a grace period of 30 days is given.",
+        "citations": [
+          {
+            "clause_id": "Clause i",
+            "page": 42,
+            "quote": "For monthly instalment option: Grace Period of 15 days would be given to pay the instalment premium due for the policy."
+          },
+          {
+            "clause_id": "Clause i",
+            "page": 42,
+            "quote": "For Quarterly, Half yearly and Yearly instalment option: Grace Period of 30 days would be given to pay the instalment premium due for the policy."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "star-comprehensive_i_208",
+          "star-comprehensive_i_11_1",
+          "star-comprehensive_11_207",
+          "star-comprehensive_v_209_1",
+          "star-comprehensive_i_204"
+        ]
+      },
+      "latency_ms": 1815.38,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1493,
+        "candidatesTokenCount": 244,
+        "totalTokenCount": 1737,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1493
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "care-enhance-001",
+      "policy_id": "care-supreme-enhance",
+      "question": "What UIN identifies the Supreme Enhance policy wording?",
+      "gold_answer": "CHIHLIP25036V012425.",
+      "gold_clause_ids": [
+        "CHIHLIP25036V012425"
+      ],
+      "gold_pages": [
+        2
+      ],
+      "answerability": "answerable",
+      "category": "general",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The Supreme Enhance policy is identified by the UIN CHIHLIP25036V012425.",
+        "citations": [
+          {
+            "clause_id": "Clause 6.1.5",
+            "page": 27,
+            "quote": "SUPREME  ENHANCE - UIN: CHIHLIP25036V012425"
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "care-supreme-enhance_6.1.5_256",
+          "care-supreme-enhance_II_211",
+          "care-supreme-enhance_5.17_230",
+          "care-supreme-enhance_2.1.3_9",
+          "care-supreme-enhance_6.1.6_259_2"
+        ]
+      },
+      "latency_ms": 3255.4,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1184,
+        "candidatesTokenCount": 160,
+        "totalTokenCount": 1344,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1184
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "care-enhance-002",
+      "policy_id": "care-supreme-enhance",
+      "question": "How long is the standard pre-existing disease waiting period?",
+      "gold_answer": "Expenses for a pre-existing disease and its direct complications are excluded until 36 months of continuous coverage have elapsed, subject to the wording’s conditions.",
+      "gold_clause_ids": [
+        "Code- Excl01"
+      ],
+      "gold_pages": [
+        16
+      ],
+      "answerability": "answerable",
+      "category": "waiting_period",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The standard waiting period for pre-existing diseases (PED) is 36 months of continuous coverage after the date of inception of the first policy with the insurer.",
+        "citations": [
+          {
+            "clause_id": "Clause 4.1",
+            "page": 16,
+            "quote": "Expenses related to the treatment of a pre-existing Disease (PED) and its direct complications shall be excluded until the expiry of 36 months of continuous coverage after the date of inception of the first policy with insurer."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "care-supreme-enhance_4.1_149",
+          "care-supreme-enhance_c_151",
+          "care-supreme-enhance_15_139_1",
+          "care-supreme-enhance_c_150",
+          "care-supreme-enhance_2.1.38_48"
+        ]
+      },
+      "latency_ms": 2925.97,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1232,
+        "candidatesTokenCount": 180,
+        "totalTokenCount": 1412,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1232
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "care-enhance-003",
+      "policy_id": "care-supreme-enhance",
+      "question": "How is the deductible applied under Plan A versus Plan B?",
+      "gold_answer": "Under Plan A, it applies to the aggregate of admissible claims in the policy year; under Plan B, it applies per claim.",
+      "gold_clause_ids": [
+        "Deductible will be applicable on the aggregate basis"
+      ],
+      "gold_pages": [
+        8
+      ],
+      "answerability": "answerable",
+      "category": "deductible",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "Under Plan A, the deductible is applied on an aggregate basis of all admissible claims in a Policy year. Under Plan B, the deductible is applied on a per claim basis of all admissible claims in a Policy year.",
+        "citations": [
+          {
+            "clause_id": "Clause 2",
+            "page": 8,
+            "quote": "Deductible will be applicable on the aggregate basis of all admissible claims in a Policy year under Plan A while Deductible will be applicable on per claim basis of all admissible claims in a Policy year under Plan B."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "care-supreme-enhance_2_95",
+          "care-supreme-enhance_v_143",
+          "care-supreme-enhance_II_262",
+          "care-supreme-enhance_6.1.7_263_6",
+          "care-supreme-enhance_6.1.7_263_5"
+        ]
+      },
+      "latency_ms": 2549.14,
+      "api_attempts": 2,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1571,
+        "candidatesTokenCount": 186,
+        "totalTokenCount": 1757,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1571
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "hdfc-restore-001",
+      "policy_id": "hdfc-optima-restore",
+      "question": "What UIN identifies Optima Restore?",
+      "gold_answer": "HDFHLIP26055V102526.",
+      "gold_clause_ids": [
+        "HDFHLIP26055V102526"
+      ],
+      "gold_pages": [
+        1
+      ],
+      "answerability": "answerable",
+      "category": "general",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The Optima Restore policy is identified by the UIN: Optima Restore - HDFHLIP26055V102526.",
+        "citations": [
+          {
+            "clause_id": "Clause S",
+            "page": 47,
+            "quote": "UIN: Optima Restore - HDFHLIP26055V102526"
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "hdfc-optima-restore_S_231_10",
+          "hdfc-optima-restore_f_216_2",
+          "hdfc-optima-restore_d_77_2",
+          "hdfc-optima-restore_c_181_10",
+          "hdfc-optima-restore_PREAMBLE_1"
+        ]
+      },
+      "latency_ms": 1712.93,
+      "api_attempts": 2,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1950,
+        "candidatesTokenCount": 154,
+        "totalTokenCount": 2104,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1950
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "hdfc-restore-002",
+      "policy_id": "hdfc-optima-restore",
+      "question": "What minimum inpatient duration does the Hospitalisation definition generally require?",
+      "gold_answer": "A minimum of 24 consecutive inpatient-care hours, except specified procedures or treatments that may require less.",
+      "gold_clause_ids": [
+        "Hospitalisation means admission in a Hospital"
+      ],
+      "gold_pages": [
+        6
+      ],
+      "answerability": "answerable",
+      "category": "coverage",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "According to the policy definition, Hospitalisation generally requires admission in a Hospital for a minimum of 24 consecutive 'In-patient Care' hours, except for specified procedures or treatments where admission could be for a period of less than 24 consecutive hours.",
+        "citations": [
+          {
+            "clause_id": "Clause i",
+            "page": 5,
+            "quote": "Def. 20. Hospitalisation means admission in a Hospital for a minimum of 24 consecutive ‘In-patient Care’ hours except for specified procedures / treatments, where such admission could be for a period of less than 24 consecutive hours."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "hdfc-optima-restore_i_17_1",
+          "hdfc-optima-restore_i_17_4",
+          "hdfc-optima-restore_d_191",
+          "hdfc-optima-restore_b_39",
+          "hdfc-optima-restore_h_46_2"
+        ]
+      },
+      "latency_ms": 2354.9,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1522,
+        "candidatesTokenCount": 191,
+        "totalTokenCount": 1713,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1522
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "hdfc-restore-003",
+      "policy_id": "hdfc-optima-restore",
+      "question": "What is the standard pre-existing disease waiting period?",
+      "gold_answer": "The standard exclusion runs until 36 months of continuous coverage have elapsed, subject to the wording’s declaration, acceptance, and continuity conditions.",
+      "gold_clause_ids": [
+        "Code – Excl01"
+      ],
+      "gold_pages": [
+        21
+      ],
+      "answerability": "answerable",
+      "category": "waiting_period",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The standard pre-existing disease (PED) waiting period is 36 months of continuous coverage after the date of inception of the first policy with the insurer.",
+        "citations": [
+          {
+            "clause_id": "Clause 1",
+            "page": 21,
+            "quote": "Expenses related to the treatment of a pre-existing disease (PED) and its direct complications shall be excluded until the expiry of 36 months of continuous coverage after the date of inception of the first policy with insurer."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "hdfc-optima-restore_1_81_7",
+          "hdfc-optima-restore_1_81_1",
+          "hdfc-optima-restore_1_81_6",
+          "hdfc-optima-restore_1_81_2",
+          "hdfc-optima-restore_i_24_4"
+        ]
+      },
+      "latency_ms": 3781.91,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1621,
+        "candidatesTokenCount": 165,
+        "totalTokenCount": 1786,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1621
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "acko-iii-001",
+      "policy_id": "acko-health-iii",
+      "question": "What UIN identifies ACKO Health III?",
+      "gold_answer": "ACKHLIP27040V012627.",
+      "gold_clause_ids": [
+        "ACKHLIP27040V012627"
+      ],
+      "gold_pages": [
+        1
+      ],
+      "answerability": "answerable",
+      "category": "general",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The UIN that identifies ACKO Health III is ACKHLIP27040V012627.",
+        "citations": [
+          {
+            "clause_id": "PREAMBLE",
+            "page": 1,
+            "quote": "Acko Health III\nAcko General Insurance Limited, 2nd Floor, #36/5, Hustlehub One East, Somasandrapalya, 27th Main Rd, Sector 2, HSR Layout, Bengaluru,\nKarnataka: 560102 || IRDAI Reg No: 157 | UIN: ACKHLIP27040V012627"
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "acko-health-iii_PREAMBLE_1",
+          "acko-health-iii_2_3",
+          "acko-health-iii_7.1_103",
+          "acko-health-iii_4.13_77",
+          "acko-health-iii_4.8_72"
+        ]
+      },
+      "latency_ms": 2250.27,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1134,
+        "candidatesTokenCount": 216,
+        "totalTokenCount": 1350,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1134
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "acko-iii-002",
+      "policy_id": "acko-health-iii",
+      "question": "Where does ACKO Health III specify the pre-existing disease waiting period?",
+      "gold_answer": "The number of months is specified in the Policy Schedule; the wording does not give one fixed duration for every insured.",
+      "gold_clause_ids": [
+        "3.1.1. Pre-Existing Diseases (PED)"
+      ],
+      "gold_pages": [
+        8
+      ],
+      "answerability": "answerable",
+      "category": "waiting_period",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The pre-existing disease waiting period for ACKO Health III is specified in Clause 3.1.1 under Pre-Existing Diseases (PED). Expenses for PED and direct complications are excluded until the waiting period expires (in months) as specified in the Policy Schedule from the inception of the first policy.",
+        "citations": [
+          {
+            "clause_id": "Clause 3.1.1",
+            "page": 8,
+            "quote": "3.1.1. Pre-Existing Diseases (PED) • Expenses for PED and direct complications are excluded until the waiting period expires (months) as specified in the Policy Schedule from inception of the first policy with us."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "acko-health-iii_3.1.2_43_2",
+          "acko-health-iii_2.12.6_21",
+          "acko-health-iii_3.1.2_43_1",
+          "acko-health-iii_3.1.1_42",
+          "acko-health-iii_PREAMBLE_1"
+        ]
+      },
+      "latency_ms": 1913.61,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1585,
+        "candidatesTokenCount": 213,
+        "totalTokenCount": 1798,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1585
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "acko-iii-003",
+      "policy_id": "acko-health-iii",
+      "question": "What exception applies to the initial 30-day illness waiting period?",
+      "gold_answer": "Otherwise covered claims arising from accidents are excepted; the exclusion also does not apply after more than 12 months of continuous coverage.",
+      "gold_clause_ids": [
+        "3.1.3. 30-day waiting period"
+      ],
+      "gold_pages": [
+        9
+      ],
+      "answerability": "answerable",
+      "category": "waiting_period",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The initial 30-day waiting period for illness treatment does not apply if the insured has continuous coverage for more than 12 months, or if the treatment is due to an accident.",
+        "citations": [
+          {
+            "clause_id": "3.1.3",
+            "page": 9,
+            "quote": "Expenses for treatment of any illness within 30 days from first policy commencement excluded, except accidents.\n• Not applicable if insured has continuous coverage >12 months."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "acko-health-iii_2.12.6_21",
+          "acko-health-iii_3.1.2_43_1",
+          "acko-health-iii_3.1.2_43_3",
+          "acko-health-iii_3.1.1_42",
+          "acko-health-iii_2.12.2_17"
+        ]
+      },
+      "latency_ms": 2378.9,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1324,
+        "candidatesTokenCount": 175,
+        "totalTokenCount": 1499,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1324
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "tata-select-001",
+      "policy_id": "tata-medicare-select",
+      "question": "What UIN identifies TATA AIG MediCare Select?",
+      "gold_answer": "TATHLIP27061V022627.",
+      "gold_clause_ids": [
+        "TATHLIP27061V022627"
+      ],
+      "gold_pages": [
+        1
+      ],
+      "answerability": "answerable",
+      "category": "general",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The TATA AIG MediCare Select is identified by the UIN: TATHLIP27061V022627.",
+        "citations": [
+          {
+            "clause_id": "Clause PREAMBLE",
+            "page": 1,
+            "quote": "TATA AIG MediCare Select UIN: TATHLIP27061V022627"
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "tata-medicare-select_2_279_3",
+          "tata-medicare-select_PREAMBLE_1_1",
+          "tata-medicare-select_15_84",
+          "tata-medicare-select_i_124_2",
+          "tata-medicare-select_c_242"
+        ]
+      },
+      "latency_ms": 2455.12,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1576,
+        "candidatesTokenCount": 186,
+        "totalTokenCount": 1762,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1576
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "tata-select-002",
+      "policy_id": "tata-medicare-select",
+      "question": "How long is the specified disease or procedure waiting period?",
+      "gold_answer": "24 months of continuous coverage from the first policy’s inception; the stated accident exception applies.",
+      "gold_clause_ids": [
+        "Specified Disease/Procedure Waiting Period (Code- Excl 02)"
+      ],
+      "gold_pages": [
+        21
+      ],
+      "answerability": "answerable",
+      "category": "waiting_period",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The provided policy context does not state the exact duration of the specified disease or procedure waiting period (Code- Excl 02), although it mentions that the waiting period for listed conditions applies even if contracted after the policy or declared and accepted without a specific exclusion.",
+        "citations": [
+          {
+            "clause_id": "Clause d",
+            "page": 21,
+            "quote": "The waiting period for listed conditions shall apply even if contracted after the Policy or declared and accepted without a specific exclusion."
+          }
+        ],
+        "confidence": 0.5,
+        "is_abstention": false,
+        "caveats": [
+          "The exact duration (number of months/years) of the specified disease/procedure waiting period is not mentioned in the provided text."
+        ],
+        "retrieved_chunk_ids": [
+          "tata-medicare-select_c_138",
+          "tata-medicare-select_d_135",
+          "tata-medicare-select_d_139",
+          "tata-medicare-select_e_140",
+          "tata-medicare-select_17_29"
+        ]
+      },
+      "latency_ms": 2092.01,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 959,
+        "candidatesTokenCount": 297,
+        "totalTokenCount": 1256,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 959
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "tata-select-003",
+      "policy_id": "tata-medicare-select",
+      "question": "What conditions apply to the road ambulance benefit described in section B8?",
+      "gold_answer": "It covers registered road ambulance transportation within a 50 km radius for emergency transport to the nearest hospital and certain medically necessary transfers, subject to the section’s terms.",
+      "gold_clause_ids": [
+        "B8. Ambulance Cover"
+      ],
+      "gold_pages": [
+        14
+      ],
+      "answerability": "answerable",
+      "category": "coverage",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The road ambulance benefit covers expenses incurred for the transportation of the Insured Person in a registered road ambulance within a radius of 50 kilometers.",
+        "citations": [
+          {
+            "clause_id": "Clause v",
+            "page": 14,
+            "quote": "We will cover expenses incurred for the transportation of the Insured Person in a registered road ambulance, within a radius of 50 kilometers, for the following:"
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "tata-medicare-select_v_97_3",
+          "tata-medicare-select_b_133",
+          "tata-medicare-select_2_129",
+          "tata-medicare-select_i_124_1",
+          "tata-medicare-select_i_171_1"
+        ]
+      },
+      "latency_ms": 2207.11,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1260,
+        "candidatesTokenCount": 149,
+        "totalTokenCount": 1409,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1260
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "care-ultimate-001",
+      "policy_id": "care-ultimate",
+      "question": "What UIN identifies Ultimate Care in this wording?",
+      "gold_answer": "CHIHLIP26058V022526.",
+      "gold_clause_ids": [
+        "CHIHLIP26058V022526"
+      ],
+      "gold_pages": [
+        1
+      ],
+      "answerability": "answerable",
+      "category": "general",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The UIN that identifies Ultimate Care in the provided policy wording is CHIHLIP26058V022526.",
+        "citations": [
+          {
+            "clause_id": "Clause 3.2.5",
+            "page": 30,
+            "quote": "Ultimate Care -CHIHLIP26058V022526"
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "care-ultimate_3.2.5_167",
+          "care-ultimate_3.2.15_180_2",
+          "care-ultimate_PREAMBLE_1",
+          "care-ultimate_3.2.19_185",
+          "care-ultimate_3.2.20_189"
+        ]
+      },
+      "latency_ms": 1896.11,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1103,
+        "candidatesTokenCount": 163,
+        "totalTokenCount": 1266,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1103
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "care-ultimate-002",
+      "policy_id": "care-ultimate",
+      "question": "When does the Premium Payback benefit refund the first-year base-plan premium?",
+      "gold_answer": "If the benefit was opted for and no hospitalization-expense claim was made in the preceding five consecutive policy years, the first-year base-plan premium is refunded subject to subsequent renewal, once per five-year block.",
+      "gold_clause_ids": [
+        "3.2.4 Premium Payback"
+      ],
+      "gold_pages": [
+        30
+      ],
+      "answerability": "answerable",
+      "category": "coverage",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The Premium Payback benefit refunds the 1st Policy Year premium of the base plan if the Insured Person has opted for this Benefit and no 'Hospitalization Expenses' related claim is made for the preceding 5 consecutive Policy Years, subject to the subsequent renewal of the Policy. This benefit is payable only once in every block of 5 years.",
+        "citations": [
+          {
+            "clause_id": "Clause 3.2.4",
+            "page": 30,
+            "quote": "If the Insured Person has opted for this Benefit and no ‘Hospitalization Expenses’ related claim is made for the preceding 5 consecutive Policy Years, then the Company shall refund the 1st Policy Year premium of base plan to the Policyholder subject to subsequent renewal of Policy. This Benefit shall be payable only once in every block of 5 years."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "care-ultimate_3.2.4_166",
+          "care-ultimate_3.2.49_273_1",
+          "care-ultimate_i_364",
+          "care-ultimate_3.2.49_273_2",
+          "care-ultimate_5.7_344_1"
+        ]
+      },
+      "latency_ms": 5418.76,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1500,
+        "candidatesTokenCount": 248,
+        "totalTokenCount": 1748,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1500
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "care-ultimate-003",
+      "policy_id": "care-ultimate",
+      "question": "Can the Instant Cover and PED Wait Period Modification optional benefits both be selected?",
+      "gold_answer": "No. The wording says either Instant Cover or PED Wait Period Modification may be opted for, but not both.",
+      "gold_clause_ids": [
+        "PED Wait Period Modification"
+      ],
+      "gold_pages": [
+        40
+      ],
+      "answerability": "answerable",
+      "category": "waiting_period",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "No, the Instant Cover and PED Wait Period Modification optional benefits cannot both be selected. The policy explicitly states that either optional benefit can be opted, but not both.",
+        "citations": [
+          {
+            "clause_id": "Clause 3.2.10",
+            "page": 33,
+            "quote": "Either Optional Benefit - 'Instant Cover' or 'PED Wait Period Modification' can be opted but not both."
+          },
+          {
+            "clause_id": "Clause 2.1.38",
+            "page": 40,
+            "quote": "Either Optional Benefit - 'Instant Cover' or 'PED Wait Period Modification' can be opted but not both."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "care-ultimate_3.2.10_174",
+          "care-ultimate_2.1.38_199",
+          "care-ultimate_3.2.25_198",
+          "care-ultimate_3.2.23_192_1",
+          "care-ultimate_3.2.27_201"
+        ]
+      },
+      "latency_ms": 1992.53,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1220,
+        "candidatesTokenCount": 236,
+        "totalTokenCount": 1456,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1220
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "care-ultimate-004",
+      "policy_id": "care-ultimate",
+      "question": "How many claims can Unlimited Care cover without an annual sum-insured limit during the policy lifetime?",
+      "gold_answer": "One claim during the policy lifetime, subject to the benefit conditions.",
+      "gold_clause_ids": [
+        "3.2.5 Unlimited Care"
+      ],
+      "gold_pages": [
+        30
+      ],
+      "answerability": "answerable",
+      "category": "coverage",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "Under the Unlimited Care benefit, the Company covers hospitalization expenses without any restriction or limits on the annual sum insured for any one claim in the policy lifetime. However, once a claim is made under this benefit, the cover shall cease and not be available for re-selection during subsequent renewals.",
+        "citations": [
+          {
+            "clause_id": "Clause 3.2.5",
+            "page": 30,
+            "quote": "The Company shall cover the Hospitalization Expenses of the Insured Person without any restriction/ limits on the annual Sum Insured for any one claim in the policy lifetime subject to the following conditions"
+          },
+          {
+            "clause_id": "Clause 3.2.5",
+            "page": 30,
+            "quote": "Once a claim is made under this Benefit, the cover shall cease and not be available for re-selection during the subsequent renewal."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "care-ultimate_3.2.5_167",
+          "care-ultimate_3.2.9_172_1",
+          "care-ultimate_3.1.4_156_1",
+          "care-ultimate_II_126",
+          "care-ultimate_3.2.30_205"
+        ]
+      },
+      "latency_ms": 2059.29,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1513,
+        "candidatesTokenCount": 265,
+        "totalTokenCount": 1778,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1513
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "care-ultimate-005",
+      "policy_id": "care-ultimate",
+      "question": "What exact shortened pre-existing-disease waiting period did this insured select?",
+      "gold_answer": "The member-specific period is not stated in the generic wording; the selected period appears in the Policy Schedule.",
+      "gold_clause_ids": [
+        "PED Wait Period Modification"
+      ],
+      "gold_pages": [
+        40
+      ],
+      "answerability": "unanswerable",
+      "category": "waiting_period",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The context mentions an optional benefit for PED Wait Period Modification where the waiting period can be modified from 36 months to a specific time period mentioned in the Policy Schedule, but the context does not state the exact shortened waiting period selected by this particular insured.",
+        "citations": [
+          {
+            "clause_id": "3.2.25",
+            "page": 40,
+            "quote": "by choosing this Optional Benefit, the applicable waiting period of 36 months for Claims related to Pre-existing diseases shall be modified to specific time period as mentioned in the Policy Schedule."
+          }
+        ],
+        "confidence": 0.3,
+        "is_abstention": true,
+        "caveats": [
+          "The policy mentions the optional modification benefit, but the specific insured's selection is absent from the provided context."
+        ],
+        "retrieved_chunk_ids": [
+          "care-ultimate_c_279",
+          "care-ultimate_3.2.25_198",
+          "care-ultimate_4.1_277",
+          "care-ultimate_c_278",
+          "care-ultimate_2.1.38_47"
+        ]
+      },
+      "latency_ms": 3148.38,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1005,
+        "candidatesTokenCount": 236,
+        "totalTokenCount": 1241,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1005
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "care-ultimate-006",
+      "policy_id": "care-ultimate",
+      "question": "Did this insured opt for the Premium Payback benefit?",
+      "gold_answer": "The wording only says what happens if the insured opts for it; the member's selection is not supplied.",
+      "gold_clause_ids": [
+        "3.2.4 Premium Payback"
+      ],
+      "gold_pages": [
+        30
+      ],
+      "answerability": "unanswerable",
+      "category": "coverage",
+      "status": "llm_abstention",
+      "answer": {
+        "answer": "The provided context does not contain specific information about whether this particular insured person opted for the Premium Payback benefit.",
+        "citations": [],
+        "confidence": 0.0,
+        "is_abstention": true,
+        "caveats": [
+          "The context mentions the terms of the Premium Payback benefit but does not state the personal election status of the insured."
+        ],
+        "retrieved_chunk_ids": [
+          "care-ultimate_3.2.4_166",
+          "care-ultimate_2.1.38_199",
+          "care-ultimate_3.2.45_267",
+          "care-ultimate_3.2.29_204",
+          "care-ultimate_3.2.16_182"
+        ]
+      },
+      "latency_ms": 3522.69,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 919,
+        "candidatesTokenCount": 118,
+        "totalTokenCount": 1037,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 919
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "care-joy-001",
+      "policy_id": "care-ultimate-joy",
+      "question": "What UIN identifies Ultimate Joy in this wording?",
+      "gold_answer": "CHIHLIP27060V012627.",
+      "gold_clause_ids": [
+        "CHIHLIP27060V012627"
+      ],
+      "gold_pages": [
+        1
+      ],
+      "answerability": "answerable",
+      "category": "general",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The UIN that identifies Ultimate Joy is CHIHLIP27060V012627.",
+        "citations": [
+          {
+            "clause_id": "PREAMBLE",
+            "page": 1,
+            "quote": "Ultimate Joy -CHIHLIP27060V012627"
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "care-ultimate-joy_PREAMBLE_1",
+          "care-ultimate-joy_5_200",
+          "care-ultimate-joy_10_257",
+          "care-ultimate-joy_3.2.2_157",
+          "care-ultimate-joy_3.2.5_163"
+        ]
+      },
+      "latency_ms": 3809.64,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 799,
+        "candidatesTokenCount": 141,
+        "totalTokenCount": 940,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 799
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "care-joy-002",
+      "policy_id": "care-ultimate-joy",
+      "question": "What age range is eligible to claim the Mother & New Born Baby Care benefit?",
+      "gold_answer": "The insured person must be 18 to 45 years old.",
+      "gold_clause_ids": [
+        "3.1.12 Benefit: Mother & New Born Baby Care"
+      ],
+      "gold_pages": [
+        29
+      ],
+      "answerability": "answerable",
+      "category": "coverage",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "Claims under the Mother & New Born Baby Care benefit are admissible only if the age of the Insured Person is between 18 and 45 years.",
+        "citations": [
+          {
+            "clause_id": "Clause 3.1.12",
+            "page": 29,
+            "quote": "Claim under this Benefit shall be admissible only if the age of the Insured Person is 18 to 45 years."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "care-ultimate-joy_3.2.25_216",
+          "care-ultimate-joy_3.1.12_152_1",
+          "care-ultimate-joy_3.1.12_152_2",
+          "care-ultimate-joy_3.1.12_152_3",
+          "care-ultimate-joy_3.2.15_181"
+        ]
+      },
+      "latency_ms": 2020.94,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1370,
+        "candidatesTokenCount": 179,
+        "totalTokenCount": 1549,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1370
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "care-joy-003",
+      "policy_id": "care-ultimate-joy",
+      "question": "How many times can unused Mother & New Born Baby Care coverage accumulate?",
+      "gold_answer": "Up to four times, if no claim has been made under the benefit and the policy is continuously renewed.",
+      "gold_clause_ids": [
+        "3.1.12 Benefit: Mother & New Born Baby Care"
+      ],
+      "gold_pages": [
+        29
+      ],
+      "answerability": "answerable",
+      "category": "coverage",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The coverage amount under the Mother & New Born Baby Care benefit can accumulate up to 4 times, provided that no claim has been made under this benefit and the policy is continuously renewed.",
+        "citations": [
+          {
+            "clause_id": "Clause 3.1.12",
+            "page": 29,
+            "quote": "Coverage amount under this benefit can accumulate up to 4 times, provided no claim has been made under this Benefit and the Policy is continuously renewed."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "care-ultimate-joy_3.1.12_152_1",
+          "care-ultimate-joy_3.1.12_152_2",
+          "care-ultimate-joy_3.2.25_216",
+          "care-ultimate-joy_3.1.12_152_3",
+          "care-ultimate-joy_3.2.17_183_1"
+        ]
+      },
+      "latency_ms": 1739.19,
+      "api_attempts": 2,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1434,
+        "candidatesTokenCount": 187,
+        "totalTokenCount": 1621,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1434
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "care-joy-006",
+      "policy_id": "care-ultimate-joy",
+      "question": "Which optional benefits did this insured select?",
+      "gold_answer": "The generic wording lists optional benefits but says the Policy Schedule specifies which are in force; the member's schedule is absent.",
+      "gold_clause_ids": [
+        "The Policy Schedule will specify the Optional Benefits"
+      ],
+      "gold_pages": [
+        30
+      ],
+      "answerability": "unanswerable",
+      "category": "coverage",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The provided context does not mention which specific optional benefits were selected by this particular insured, as optional benefits are only available if specifically mentioned in the Policy Schedule.",
+        "citations": [
+          {
+            "clause_id": "Clause 3",
+            "page": 16,
+            "quote": "Benefits / Optional Benefits (if opted) shall be available to the Insured Person, only if the particular Benefit / Optional Benefit are specifically mentioned in the Policy Schedule."
+          }
+        ],
+        "confidence": 0.4,
+        "is_abstention": true,
+        "caveats": [
+          "The policy text states that optional benefits depend on what is mentioned in the specific Policy Schedule, which is not provided in the text."
+        ],
+        "retrieved_chunk_ids": [
+          "care-ultimate-joy_3_109",
+          "care-ultimate-joy_3.2.1_155",
+          "care-ultimate-joy_10_119",
+          "care-ultimate-joy_3.2.19_193_1",
+          "care-ultimate-joy_11_120"
+        ]
+      },
+      "latency_ms": 2116.17,
+      "api_attempts": 2,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1176,
+        "candidatesTokenCount": 196,
+        "totalTokenCount": 1372,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1176
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "care-joy-004",
+      "policy_id": "care-ultimate-joy",
+      "question": "What is required to continue the newborn child's coverage beyond 90 days?",
+      "gold_answer": "The insured must notify the company and pay the additional premium, subject to underwriting.",
+      "gold_clause_ids": [
+        "For continuous coverage of the child under this Policy beyond 90 days"
+      ],
+      "gold_pages": [
+        30
+      ],
+      "answerability": "answerable",
+      "category": "coverage",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "For continuous coverage of the newborn child under the policy beyond 90 days, the Insured Person must notify the Company and pay the additional premium subject to underwriting.",
+        "citations": [
+          {
+            "clause_id": "Clause 3.1.12",
+            "page": 30,
+            "quote": "For continuous coverage of the child under this Policy beyond 90 days, the Insured Person must notify the Company and pay the additional premium subject to underwriting."
+          }
+        ],
+        "confidence": 1.0,
+        "is_abstention": false,
+        "caveats": [],
+        "retrieved_chunk_ids": [
+          "care-ultimate-joy_2.1.33_45",
+          "care-ultimate-joy_3.1.12_152_2",
+          "care-ultimate-joy_i_192",
+          "care-ultimate-joy_3.1.12_152_1",
+          "care-ultimate-joy_i_292"
+        ]
+      },
+      "latency_ms": 3456.99,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1297,
+        "candidatesTokenCount": 174,
+        "totalTokenCount": 1471,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1297
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "id": "care-joy-005",
+      "policy_id": "care-ultimate-joy",
+      "question": "What exact waiting period applies to this insured's Mother & New Born Baby Care benefit?",
+      "gold_answer": "The member-specific waiting period is specified in the Policy Schedule and is not given in this generic wording.",
+      "gold_clause_ids": [
+        "Wait Period shall be applicable as specified"
+      ],
+      "gold_pages": [
+        29
+      ],
+      "answerability": "unanswerable",
+      "category": "waiting_period",
+      "status": "llm_cited",
+      "answer": {
+        "answer": "The wait period for the Mother & New Born Baby Care benefit shall be applicable as specified against this Benefit in the Policy Schedule.",
+        "citations": [
+          {
+            "clause_id": "Clause 3.1.12",
+            "page": 30,
+            "quote": "Wait Period shall be applicable as specified against this Benefit in the Policy Schedule."
+          }
+        ],
+        "confidence": 0.9,
+        "is_abstention": false,
+        "caveats": [
+          "The exact duration of the waiting period is not explicitly stated in the text and depends on what is specified in the Policy Schedule."
+        ],
+        "retrieved_chunk_ids": [
+          "care-ultimate-joy_3.2.25_216",
+          "care-ultimate-joy_3.1.12_152_2",
+          "care-ultimate-joy_3.1.12_152_1",
+          "care-ultimate-joy_3.2.17_183_2",
+          "care-ultimate-joy_3.1.12_152_3"
+        ]
+      },
+      "latency_ms": 2141.08,
+      "api_attempts": 1,
+      "model_version": "gemini-3.5-flash-lite",
+      "usage_metadata": {
+        "promptTokenCount": 1264,
+        "candidatesTokenCount": 180,
+        "totalTokenCount": 1444,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1264
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    }
+  ],
+  "updated_at": "2026-11-21T11:54:42.408837+00:00"
+}

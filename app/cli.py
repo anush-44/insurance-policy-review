@@ -29,6 +29,7 @@ def ingest_pdf(
     policy_id: str | None = None,
     insurer: str = "Unknown Insurer",
     recreate: bool = False,
+    embedding_model: BGEEmbeddingModel | None = None,
 ) -> IngestResponse:
     """Full ingestion pipeline: Parse → Chunk → Embed → Index (Qdrant + BM25).
 
@@ -70,7 +71,7 @@ def ingest_pdf(
         raise ValueError(f"No chunks produced from {pdf_path}. Check if PDF has extractable text.")
 
     # 3. Embed chunks
-    embedding_model = BGEEmbeddingModel()
+    embedding_model = embedding_model or BGEEmbeddingModel()
     texts = [c.text for c in chunks]
     vectors = embedding_model.embed_documents(texts)
     logger.info(f"Embedded {len(vectors)} chunks (dim={embedding_model.dimension})")

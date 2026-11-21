@@ -1,0 +1,3406 @@
+{
+  "timestamp": "2026-11-21T11:34:14.730993+00:00",
+  "evaluation_status": "exploratory_dev_questions_not_held_out",
+  "dataset": "eval\\qa_set.jsonl",
+  "dataset_sha256": "054ed3967e728c2f2edec59a51b33deaa4cec1b59af2b9b292e42c5c30ecc08e",
+  "manifest_sha256": "b7ed6486f48cd9127a649f3accd78b6b19149119e57e0601dd25308228bfdc21",
+  "index_sha256": {
+    "care-supreme": "d3c6d671b38bcf57eaceaa53d309ecc1aa04d99f9cdca088bbff62102f2d0a21",
+    "hdfc-optima-secure": "e0c077f70057318a4fddf9a37eb5a0d933d69f3a698a0b75ff5071c5a03ea25b",
+    "niva-reassure-2": "f20fdeb5ef5153ed9474714e08c69d35e82a1ff45ba374126ff19405a09c81c7",
+    "aditya-activ-one": "4db32e662093c19bf14180ea6cd18192b63cc6870a083249c84217d1a91940b5",
+    "star-comprehensive": "cc7e76a1cde36a7861efc9ff0470290245b7fc1c78b25ede1e724f04dc9a024c",
+    "care-supreme-enhance": "a344f404b114afbbcf112c781944d62ed037529cf97a420982d9c46ff7106b48",
+    "hdfc-optima-restore": "ffc6111415466af79a6d05fc54d571a3a2241071d692e9ea1d6fc86e437dd4fb",
+    "acko-health-iii": "5410bb7fb0ccdf3eaf9dcbd4798f0c7284e04e878d69ef830f0b636a8135ab29",
+    "tata-medicare-select": "80f93001372d5677e5de35b95c07af7ea6e1697aa9a1492e6690c8d4e12a51e3",
+    "care-ultimate": "ed0ce688138f35c576a97acdc93e1a411ba8d36ebea88ec17eecb31d445cf6ad",
+    "care-ultimate-joy": "43791bd538181bd07dc8c97739839b536d4d44714f58c99e5e01e2e756735c36"
+  },
+  "embedding_model": "BAAI/bge-base-en-v1.5",
+  "rrf_k": 60,
+  "candidate_depth": {
+    "bm25": 15,
+    "dense": 15
+  },
+  "official_policies": 11,
+  "indexed_chunks": 3361,
+  "answerable_questions": 40,
+  "unanswerable_questions_not_scored": 4,
+  "gold_references_present_in_index": 46,
+  "gold_references_total": 46,
+  "results": [
+    {
+      "setup": "bm25",
+      "filter_is_given_gold_policy_id": false,
+      "metrics": {
+        "hit_at_1": 0.125,
+        "hit_at_5": 0.35,
+        "recall_at_5": 0.35,
+        "recall_at_10": 0.55,
+        "mrr_at_10": 0.2375892857142857
+      },
+      "bootstrap_95_percent_ci": {
+        "hit_at_1": [
+          0.025,
+          0.225
+        ],
+        "hit_at_5": [
+          0.2,
+          0.5
+        ],
+        "recall_at_5": [
+          0.2,
+          0.5
+        ],
+        "recall_at_10": [
+          0.4,
+          0.7
+        ],
+        "mrr_at_10": [
+          0.1418,
+          0.3464
+        ]
+      },
+      "latency_ms_median": 20.52,
+      "latency_ms_p95": 32.68,
+      "question_results": [
+        {
+          "id": "care-001",
+          "policy_id": "care-supreme",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "acko-health-iii_1_2",
+            "care-supreme-enhance_2.1.3_9",
+            "niva-reassure-2_6.1.2_178",
+            "niva-reassure-2_a_209",
+            "acko-health-iii_4_64",
+            "acko-health-iii_5_88",
+            "care-supreme-enhance_2.1.24_33",
+            "acko-health-iii_2_3",
+            "acko-health-iii_4.2_66",
+            "acko-health-iii_3_40"
+          ]
+        },
+        {
+          "id": "care-002",
+          "policy_id": "care-supreme",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_4.1_222",
+            "hdfc-optima-restore_1_81_7",
+            "tata-medicare-select_c_138",
+            "care-supreme-enhance_4.1_149",
+            "care-ultimate_4.1_277",
+            "niva-reassure-2_c_138",
+            "niva-reassure-2_PREAMBLE_135",
+            "hdfc-optima-restore_1_81_6",
+            "niva-reassure-2_a_202_1",
+            "aditya-activ-one_62_98_2"
+          ]
+        },
+        {
+          "id": "care-003",
+          "policy_id": "care-supreme",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "acko-health-iii_2.12.6_21",
+            "acko-health-iii_3_40",
+            "niva-reassure-2_a_209",
+            "acko-health-iii_1_2",
+            "acko-health-iii_4_64",
+            "acko-health-iii_5_88",
+            "star-comprehensive_i_72_1",
+            "aditya-activ-one_e_293_70",
+            "acko-health-iii_3.1.2_43_1",
+            "acko-health-iii_2_3"
+          ]
+        },
+        {
+          "id": "care-004",
+          "policy_id": "care-supreme",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "niva-reassure-2_4.1_80",
+            "care-supreme-enhance_3.1.4_123",
+            "acko-health-iii_2.5_8",
+            "niva-reassure-2_b_129",
+            "care-supreme_12_79_6",
+            "acko-health-iii_1_2",
+            "care-ultimate_3.1.4_156_1",
+            "care-ultimate-joy_3.1.6_139_1",
+            "care-ultimate-joy_3.1.3_135",
+            "niva-reassure-2_a_209"
+          ]
+        },
+        {
+          "id": "hdfc-001",
+          "policy_id": "hdfc-optima-secure",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "hdfc-optima-secure_b_80",
+            "hdfc-optima-secure_S_297_3",
+            "hdfc-optima-secure_Section 2.9_112",
+            "hdfc-optima-secure_S_297_5",
+            "hdfc-optima-secure_1.1.1_305_15",
+            "hdfc-optima-secure_b_230_3",
+            "hdfc-optima-secure_1.1.1_305_6",
+            "hdfc-optima-secure_7.5_322_3",
+            "hdfc-optima-secure_1.1.1_305_9",
+            "hdfc-optima-secure_1.1.1_305_12"
+          ]
+        },
+        {
+          "id": "hdfc-002",
+          "policy_id": "hdfc-optima-secure",
+          "ranks": [
+            7
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "tata-medicare-select_c_138",
+            "niva-reassure-2_c_138",
+            "acko-health-iii_1_2",
+            "niva-reassure-2_PREAMBLE_135",
+            "aditya-activ-one_e_293_14",
+            "niva-reassure-2_a_202_1",
+            "hdfc-optima-secure_PREAMBLE_141_3",
+            "niva-reassure-2_5.2.1_169",
+            "niva-reassure-2_c_146",
+            "aditya-activ-one_62_98_3"
+          ]
+        },
+        {
+          "id": "hdfc-003",
+          "policy_id": "hdfc-optima-secure",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "acko-health-iii_2.12.6_21",
+            "star-comprehensive_i_72_2",
+            "care-ultimate_3.2.27_201",
+            "aditya-activ-one_e_293_70",
+            "star-comprehensive_i_72_1",
+            "acko-health-iii_3.1.2_43_1",
+            "acko-health-iii_3.1.2_43_3",
+            "care-ultimate_3.2.10_174",
+            "care-ultimate-joy_14_228",
+            "hdfc-optima-restore_1_81_1"
+          ]
+        },
+        {
+          "id": "hdfc-004",
+          "policy_id": "hdfc-optima-secure",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_i_129",
+            "hdfc-optima-secure_2_123_1",
+            "hdfc-optima-secure_3_125",
+            "care-supreme-enhance_i_118_1",
+            "hdfc-optima-secure_g_42_2",
+            "hdfc-optima-secure_4_126",
+            "care-supreme-enhance_7_130",
+            "care-ultimate_i_151",
+            "hdfc-optima-secure_a_38",
+            "care-ultimate-joy_I_128"
+          ]
+        },
+        {
+          "id": "niva-001",
+          "policy_id": "niva-reassure-2",
+          "ranks": [
+            6
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "niva-reassure-2_6.1.2_178",
+            "niva-reassure-2_3_77",
+            "niva-reassure-2_5.1.1_131",
+            "niva-reassure-2_PREAMBLE_1",
+            "niva-reassure-2_b_42",
+            "niva-reassure-2_b_14",
+            "niva-reassure-2_2.1.35_62",
+            "niva-reassure-2_b_218_2",
+            "niva-reassure-2_5.1.9_157",
+            "niva-reassure-2_5.2.1_169"
+          ]
+        },
+        {
+          "id": "niva-002",
+          "policy_id": "niva-reassure-2",
+          "ranks": [
+            1,
+            1
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "niva-reassure-2_4.1.2_81",
+            "star-comprehensive_8_47",
+            "hdfc-optima-restore_j_51",
+            "care-supreme_2.2.30_68_2",
+            "hdfc-optima-restore_S_231_14",
+            "care-supreme_3.2.14_102_2",
+            "hdfc-optima-restore_S_231_12",
+            "hdfc-optima-restore_S_231_17",
+            "hdfc-optima-restore_S_231_20",
+            "hdfc-optima-secure_e_64"
+          ]
+        },
+        {
+          "id": "niva-003",
+          "policy_id": "niva-reassure-2",
+          "ranks": [
+            6,
+            11
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_4.1_222",
+            "hdfc-optima-restore_1_81_7",
+            "tata-medicare-select_c_138",
+            "care-supreme-enhance_4.1_149",
+            "care-ultimate_4.1_277",
+            "niva-reassure-2_c_138",
+            "niva-reassure-2_PREAMBLE_135",
+            "hdfc-optima-restore_1_81_6",
+            "niva-reassure-2_a_202_1",
+            "aditya-activ-one_62_98_2"
+          ]
+        },
+        {
+          "id": "niva-004",
+          "policy_id": "niva-reassure-2",
+          "ranks": [
+            11,
+            11
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "niva-reassure-2_a_209",
+            "care-ultimate_2_357",
+            "care-supreme-enhance_2_221",
+            "tata-medicare-select_17_29",
+            "acko-health-iii_1_2",
+            "niva-reassure-2_6.2.4_216",
+            "tata-medicare-select_a_199",
+            "tata-medicare-select_g_238",
+            "care-supreme-enhance_2.1.18_26",
+            "care-supreme_2.1.16_15"
+          ]
+        },
+        {
+          "id": "aditya-001",
+          "policy_id": "aditya-activ-one",
+          "ranks": [
+            5
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "aditya-activ-one_d_269_3",
+            "acko-health-iii_4_64",
+            "acko-health-iii_5_88",
+            "acko-health-iii_2_3",
+            "aditya-activ-one_b_6_2",
+            "acko-health-iii_3_40",
+            "acko-health-iii_4.2_66",
+            "aditya-activ-one_e_293_48",
+            "niva-reassure-2_a_209",
+            "aditya-activ-one_e_293_47"
+          ]
+        },
+        {
+          "id": "aditya-002",
+          "policy_id": "aditya-activ-one",
+          "ranks": [
+            11,
+            11
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "care-supreme-enhance_1_220",
+            "star-comprehensive_i_208",
+            "care-ultimate_1_356",
+            "niva-reassure-2_a_209",
+            "tata-medicare-select_17_29",
+            "care-supreme-enhance_2.1.18_26",
+            "care-supreme_2.1.16_15",
+            "care-ultimate_2.1.18_25",
+            "care-ultimate-joy_2.1.18_27",
+            "acko-health-iii_4.6_70"
+          ]
+        },
+        {
+          "id": "aditya-003",
+          "policy_id": "aditya-activ-one",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "tata-medicare-select_c_138",
+            "niva-reassure-2_c_138",
+            "niva-reassure-2_b_214",
+            "aditya-activ-one_e_293_70",
+            "aditya-activ-one_e_293_14",
+            "aditya-activ-one_v_148_11",
+            "niva-reassure-2_PREAMBLE_135",
+            "niva-reassure-2_d_139",
+            "niva-reassure-2_5.2.1_169",
+            "hdfc-optima-secure_PREAMBLE_141_3"
+          ]
+        },
+        {
+          "id": "aditya-004",
+          "policy_id": "aditya-activ-one",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "aditya-activ-one_e_293_70",
+            "star-comprehensive_i_72_1",
+            "acko-health-iii_2.12.6_21",
+            "care-ultimate-joy_14_228",
+            "aditya-activ-one_e_293_18",
+            "star-comprehensive_i_72_2",
+            "acko-health-iii_1_2",
+            "acko-health-iii_3.1.16_58",
+            "care-ultimate_3.2.27_201",
+            "hdfc-optima-restore_1_81_1"
+          ]
+        },
+        {
+          "id": "star-001",
+          "policy_id": "star-comprehensive",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "star-comprehensive_4_36_6",
+            "star-comprehensive_8_117_2",
+            "star-comprehensive_v_122_2",
+            "star-comprehensive_1_179",
+            "star-comprehensive_7_125_2",
+            "star-comprehensive_i_62_3",
+            "star-comprehensive_7_130_3",
+            "star-comprehensive_13_101_2",
+            "star-comprehensive_i_4_2",
+            "star-comprehensive_x_84"
+          ]
+        },
+        {
+          "id": "star-002",
+          "policy_id": "star-comprehensive",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "acko-health-iii_1_2",
+            "niva-reassure-2_a_202_1",
+            "care-ultimate_3.2.25_198",
+            "care-ultimate_2.1.45_57",
+            "care-supreme-enhance_2.1.45_58",
+            "care-supreme_12_79_11",
+            "niva-reassure-2_2.1.41_69",
+            "care-ultimate-joy_2.1.45_60",
+            "niva-reassure-2_b_129",
+            "hdfc-optima-secure_a_209"
+          ]
+        },
+        {
+          "id": "star-003",
+          "policy_id": "star-comprehensive",
+          "ranks": [
+            7,
+            11
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "acko-health-iii_3.1.1_42",
+            "acko-health-iii_1_2",
+            "acko-health-iii_3.1.2_43_1",
+            "care-ultimate_3.2.25_198",
+            "care-ultimate-joy_3.2.11_171",
+            "care-ultimate_3.2.10_174",
+            "star-comprehensive_7_135_2",
+            "hdfc-optima-secure_b_119",
+            "care-supreme_12_79_12",
+            "niva-reassure-2_4.7.2_98_1"
+          ]
+        },
+        {
+          "id": "star-004",
+          "policy_id": "star-comprehensive",
+          "ranks": [
+            2,
+            2
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_5.1.13_294",
+            "star-comprehensive_i_208",
+            "acko-health-iii_4.6_70",
+            "hdfc-optima-restore_v_166",
+            "care-supreme-enhance_5.13_219",
+            "care-ultimate_5.13_355",
+            "hdfc-optima-restore_i_165",
+            "hdfc-optima-restore_q_164",
+            "hdfc-optima-secure_1.9_186_5",
+            "aditya-activ-one_v_148_9"
+          ]
+        },
+        {
+          "id": "care-enhance-001",
+          "policy_id": "care-supreme-enhance",
+          "ranks": [
+            6
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "acko-health-iii_1_2",
+            "care-supreme-enhance_4_162",
+            "care-supreme-enhance_2.2.6_70",
+            "care-supreme-enhance_i_51",
+            "care-supreme-enhance_3_222",
+            "care-supreme-enhance_2.1.3_9",
+            "care-supreme-enhance_6.1.2_244_7",
+            "care-supreme-enhance_6.1.5_256",
+            "care-supreme-enhance_II_211",
+            "care-supreme-enhance_L_112_3"
+          ]
+        },
+        {
+          "id": "care-enhance-002",
+          "policy_id": "care-supreme-enhance",
+          "ranks": [
+            4
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_4.1_222",
+            "hdfc-optima-restore_1_81_7",
+            "tata-medicare-select_c_138",
+            "care-supreme-enhance_4.1_149",
+            "care-ultimate_4.1_277",
+            "niva-reassure-2_c_138",
+            "niva-reassure-2_PREAMBLE_135",
+            "hdfc-optima-restore_1_81_6",
+            "niva-reassure-2_a_202_1",
+            "aditya-activ-one_62_98_2"
+          ]
+        },
+        {
+          "id": "care-enhance-003",
+          "policy_id": "care-supreme-enhance",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-supreme-enhance_2_95",
+            "care-supreme-enhance_6.1.7_263_3",
+            "hdfc-optima-secure_b_230_1",
+            "care-supreme-enhance_6.1.6_259_1",
+            "hdfc-optima-secure_b_230_2",
+            "hdfc-optima-secure_1_130",
+            "care-ultimate-joy_3.2.24_213_2",
+            "care-supreme-enhance_II_262",
+            "hdfc-optima-secure_e_91",
+            "care-ultimate_3.2.49_273_2"
+          ]
+        },
+        {
+          "id": "hdfc-restore-001",
+          "policy_id": "hdfc-optima-restore",
+          "ranks": [
+            6
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "hdfc-optima-restore_c_181_10",
+            "hdfc-optima-restore_f_216_2",
+            "hdfc-optima-restore_S_231_10",
+            "hdfc-optima-restore_a_52",
+            "hdfc-optima-restore_PREAMBLE_222_8",
+            "hdfc-optima-restore_PREAMBLE_1",
+            "hdfc-optima-restore_3_69_2",
+            "hdfc-optima-restore_13_125_3",
+            "hdfc-optima-restore_d_77_2",
+            "hdfc-optima-restore_i_57"
+          ]
+        },
+        {
+          "id": "hdfc-restore-002",
+          "policy_id": "hdfc-optima-restore",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "niva-reassure-2_2.1.16_27",
+            "hdfc-optima-restore_i_17_1",
+            "acko-health-iii_7.1.1_104_2",
+            "care-supreme-enhance_i_131_1",
+            "niva-reassure-2_b_61",
+            "tata-medicare-select_14_83",
+            "niva-reassure-2_a_209",
+            "tata-medicare-select_22_38",
+            "tata-medicare-select_19_33",
+            "care-supreme-enhance_3.1.1_108_1"
+          ]
+        },
+        {
+          "id": "hdfc-restore-003",
+          "policy_id": "hdfc-optima-restore",
+          "ranks": [
+            8
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_4.1_222",
+            "hdfc-optima-restore_1_81_7",
+            "tata-medicare-select_c_138",
+            "care-supreme-enhance_4.1_149",
+            "care-ultimate_4.1_277",
+            "niva-reassure-2_c_138",
+            "niva-reassure-2_PREAMBLE_135",
+            "hdfc-optima-restore_1_81_6",
+            "aditya-activ-one_62_98_2",
+            "hdfc-optima-restore_1_81_2"
+          ]
+        },
+        {
+          "id": "acko-iii-001",
+          "policy_id": "acko-health-iii",
+          "ranks": [
+            2
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "acko-health-iii_2_3",
+            "acko-health-iii_PREAMBLE_1",
+            "acko-health-iii_10_37",
+            "acko-health-iii_7.1_103",
+            "acko-health-iii_A_121_10",
+            "acko-health-iii_2.12.1_16",
+            "acko-health-iii_4.8_72",
+            "acko-health-iii_2.12.6_21",
+            "acko-health-iii_1_2",
+            "acko-health-iii_4.13_77"
+          ]
+        },
+        {
+          "id": "acko-iii-002",
+          "policy_id": "acko-health-iii",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "tata-medicare-select_c_138",
+            "niva-reassure-2_c_138",
+            "acko-health-iii_2.12.6_21",
+            "niva-reassure-2_PREAMBLE_135",
+            "hdfc-optima-secure_PREAMBLE_141_3",
+            "aditya-activ-one_62_98_3",
+            "aditya-activ-one_e_293_14",
+            "niva-reassure-2_5.2.1_169",
+            "aditya-activ-one_e_293_70",
+            "niva-reassure-2_c_146"
+          ]
+        },
+        {
+          "id": "acko-iii-003",
+          "policy_id": "acko-health-iii",
+          "ranks": [
+            6
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "acko-health-iii_2.12.6_21",
+            "aditya-activ-one_e_293_70",
+            "star-comprehensive_i_72_2",
+            "care-ultimate_3.2.27_201",
+            "star-comprehensive_i_72_1",
+            "acko-health-iii_3.1.2_43_3",
+            "care-ultimate-joy_14_228",
+            "acko-health-iii_3.1.2_43_1",
+            "care-supreme-enhance_14_155",
+            "hdfc-optima-restore_1_81_1"
+          ]
+        },
+        {
+          "id": "tata-select-001",
+          "policy_id": "tata-medicare-select",
+          "ranks": [
+            4
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "tata-medicare-select_15_84",
+            "tata-medicare-select_3_258_2",
+            "tata-medicare-select_XX_150",
+            "tata-medicare-select_PREAMBLE_1_1",
+            "tata-medicare-select_10_197",
+            "tata-medicare-select_2_279_3",
+            "tata-medicare-select_17_86_4",
+            "tata-medicare-select_7_76",
+            "tata-medicare-select_v_97_3",
+            "tata-medicare-select_v_180_2"
+          ]
+        },
+        {
+          "id": "tata-select-002",
+          "policy_id": "tata-medicare-select",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "tata-medicare-select_c_138",
+            "niva-reassure-2_c_138",
+            "care-ultimate-joy_c_224",
+            "star-comprehensive_2_139",
+            "care-ultimate_c_279",
+            "acko-health-iii_3.1.2_43_1",
+            "star-comprehensive_2_144_1",
+            "niva-reassure-2_PREAMBLE_135",
+            "star-comprehensive_2_144_2",
+            "hdfc-optima-secure_PREAMBLE_141_3"
+          ]
+        },
+        {
+          "id": "tata-select-003",
+          "policy_id": "tata-medicare-select",
+          "ranks": [
+            4
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "hdfc-optima-secure_Annexure B_68",
+            "acko-health-iii_2_3",
+            "care-supreme-enhance_8_104",
+            "tata-medicare-select_v_97_3",
+            "care-supreme_2.2.30_68_2",
+            "care-ultimate-joy_3.1.3_135",
+            "acko-health-iii_1_2",
+            "hdfc-optima-restore_g_45",
+            "star-comprehensive_i_62_1",
+            "hdfc-optima-secure_v_73_2"
+          ]
+        },
+        {
+          "id": "care-ultimate-001",
+          "policy_id": "care-ultimate",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "acko-health-iii_1_2",
+            "acko-health-iii_2_3",
+            "acko-health-iii_4_64",
+            "acko-health-iii_5_88",
+            "hdfc-optima-secure_d_220_4",
+            "acko-health-iii_3_40",
+            "care-ultimate-joy_3.2.25_216",
+            "acko-health-iii_4.2_66",
+            "niva-reassure-2_6.1.2_178",
+            "niva-reassure-2_a_209"
+          ]
+        },
+        {
+          "id": "care-ultimate-002",
+          "policy_id": "care-ultimate",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.4_166",
+            "care-ultimate-joy_3.2.24_213_1",
+            "niva-reassure-2_1.10_104_2",
+            "niva-reassure-2_4.7.2_98_1",
+            "niva-reassure-2_b_179",
+            "aditya-activ-one_a_139",
+            "niva-reassure-2_a_180",
+            "aditya-activ-one_b_140_1",
+            "care-ultimate_3.2.49_273_1",
+            "hdfc-optima-restore_g_153"
+          ]
+        },
+        {
+          "id": "care-ultimate-003",
+          "policy_id": "care-ultimate",
+          "ranks": [
+            3
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.10_174",
+            "care-ultimate-joy_3.2.11_171",
+            "care-ultimate_2.1.38_199",
+            "care-ultimate_3.2.23_192_1",
+            "care-ultimate_3.2.25_198",
+            "care-supreme_12_79_8",
+            "care-ultimate-joy_3.2.1_155",
+            "hdfc-optima-secure_2_121",
+            "hdfc-optima-secure_b_119",
+            "care-ultimate-joy_3.2.12_173"
+          ]
+        },
+        {
+          "id": "care-ultimate-004",
+          "policy_id": "care-ultimate",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.5_167",
+            "tata-medicare-select_i_114_2",
+            "care-supreme-enhance_3.2.8_141",
+            "hdfc-optima-restore_b_56",
+            "care-supreme-enhance_i_142",
+            "care-ultimate_3.2.9_172_1",
+            "care-ultimate-joy_3.2.8_167_1",
+            "care-ultimate-joy_3.1.6_139_1",
+            "acko-health-iii_2.12.11_26",
+            "tata-medicare-select_i_126_1"
+          ]
+        },
+        {
+          "id": "care-joy-001",
+          "policy_id": "care-ultimate-joy",
+          "ranks": [
+            3
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "acko-health-iii_1_2",
+            "acko-health-iii_2_3",
+            "care-ultimate-joy_PREAMBLE_1",
+            "care-ultimate-joy_5_200",
+            "care-ultimate-joy_3.2.25_216",
+            "care-ultimate-joy_5.2.7_311",
+            "acko-health-iii_4_64",
+            "acko-health-iii_5_88",
+            "care-ultimate-joy_2.2.24_87",
+            "acko-health-iii_3_40"
+          ]
+        },
+        {
+          "id": "care-joy-002",
+          "policy_id": "care-ultimate-joy",
+          "ranks": [
+            2
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_3.2.25_216",
+            "care-ultimate-joy_3.1.12_152_2",
+            "care-ultimate-joy_3.1.12_152_3",
+            "care-ultimate-joy_3.1.12_152_1",
+            "care-ultimate-joy_3.2.24_213_3",
+            "care-ultimate-joy_3.2.15_181",
+            "care-ultimate_3.2.18_184",
+            "care-ultimate_3.2.16_182",
+            "care-ultimate_3.2.17_183",
+            "care-ultimate-joy_3.2.24_213_2"
+          ]
+        },
+        {
+          "id": "care-joy-003",
+          "policy_id": "care-ultimate-joy",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_3.1.12_152_1",
+            "care-ultimate-joy_3.2.25_216",
+            "care-ultimate-joy_3.1.12_152_2",
+            "care-ultimate-joy_3.1.12_152_3",
+            "tata-medicare-select_32_51",
+            "care-ultimate-joy_3.2.24_213_3",
+            "care-ultimate-joy_i_185",
+            "care-ultimate_3.2.16_182",
+            "acko-health-iii_2.12.11_26",
+            "care-ultimate-joy_7_116"
+          ]
+        },
+        {
+          "id": "care-joy-004",
+          "policy_id": "care-ultimate-joy",
+          "ranks": [
+            7
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-supreme_2.1.31_30",
+            "care-supreme-enhance_2.1.33_43",
+            "care-ultimate_2.1.33_42",
+            "care-ultimate-joy_2.1.33_45",
+            "care-ultimate_3.2.16_182",
+            "care-ultimate_3.1.7_160",
+            "care-ultimate-joy_3.1.12_152_2",
+            "niva-reassure-2_a_209",
+            "care-ultimate_i_225",
+            "care-ultimate-joy_i_192"
+          ]
+        }
+      ]
+    },
+    {
+      "setup": "dense",
+      "filter_is_given_gold_policy_id": false,
+      "metrics": {
+        "hit_at_1": 0.225,
+        "hit_at_5": 0.375,
+        "recall_at_5": 0.375,
+        "recall_at_10": 0.5,
+        "mrr_at_10": 0.29759920634920634
+      },
+      "bootstrap_95_percent_ci": {
+        "hit_at_1": [
+          0.1,
+          0.375
+        ],
+        "hit_at_5": [
+          0.225,
+          0.525
+        ],
+        "recall_at_5": [
+          0.225,
+          0.525
+        ],
+        "recall_at_10": [
+          0.35,
+          0.65
+        ],
+        "mrr_at_10": [
+          0.1783,
+          0.4328
+        ]
+      },
+      "latency_ms_median": 129.29,
+      "latency_ms_p95": 302.96,
+      "question_results": [
+        {
+          "id": "care-001",
+          "policy_id": "care-supreme",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_PREAMBLE_1",
+            "care-supreme_5.7_145_16",
+            "star-comprehensive_PREAMBLE_1_1",
+            "care-ultimate_5.17_367",
+            "care-supreme_3.2.16_106",
+            "star-comprehensive_i_4_2",
+            "care-supreme-enhance_5.17_230",
+            "care-ultimate_3.2.5_167",
+            "icici_complete_health_PREAMBLE_1_9",
+            "star-comprehensive_i_193_2"
+          ]
+        },
+        {
+          "id": "care-002",
+          "policy_id": "care-supreme",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_4.1_222",
+            "care-supreme-enhance_4.1_149",
+            "tata-medicare-select_i_131",
+            "care-ultimate_4.1_277",
+            "niva-reassure-2_PREAMBLE_135",
+            "hdfc-optima-restore_1_81_7",
+            "care-ultimate_3.2.25_198",
+            "hdfc-optima-secure_1_120",
+            "hdfc-optima-secure_PREAMBLE_141_3",
+            "niva-reassure-2_d_139"
+          ]
+        },
+        {
+          "id": "care-003",
+          "policy_id": "care-supreme",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_4.1_222",
+            "care-supreme-enhance_4.1_149",
+            "care-ultimate_4.1_277",
+            "tata-medicare-select_C_170",
+            "tata-medicare-select_A_173",
+            "tata-medicare-select_B_177",
+            "hdfc-optima-secure_PREAMBLE_141_3",
+            "hdfc-optima-secure_PREAMBLE_141_1",
+            "icici_complete_health_B_87_40",
+            "care-ultimate_3.2.27_201"
+          ]
+        },
+        {
+          "id": "care-004",
+          "policy_id": "care-supreme",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "icici_complete_health_A_37_10",
+            "care-supreme-enhance_5_101",
+            "acko-health-iii_2.5_8",
+            "niva-reassure-2_4.1_80",
+            "icici_complete_health_A_37_11",
+            "niva-reassure-2_4.1.2_81",
+            "icici_complete_health_A_37_9",
+            "hdfc-optima-restore_S_231_15",
+            "icici_complete_health_A_37_12",
+            "hdfc-optima-restore_g_45"
+          ]
+        },
+        {
+          "id": "hdfc-001",
+          "policy_id": "hdfc-optima-secure",
+          "ranks": [
+            6
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "hdfc-optima-secure_f_236_3",
+            "hdfc-optima-secure_b_80",
+            "hdfc-optima-secure_b_230_3",
+            "hdfc-optima-secure_S_297_3",
+            "hdfc-optima-secure_1.1.1_305_16",
+            "hdfc-optima-secure_PREAMBLE_1_1",
+            "hdfc-optima-secure_7.5_322_3",
+            "hdfc-optima-secure_Section 2.9_112",
+            "hdfc-optima-secure_b_249",
+            "hdfc-optima-secure_h_328_1"
+          ]
+        },
+        {
+          "id": "hdfc-002",
+          "policy_id": "hdfc-optima-secure",
+          "ranks": [
+            8
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "tata-medicare-select_i_131",
+            "niva-reassure-2_PREAMBLE_135",
+            "niva-reassure-2_c_138",
+            "care-ultimate_3.2.25_198",
+            "care-ultimate-joy_4.1_222",
+            "niva-reassure-2_d_139",
+            "care-supreme-enhance_c_151",
+            "hdfc-optima-secure_PREAMBLE_141_3",
+            "care-ultimate_c_279",
+            "care-supreme_2.1.36_35"
+          ]
+        },
+        {
+          "id": "hdfc-003",
+          "policy_id": "hdfc-optima-secure",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.27_201",
+            "care-ultimate-joy_4.1_222",
+            "acko-health-iii_2.12.6_21",
+            "hdfc-optima-restore_1_81_1",
+            "care-ultimate_4.1_277",
+            "hdfc-optima-secure_PREAMBLE_141_3",
+            "care-supreme-enhance_4.1_149",
+            "hdfc-optima-secure_PREAMBLE_141_1",
+            "care-supreme_14_117_1",
+            "care-ultimate_2.1.45_57"
+          ]
+        },
+        {
+          "id": "hdfc-004",
+          "policy_id": "hdfc-optima-secure",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "hdfc-optima-secure_2_123_2",
+            "hdfc-optima-secure_3_125",
+            "hdfc-optima-secure_1.1.1_305_16",
+            "hdfc-optima-secure_4_126",
+            "care-ultimate-joy_i_129",
+            "care-supreme-enhance_7_130",
+            "care-supreme-enhance_i_131_1",
+            "hdfc-optima-secure_2_123_1",
+            "care-supreme-enhance_6_129",
+            "care-ultimate-joy_3.2.4_159_1"
+          ]
+        },
+        {
+          "id": "niva-001",
+          "policy_id": "niva-reassure-2",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "niva-reassure-2_4.7_94",
+            "niva-reassure-2_3_77",
+            "niva-reassure-2_4_78",
+            "niva-reassure-2_PREAMBLE_1",
+            "niva-reassure-2_b_218_2",
+            "niva-reassure-2_6.2.9_229_10",
+            "niva-reassure-2_4.16.3_123_2",
+            "niva-reassure-2_5.1.1_131",
+            "niva-reassure-2_5.1.9_157",
+            "niva-reassure-2_4.3_85_2"
+          ]
+        },
+        {
+          "id": "niva-002",
+          "policy_id": "niva-reassure-2",
+          "ranks": [
+            1,
+            1
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "niva-reassure-2_4.1.2_81",
+            "star-comprehensive_8_47",
+            "hdfc-optima-restore_j_51",
+            "care-supreme-enhance_7_103",
+            "hdfc-optima-secure_k_58_3",
+            "hdfc-optima-secure_e_64",
+            "hdfc-optima-restore_S_231_20",
+            "care-ultimate-joy_II_112",
+            "hdfc-optima-restore_S_231_15",
+            "care-ultimate_6_130"
+          ]
+        },
+        {
+          "id": "niva-003",
+          "policy_id": "niva-reassure-2",
+          "ranks": [
+            11,
+            11
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_4.1_222",
+            "care-supreme-enhance_4.1_149",
+            "tata-medicare-select_i_131",
+            "care-ultimate_4.1_277",
+            "niva-reassure-2_PREAMBLE_135",
+            "hdfc-optima-restore_1_81_7",
+            "care-ultimate_3.2.25_198",
+            "hdfc-optima-secure_1_120",
+            "hdfc-optima-secure_PREAMBLE_141_3",
+            "niva-reassure-2_d_139"
+          ]
+        },
+        {
+          "id": "niva-004",
+          "policy_id": "niva-reassure-2",
+          "ranks": [
+            11,
+            11
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "care-supreme-enhance_2_221",
+            "tata-medicare-select_a_199",
+            "niva-reassure-2_6.2.4_216",
+            "care-ultimate_2_357",
+            "niva-reassure-2_B_201",
+            "niva-reassure-2_6.2.3_212",
+            "tata-medicare-select_17_29",
+            "niva-reassure-2_A_198",
+            "care-supreme-enhance_2.1.18_26",
+            "care-ultimate_2.1.18_25"
+          ]
+        },
+        {
+          "id": "aditya-001",
+          "policy_id": "aditya-activ-one",
+          "ranks": [
+            9
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "aditya-activ-one_e_293_48",
+            "aditya-activ-one_8_365_11",
+            "aditya-activ-one_e_293_42",
+            "aditya-activ-one_8_365_38",
+            "aditya-activ-one_8_365_15",
+            "aditya-activ-one_8_365_32",
+            "aditya-activ-one_8_365_44",
+            "aditya-activ-one_8_365_26",
+            "aditya-activ-one_b_6_2",
+            "acko-health-iii_6.1_93"
+          ]
+        },
+        {
+          "id": "aditya-002",
+          "policy_id": "aditya-activ-one",
+          "ranks": [
+            11,
+            11
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "care-supreme-enhance_1_220",
+            "care-ultimate_1_356",
+            "star-comprehensive_i_208",
+            "acko-health-iii_4.6_70",
+            "care-ultimate-joy_i_295",
+            "care-supreme_2.1.16_15",
+            "tata-medicare-select_17_29",
+            "niva-reassure-2_i_205",
+            "care-ultimate_2.1.18_25",
+            "care-supreme-enhance_2.1.18_26"
+          ]
+        },
+        {
+          "id": "aditya-003",
+          "policy_id": "aditya-activ-one",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_4.1_277",
+            "care-ultimate_c_279",
+            "tata-medicare-select_i_131",
+            "niva-reassure-2_PREAMBLE_135",
+            "care-ultimate-joy_4.1_222",
+            "care-supreme-enhance_c_151",
+            "care-supreme-enhance_4.1_149",
+            "aditya-activ-one_62_98_3",
+            "care-ultimate-joy_c_224",
+            "hdfc-optima-secure_PREAMBLE_141_3"
+          ]
+        },
+        {
+          "id": "aditya-004",
+          "policy_id": "aditya-activ-one",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-supreme-enhance_2.1.45_58",
+            "care-ultimate_2.1.45_57",
+            "care-ultimate_3.2.27_201",
+            "care-ultimate-joy_2.1.45_60",
+            "hdfc-optima-restore_1_81_1",
+            "hdfc-optima-secure_PREAMBLE_141_3",
+            "niva-reassure-2_2.1.41_69",
+            "care-ultimate-joy_14_228",
+            "star-comprehensive_2_144_1",
+            "tata-medicare-select_a_153"
+          ]
+        },
+        {
+          "id": "star-001",
+          "policy_id": "star-comprehensive",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "star-comprehensive_PREAMBLE_1_1",
+            "star-comprehensive_i_62_3",
+            "star-comprehensive_v_67_3",
+            "star-comprehensive_43664600_212_3",
+            "star-comprehensive_v_122_2",
+            "star-comprehensive_i_28_3",
+            "star-comprehensive_i_193_2",
+            "star-comprehensive_i_4_2",
+            "star-comprehensive_i_49",
+            "star-comprehensive_7_135_2"
+          ]
+        },
+        {
+          "id": "star-002",
+          "policy_id": "star-comprehensive",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_2.1.45_57",
+            "care-ultimate-joy_2.1.45_60",
+            "niva-reassure-2_2.1.41_69",
+            "care-supreme-enhance_2.1.45_58",
+            "star-comprehensive_2_139",
+            "star-comprehensive_2_144_1",
+            "icici_complete_health_B_87_40",
+            "hdfc-optima-restore_1_81_1",
+            "tata-medicare-select_a_136",
+            "care-ultimate_3.2.26_200"
+          ]
+        },
+        {
+          "id": "star-003",
+          "policy_id": "star-comprehensive",
+          "ranks": [
+            11,
+            11
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_3.2.11_171",
+            "care-ultimate_3.2.25_198",
+            "care-ultimate_3.2.10_174",
+            "hdfc-optima-secure_2_121",
+            "hdfc-optima-secure_1_120",
+            "hdfc-optima-secure_7.5_322_4",
+            "care-ultimate-joy_4.1_222",
+            "acko-health-iii_3.1.2_43_1",
+            "care-ultimate_2.1.38_199",
+            "acko-health-iii_3.1.1_42"
+          ]
+        },
+        {
+          "id": "star-004",
+          "policy_id": "star-comprehensive",
+          "ranks": [
+            2,
+            2
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "hdfc-optima-restore_i_165",
+            "star-comprehensive_i_208",
+            "acko-health-iii_4.6_70",
+            "care-ultimate_1_356",
+            "care-supreme-enhance_1_220",
+            "care-supreme-enhance_2.1.18_26",
+            "care-ultimate_2.1.18_25",
+            "care-supreme_2.1.16_15",
+            "care-ultimate-joy_i_295",
+            "tata-medicare-select_17_29"
+          ]
+        },
+        {
+          "id": "care-enhance-001",
+          "policy_id": "care-supreme-enhance",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-supreme-enhance_6.1.5_256",
+            "care-supreme_b_109",
+            "care-supreme-enhance_5.6_206_1",
+            "care-ultimate-joy_PREAMBLE_1",
+            "niva-reassure-2_b_133",
+            "care-supreme-enhance_5.17_230",
+            "care-supreme-enhance_A_309_11",
+            "care-supreme-enhance_II_211",
+            "star-comprehensive_i_4_2",
+            "care-supreme-enhance_PREAMBLE_1"
+          ]
+        },
+        {
+          "id": "care-enhance-002",
+          "policy_id": "care-supreme-enhance",
+          "ranks": [
+            2
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_4.1_222",
+            "care-supreme-enhance_4.1_149",
+            "tata-medicare-select_i_131",
+            "care-ultimate_4.1_277",
+            "niva-reassure-2_PREAMBLE_135",
+            "hdfc-optima-restore_1_81_7",
+            "care-ultimate_3.2.25_198",
+            "hdfc-optima-secure_1_120",
+            "hdfc-optima-secure_PREAMBLE_141_3",
+            "niva-reassure-2_d_139"
+          ]
+        },
+        {
+          "id": "care-enhance-003",
+          "policy_id": "care-supreme-enhance",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-supreme-enhance_2_95",
+            "care-supreme-enhance_6.1.7_263_6",
+            "care-ultimate-joy_6_115",
+            "aditya-activ-one_PREAMBLE_1_2",
+            "niva-reassure-2_b_129",
+            "care-supreme-enhance_v_143",
+            "care-supreme-enhance_1_144",
+            "care-ultimate_3.2.39_226_3",
+            "care-supreme-enhance_6.1.7_263_5",
+            "care-supreme-enhance_II_262"
+          ]
+        },
+        {
+          "id": "hdfc-restore-001",
+          "policy_id": "hdfc-optima-restore",
+          "ranks": [
+            2
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "hdfc-optima-restore_S_231_11",
+            "hdfc-optima-restore_i_7_2",
+            "hdfc-optima-restore_d_77_2",
+            "hdfc-optima-restore_S_231_10",
+            "hdfc-optima-restore_i_208_3",
+            "hdfc-optima-restore_i_7_10",
+            "hdfc-optima-restore_e_192_4",
+            "hdfc-optima-restore_f_216_2",
+            "hdfc-optima-restore_PREAMBLE_1",
+            "hdfc-optima-restore_3_69_2"
+          ]
+        },
+        {
+          "id": "hdfc-restore-002",
+          "policy_id": "hdfc-optima-restore",
+          "ranks": [
+            7
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "niva-reassure-2_2.1.17_31",
+            "care-ultimate_2.1.20_28",
+            "tata-medicare-select_19_33",
+            "care-supreme_2.1.18_17",
+            "care-supreme-enhance_2.1.20_29",
+            "acko-health-iii_7.1.1_104_3",
+            "hdfc-optima-restore_i_17_4",
+            "care-ultimate-joy_2.1.20_31",
+            "star-comprehensive_v_14",
+            "hdfc-optima-secure_i_14_3"
+          ]
+        },
+        {
+          "id": "hdfc-restore-003",
+          "policy_id": "hdfc-optima-restore",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_4.1_222",
+            "tata-medicare-select_i_131",
+            "care-supreme-enhance_4.1_149",
+            "care-ultimate_4.1_277",
+            "niva-reassure-2_PREAMBLE_135",
+            "hdfc-optima-restore_1_81_7",
+            "care-supreme_2.1.36_35",
+            "care-ultimate_3.2.25_198",
+            "hdfc-optima-secure_PREAMBLE_141_3",
+            "care-supreme-enhance_c_151"
+          ]
+        },
+        {
+          "id": "acko-iii-001",
+          "policy_id": "acko-health-iii",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "acko-health-iii_PREAMBLE_1",
+            "acko-health-iii_2_3",
+            "acko-health-iii_4.13_77",
+            "acko-health-iii_3.1.2_43_2",
+            "acko-health-iii_7.1_103",
+            "acko-health-iii_4.8_72",
+            "acko-health-iii_6.2_94_1",
+            "acko-health-iii_4.20_85",
+            "acko-health-iii_6.3_97_2",
+            "acko-health-iii_3.1.10_52"
+          ]
+        },
+        {
+          "id": "acko-iii-002",
+          "policy_id": "acko-health-iii",
+          "ranks": [
+            8
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "acko-health-iii_3.1.2_43_2",
+            "care-supreme-enhance_c_151",
+            "tata-medicare-select_i_131",
+            "care-ultimate_c_279",
+            "acko-health-iii_3.1.2_43_1",
+            "star-comprehensive_2_144_1",
+            "care-ultimate-joy_c_224",
+            "acko-health-iii_3.1.1_42",
+            "care-supreme_c_110_2",
+            "care-ultimate-joy_4.1_222"
+          ]
+        },
+        {
+          "id": "acko-iii-003",
+          "policy_id": "acko-health-iii",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-supreme-enhance_2.1.45_58",
+            "care-ultimate_2.1.45_57",
+            "hdfc-optima-restore_1_81_1",
+            "care-ultimate_3.2.27_201",
+            "tata-medicare-select_a_153",
+            "care-ultimate-joy_4.1_222",
+            "care-supreme_14_117_1",
+            "hdfc-optima-secure_PREAMBLE_141_3",
+            "care-supreme-enhance_c_151",
+            "care-ultimate-joy_14_228"
+          ]
+        },
+        {
+          "id": "tata-select-001",
+          "policy_id": "tata-medicare-select",
+          "ranks": [
+            5
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "tata-medicare-select_i_219",
+            "tata-medicare-select_2_279_3",
+            "tata-medicare-select_i_116",
+            "tata-medicare-select_i_21",
+            "tata-medicare-select_PREAMBLE_1_1",
+            "tata-medicare-select_c_242",
+            "tata-medicare-select_i_124_2",
+            "tata-medicare-select_16_208_1",
+            "tata-medicare-select_v_175",
+            "tata-medicare-select_23_224_2"
+          ]
+        },
+        {
+          "id": "tata-select-002",
+          "policy_id": "tata-medicare-select",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "acko-health-iii_3.1.2_43_1",
+            "star-comprehensive_2_139",
+            "star-comprehensive_2_144_1",
+            "care-supreme-enhance_2.1.45_58",
+            "care-ultimate_2.1.45_57",
+            "care-ultimate-joy_2.1.45_60",
+            "star-comprehensive_2_144_2",
+            "niva-reassure-2_2.1.41_69",
+            "care-supreme-enhance_c_151",
+            "care-ultimate_c_279"
+          ]
+        },
+        {
+          "id": "tata-select-003",
+          "policy_id": "tata-medicare-select",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "icici_complete_health_A_37_10",
+            "star-comprehensive_7_45",
+            "care-supreme_12_79_3",
+            "hdfc-optima-secure_k_58_3",
+            "icici_complete_health_A_37_11",
+            "icici_complete_health_F_65_9",
+            "icici_complete_health_A_37_9",
+            "care-supreme-enhance_8_104",
+            "acko-health-iii_2.5_8",
+            "hdfc-optima-restore_j_51"
+          ]
+        },
+        {
+          "id": "care-ultimate-001",
+          "policy_id": "care-ultimate",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_PREAMBLE_1",
+            "care-ultimate_3.2.5_167",
+            "care-ultimate-joy_10_257",
+            "care-ultimate_6.1_379",
+            "care-ultimate_2_249",
+            "care-ultimate_25_328",
+            "care-ultimate_5.17_367",
+            "care-ultimate_i_151",
+            "care-ultimate_3.2.15_180_2",
+            "care-ultimate_c_231_16"
+          ]
+        },
+        {
+          "id": "care-ultimate-002",
+          "policy_id": "care-ultimate",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.4_166",
+            "care-supreme-enhance_1_144",
+            "icici_complete_health_B_87_55",
+            "aditya-activ-one_b_140_1",
+            "niva-reassure-2_a_180",
+            "care-supreme-enhance_3.1_107",
+            "niva-reassure-2_b_179",
+            "hdfc-optima-restore_a_54",
+            "aditya-activ-one_v_136_2",
+            "niva-reassure-2_4.8_100_2"
+          ]
+        },
+        {
+          "id": "care-ultimate-003",
+          "policy_id": "care-ultimate",
+          "ranks": [
+            3
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.10_174",
+            "care-ultimate-joy_3.2.11_171",
+            "care-ultimate_2.1.38_199",
+            "care-ultimate_3.2.25_198",
+            "hdfc-optima-secure_7.5_322_4",
+            "care-ultimate_3.2.23_192_1",
+            "care-ultimate-joy_3.2.12_173",
+            "care-ultimate_3.2.27_201",
+            "hdfc-optima-secure_2_121",
+            "care-ultimate-joy_3.2.1_155"
+          ]
+        },
+        {
+          "id": "care-ultimate-004",
+          "policy_id": "care-ultimate",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.5_167",
+            "care-ultimate_II_126",
+            "care-ultimate-joy_Clause 3.2.5_164",
+            "care-ultimate-joy_II_112",
+            "acko-health-iii_2.12.9_24",
+            "tata-medicare-select_b_106_3",
+            "care-supreme_12_173_5",
+            "care-supreme_12_79_5",
+            "tata-medicare-select_13_82",
+            "tata-medicare-select_c_118_2"
+          ]
+        },
+        {
+          "id": "care-joy-001",
+          "policy_id": "care-ultimate-joy",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_PREAMBLE_1",
+            "care-ultimate-joy_3.2.5_163",
+            "care-ultimate-joy_5_200",
+            "care-ultimate-joy_x_187",
+            "care-ultimate-joy_10_257",
+            "care-ultimate-joy_II_112",
+            "care-ultimate-joy_3.2.2_157",
+            "care-ultimate-joy_i_220",
+            "care-ultimate-joy_3.2.19_193_3",
+            "care-ultimate-joy_v_191"
+          ]
+        },
+        {
+          "id": "care-joy-002",
+          "policy_id": "care-ultimate-joy",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_3.1.12_152_1",
+            "care-ultimate-joy_3.2.25_216",
+            "care-ultimate-joy_3.1.12_152_2",
+            "care-ultimate_3.2.16_182",
+            "care-ultimate_3.1.7_160",
+            "care-ultimate_3.2.18_184",
+            "care-ultimate_3.2.21_190",
+            "tata-medicare-select_i_114_2",
+            "star-comprehensive_14_59_1",
+            "star-comprehensive_C_61"
+          ]
+        },
+        {
+          "id": "care-joy-003",
+          "policy_id": "care-ultimate-joy",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_3.1.12_152_1",
+            "care-ultimate-joy_3.1.12_152_2",
+            "care-ultimate_3.2.16_182",
+            "care-ultimate_3.2.15_180_1",
+            "care-ultimate-joy_3.2.25_216",
+            "icici_complete_health_B_87_29",
+            "tata-medicare-select_i_114_2",
+            "care-ultimate_3.2.18_184",
+            "niva-reassure-2_4.9_103",
+            "aditya-activ-one_C_161_9"
+          ]
+        },
+        {
+          "id": "care-joy-004",
+          "policy_id": "care-ultimate-joy",
+          "ranks": [
+            5
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.16_182",
+            "icici_complete_health_B_87_29",
+            "care-ultimate-joy_3.1.12_152_1",
+            "care-ultimate_3.1.7_160",
+            "care-ultimate-joy_3.1.12_152_2",
+            "niva-reassure-2_b_145",
+            "niva-reassure-2_b_183",
+            "tata-medicare-select_32_51",
+            "care-ultimate_3.2.15_180_1",
+            "tata-medicare-select_b_154"
+          ]
+        }
+      ]
+    },
+    {
+      "setup": "hybrid_rrf",
+      "filter_is_given_gold_policy_id": false,
+      "metrics": {
+        "hit_at_1": 0.225,
+        "hit_at_5": 0.425,
+        "recall_at_5": 0.425,
+        "recall_at_10": 0.4875,
+        "mrr_at_10": 0.3123611111111111
+      },
+      "bootstrap_95_percent_ci": {
+        "hit_at_1": [
+          0.1,
+          0.35
+        ],
+        "hit_at_5": [
+          0.275,
+          0.575
+        ],
+        "recall_at_5": [
+          0.275,
+          0.575
+        ],
+        "recall_at_10": [
+          0.325,
+          0.65
+        ],
+        "mrr_at_10": [
+          0.1944,
+          0.4431
+        ]
+      },
+      "latency_ms_median": 112.47,
+      "latency_ms_p95": 155.69,
+      "question_results": [
+        {
+          "id": "care-001",
+          "policy_id": "care-supreme",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_PREAMBLE_1",
+            "acko-health-iii_1_2",
+            "care-supreme_5.7_145_16",
+            "care-supreme-enhance_2.1.3_9",
+            "star-comprehensive_PREAMBLE_1_1",
+            "niva-reassure-2_6.1.2_178",
+            "care-ultimate_5.17_367",
+            "niva-reassure-2_a_209",
+            "care-supreme_3.2.16_106",
+            "acko-health-iii_4_64"
+          ]
+        },
+        {
+          "id": "care-002",
+          "policy_id": "care-supreme",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_4.1_222",
+            "care-supreme-enhance_4.1_149",
+            "hdfc-optima-restore_1_81_7",
+            "care-ultimate_4.1_277",
+            "niva-reassure-2_PREAMBLE_135",
+            "niva-reassure-2_c_138",
+            "tata-medicare-select_i_131",
+            "tata-medicare-select_c_138",
+            "care-ultimate_3.2.25_198",
+            "hdfc-optima-secure_1_120"
+          ]
+        },
+        {
+          "id": "care-003",
+          "policy_id": "care-supreme",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.27_201",
+            "care-ultimate-joy_4.1_222",
+            "acko-health-iii_2.12.6_21",
+            "care-supreme-enhance_4.1_149",
+            "acko-health-iii_3_40",
+            "care-ultimate_4.1_277",
+            "niva-reassure-2_a_209",
+            "tata-medicare-select_C_170",
+            "acko-health-iii_1_2",
+            "tata-medicare-select_A_173"
+          ]
+        },
+        {
+          "id": "care-004",
+          "policy_id": "care-supreme",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "niva-reassure-2_4.1_80",
+            "acko-health-iii_2.5_8",
+            "icici_complete_health_A_37_10",
+            "care-supreme-enhance_5_101",
+            "care-supreme-enhance_3.1.4_123",
+            "niva-reassure-2_b_129",
+            "icici_complete_health_A_37_11",
+            "care-supreme_12_79_6",
+            "niva-reassure-2_4.1.2_81",
+            "acko-health-iii_1_2"
+          ]
+        },
+        {
+          "id": "hdfc-001",
+          "policy_id": "hdfc-optima-secure",
+          "ranks": [
+            10
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "hdfc-optima-secure_b_80",
+            "hdfc-optima-secure_S_297_3",
+            "hdfc-optima-secure_b_230_3",
+            "hdfc-optima-secure_Section 2.9_112",
+            "hdfc-optima-secure_7.5_322_3",
+            "hdfc-optima-secure_f_236_3",
+            "hdfc-optima-secure_S_297_5",
+            "hdfc-optima-secure_1.1.1_305_16",
+            "hdfc-optima-secure_1.1.1_305_15",
+            "hdfc-optima-secure_PREAMBLE_1_1"
+          ]
+        },
+        {
+          "id": "hdfc-002",
+          "policy_id": "hdfc-optima-secure",
+          "ranks": [
+            4
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "niva-reassure-2_c_138",
+            "niva-reassure-2_PREAMBLE_135",
+            "tata-medicare-select_c_138",
+            "hdfc-optima-secure_PREAMBLE_141_3",
+            "niva-reassure-2_d_139",
+            "care-ultimate_c_279",
+            "care-ultimate-joy_c_224",
+            "tata-medicare-select_i_131",
+            "acko-health-iii_1_2",
+            "care-ultimate_3.2.25_198"
+          ]
+        },
+        {
+          "id": "hdfc-003",
+          "policy_id": "hdfc-optima-secure",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.27_201",
+            "acko-health-iii_2.12.6_21",
+            "hdfc-optima-restore_1_81_1",
+            "star-comprehensive_i_72_1",
+            "care-ultimate-joy_4.1_222",
+            "star-comprehensive_i_72_2",
+            "aditya-activ-one_e_293_70",
+            "care-ultimate_4.1_277",
+            "hdfc-optima-secure_PREAMBLE_141_3",
+            "acko-health-iii_3.1.2_43_1"
+          ]
+        },
+        {
+          "id": "hdfc-004",
+          "policy_id": "hdfc-optima-secure",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "hdfc-optima-secure_3_125",
+            "care-ultimate-joy_i_129",
+            "hdfc-optima-secure_2_123_1",
+            "hdfc-optima-secure_4_126",
+            "care-supreme-enhance_7_130",
+            "hdfc-optima-secure_1.1.1_305_16",
+            "care-ultimate-joy_I_128",
+            "hdfc-optima-secure_2_123_2",
+            "care-supreme-enhance_i_118_1",
+            "hdfc-optima-secure_g_42_2"
+          ]
+        },
+        {
+          "id": "niva-001",
+          "policy_id": "niva-reassure-2",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "niva-reassure-2_3_77",
+            "niva-reassure-2_PREAMBLE_1",
+            "niva-reassure-2_5.1.1_131",
+            "niva-reassure-2_b_218_2",
+            "niva-reassure-2_5.1.9_157",
+            "niva-reassure-2_4.16.3_123_2",
+            "niva-reassure-2_4.3_85_2",
+            "niva-reassure-2_a_144",
+            "niva-reassure-2_4.7_94",
+            "niva-reassure-2_6.1.2_178"
+          ]
+        },
+        {
+          "id": "niva-002",
+          "policy_id": "niva-reassure-2",
+          "ranks": [
+            1,
+            1
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "niva-reassure-2_4.1.2_81",
+            "star-comprehensive_8_47",
+            "hdfc-optima-restore_j_51",
+            "hdfc-optima-secure_e_64",
+            "hdfc-optima-restore_S_231_20",
+            "care-supreme_3.2.14_102_2",
+            "care-supreme_3.2.14_102_1",
+            "care-supreme-enhance_7_103",
+            "care-supreme_2.2.30_68_2",
+            "hdfc-optima-secure_k_58_3"
+          ]
+        },
+        {
+          "id": "niva-003",
+          "policy_id": "niva-reassure-2",
+          "ranks": [
+            6,
+            11
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_4.1_222",
+            "care-supreme-enhance_4.1_149",
+            "hdfc-optima-restore_1_81_7",
+            "care-ultimate_4.1_277",
+            "niva-reassure-2_PREAMBLE_135",
+            "niva-reassure-2_c_138",
+            "tata-medicare-select_i_131",
+            "tata-medicare-select_c_138",
+            "care-ultimate_3.2.25_198",
+            "hdfc-optima-secure_1_120"
+          ]
+        },
+        {
+          "id": "niva-004",
+          "policy_id": "niva-reassure-2",
+          "ranks": [
+            11,
+            11
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "care-supreme-enhance_2_221",
+            "care-ultimate_2_357",
+            "tata-medicare-select_a_199",
+            "niva-reassure-2_6.2.4_216",
+            "tata-medicare-select_17_29",
+            "care-supreme-enhance_2.1.18_26",
+            "niva-reassure-2_B_201",
+            "care-ultimate_2.1.18_25",
+            "care-supreme_2.1.16_15",
+            "niva-reassure-2_A_198"
+          ]
+        },
+        {
+          "id": "aditya-001",
+          "policy_id": "aditya-activ-one",
+          "ranks": [
+            2
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "aditya-activ-one_e_293_48",
+            "aditya-activ-one_b_6_2",
+            "aditya-activ-one_d_269_3",
+            "aditya-activ-one_8_365_11",
+            "acko-health-iii_4_64",
+            "aditya-activ-one_e_293_42",
+            "acko-health-iii_5_88",
+            "aditya-activ-one_8_365_38",
+            "acko-health-iii_2_3",
+            "aditya-activ-one_8_365_15"
+          ]
+        },
+        {
+          "id": "aditya-002",
+          "policy_id": "aditya-activ-one",
+          "ranks": [
+            11,
+            11
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "care-supreme-enhance_1_220",
+            "care-ultimate_1_356",
+            "star-comprehensive_i_208",
+            "tata-medicare-select_17_29",
+            "care-supreme_2.1.16_15",
+            "acko-health-iii_4.6_70",
+            "care-supreme-enhance_2.1.18_26",
+            "care-ultimate_2.1.18_25",
+            "care-ultimate-joy_i_295",
+            "care-ultimate-joy_2.1.18_27"
+          ]
+        },
+        {
+          "id": "aditya-003",
+          "policy_id": "aditya-activ-one",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "niva-reassure-2_PREAMBLE_135",
+            "niva-reassure-2_d_139",
+            "hdfc-optima-secure_PREAMBLE_141_3",
+            "care-ultimate-joy_c_224",
+            "care-ultimate_4.1_277",
+            "tata-medicare-select_c_138",
+            "care-ultimate_c_279",
+            "niva-reassure-2_c_138",
+            "tata-medicare-select_i_131",
+            "niva-reassure-2_b_214"
+          ]
+        },
+        {
+          "id": "aditya-004",
+          "policy_id": "aditya-activ-one",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.27_201",
+            "care-ultimate-joy_14_228",
+            "hdfc-optima-restore_1_81_1",
+            "care-supreme-enhance_2.1.45_58",
+            "aditya-activ-one_e_293_70",
+            "care-ultimate_2.1.45_57",
+            "star-comprehensive_i_72_1",
+            "acko-health-iii_2.12.6_21",
+            "care-ultimate-joy_2.1.45_60",
+            "aditya-activ-one_e_293_18"
+          ]
+        },
+        {
+          "id": "star-001",
+          "policy_id": "star-comprehensive",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "star-comprehensive_i_62_3",
+            "star-comprehensive_v_122_2",
+            "star-comprehensive_4_36_6",
+            "star-comprehensive_i_4_2",
+            "star-comprehensive_7_135_2",
+            "star-comprehensive_7_200",
+            "star-comprehensive_PREAMBLE_1_1",
+            "star-comprehensive_8_117_2",
+            "star-comprehensive_v_67_3",
+            "star-comprehensive_43664600_212_3"
+          ]
+        },
+        {
+          "id": "star-002",
+          "policy_id": "star-comprehensive",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_2.1.45_57",
+            "care-supreme-enhance_2.1.45_58",
+            "care-ultimate-joy_2.1.45_60",
+            "niva-reassure-2_2.1.41_69",
+            "star-comprehensive_2_139",
+            "acko-health-iii_1_2",
+            "niva-reassure-2_a_202_1",
+            "care-ultimate_3.2.25_198",
+            "star-comprehensive_2_144_1",
+            "care-supreme_12_79_11"
+          ]
+        },
+        {
+          "id": "star-003",
+          "policy_id": "star-comprehensive",
+          "ranks": [
+            11,
+            11
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_3.2.11_171",
+            "care-ultimate_3.2.25_198",
+            "care-ultimate_3.2.10_174",
+            "acko-health-iii_3.1.1_42",
+            "acko-health-iii_3.1.2_43_1",
+            "hdfc-optima-secure_2_121",
+            "acko-health-iii_1_2",
+            "hdfc-optima-secure_1_120",
+            "hdfc-optima-secure_7.5_322_4",
+            "care-ultimate-joy_4.1_222"
+          ]
+        },
+        {
+          "id": "star-004",
+          "policy_id": "star-comprehensive",
+          "ranks": [
+            1,
+            1
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "star-comprehensive_i_208",
+            "acko-health-iii_4.6_70",
+            "hdfc-optima-restore_i_165",
+            "hdfc-optima-secure_1.9_186_5",
+            "care-ultimate-joy_5.1.13_294",
+            "care-ultimate_1_356",
+            "hdfc-optima-restore_v_166",
+            "care-supreme-enhance_1_220",
+            "care-supreme-enhance_5.13_219",
+            "care-supreme-enhance_2.1.18_26"
+          ]
+        },
+        {
+          "id": "care-enhance-001",
+          "policy_id": "care-supreme-enhance",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-supreme-enhance_6.1.5_256",
+            "care-supreme-enhance_II_211",
+            "care-supreme-enhance_5.17_230",
+            "acko-health-iii_1_2",
+            "care-supreme_b_109",
+            "care-supreme-enhance_4_162",
+            "care-supreme-enhance_5.6_206_1",
+            "care-supreme-enhance_2.2.6_70",
+            "care-ultimate-joy_PREAMBLE_1",
+            "care-supreme-enhance_i_51"
+          ]
+        },
+        {
+          "id": "care-enhance-002",
+          "policy_id": "care-supreme-enhance",
+          "ranks": [
+            2
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_4.1_222",
+            "care-supreme-enhance_4.1_149",
+            "hdfc-optima-restore_1_81_7",
+            "care-ultimate_4.1_277",
+            "niva-reassure-2_PREAMBLE_135",
+            "niva-reassure-2_c_138",
+            "tata-medicare-select_i_131",
+            "tata-medicare-select_c_138",
+            "care-ultimate_3.2.25_198",
+            "hdfc-optima-secure_1_120"
+          ]
+        },
+        {
+          "id": "care-enhance-003",
+          "policy_id": "care-supreme-enhance",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-supreme-enhance_2_95",
+            "care-supreme-enhance_II_262",
+            "care-supreme-enhance_v_143",
+            "care-supreme-enhance_6.1.7_263_5",
+            "care-supreme-enhance_6.1.7_263_6",
+            "care-supreme-enhance_6.1.7_263_3",
+            "care-ultimate-joy_6_115",
+            "hdfc-optima-secure_b_230_1",
+            "aditya-activ-one_PREAMBLE_1_2",
+            "care-supreme-enhance_6.1.6_259_1"
+          ]
+        },
+        {
+          "id": "hdfc-restore-001",
+          "policy_id": "hdfc-optima-restore",
+          "ranks": [
+            5
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "hdfc-optima-restore_S_231_10",
+            "hdfc-optima-restore_f_216_2",
+            "hdfc-optima-restore_d_77_2",
+            "hdfc-optima-restore_c_181_10",
+            "hdfc-optima-restore_PREAMBLE_1",
+            "hdfc-optima-restore_3_69_2",
+            "hdfc-optima-restore_a_52",
+            "hdfc-optima-restore_S_231_11",
+            "hdfc-optima-restore_i_7_2",
+            "hdfc-optima-restore_i_208_3"
+          ]
+        },
+        {
+          "id": "hdfc-restore-002",
+          "policy_id": "hdfc-optima-restore",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "tata-medicare-select_19_33",
+            "niva-reassure-2_2.1.17_31",
+            "niva-reassure-2_2.1.16_27",
+            "care-ultimate_2.1.20_28",
+            "hdfc-optima-restore_i_17_1",
+            "acko-health-iii_7.1.1_104_2",
+            "care-supreme_2.1.18_17",
+            "care-supreme-enhance_i_131_1",
+            "care-supreme-enhance_2.1.20_29",
+            "niva-reassure-2_b_61"
+          ]
+        },
+        {
+          "id": "hdfc-restore-003",
+          "policy_id": "hdfc-optima-restore",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_4.1_222",
+            "care-supreme-enhance_4.1_149",
+            "hdfc-optima-restore_1_81_7",
+            "care-ultimate_4.1_277",
+            "niva-reassure-2_PREAMBLE_135",
+            "tata-medicare-select_i_131",
+            "tata-medicare-select_c_138",
+            "niva-reassure-2_c_138",
+            "care-supreme_2.1.36_35",
+            "care-ultimate_3.2.25_198"
+          ]
+        },
+        {
+          "id": "acko-iii-001",
+          "policy_id": "acko-health-iii",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "acko-health-iii_PREAMBLE_1",
+            "acko-health-iii_2_3",
+            "acko-health-iii_7.1_103",
+            "acko-health-iii_4.13_77",
+            "acko-health-iii_4.8_72",
+            "acko-health-iii_10_37",
+            "acko-health-iii_3.1.10_52",
+            "acko-health-iii_2.12.16_31",
+            "acko-health-iii_3.1.2_43_2",
+            "acko-health-iii_A_121_10"
+          ]
+        },
+        {
+          "id": "acko-iii-002",
+          "policy_id": "acko-health-iii",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "acko-health-iii_2.12.6_21",
+            "tata-medicare-select_c_138",
+            "niva-reassure-2_PREAMBLE_135",
+            "hdfc-optima-secure_PREAMBLE_141_3",
+            "acko-health-iii_3.1.2_43_2",
+            "care-supreme-enhance_c_151",
+            "niva-reassure-2_c_138",
+            "tata-medicare-select_i_131",
+            "care-ultimate_c_279",
+            "acko-health-iii_3.1.2_43_1"
+          ]
+        },
+        {
+          "id": "acko-iii-003",
+          "policy_id": "acko-health-iii",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.27_201",
+            "hdfc-optima-restore_1_81_1",
+            "care-ultimate-joy_14_228",
+            "tata-medicare-select_a_153",
+            "care-supreme_14_117_1",
+            "care-supreme-enhance_14_155",
+            "care-supreme-enhance_2.1.45_58",
+            "acko-health-iii_2.12.6_21",
+            "care-ultimate_2.1.45_57",
+            "aditya-activ-one_e_293_70"
+          ]
+        },
+        {
+          "id": "tata-select-001",
+          "policy_id": "tata-medicare-select",
+          "ranks": [
+            2
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "tata-medicare-select_2_279_3",
+            "tata-medicare-select_PREAMBLE_1_1",
+            "tata-medicare-select_15_84",
+            "tata-medicare-select_i_124_2",
+            "tata-medicare-select_c_242",
+            "tata-medicare-select_i_219",
+            "tata-medicare-select_3_258_2",
+            "tata-medicare-select_i_116",
+            "tata-medicare-select_XX_150",
+            "tata-medicare-select_i_21"
+          ]
+        },
+        {
+          "id": "tata-select-002",
+          "policy_id": "tata-medicare-select",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "star-comprehensive_2_139",
+            "acko-health-iii_3.1.2_43_1",
+            "star-comprehensive_2_144_1",
+            "care-ultimate-joy_c_224",
+            "care-ultimate_c_279",
+            "star-comprehensive_2_144_2",
+            "niva-reassure-2_PREAMBLE_135",
+            "tata-medicare-select_c_138",
+            "niva-reassure-2_c_138",
+            "care-supreme-enhance_2.1.45_58"
+          ]
+        },
+        {
+          "id": "tata-select-003",
+          "policy_id": "tata-medicare-select",
+          "ranks": [
+            9
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-supreme-enhance_8_104",
+            "care-ultimate-joy_3.1.3_135",
+            "icici_complete_health_A_37_10",
+            "hdfc-optima-secure_Annexure B_68",
+            "star-comprehensive_7_45",
+            "acko-health-iii_2_3",
+            "care-supreme_12_79_3",
+            "hdfc-optima-secure_k_58_3",
+            "tata-medicare-select_v_97_3",
+            "icici_complete_health_A_37_11"
+          ]
+        },
+        {
+          "id": "care-ultimate-001",
+          "policy_id": "care-ultimate",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_PREAMBLE_1",
+            "acko-health-iii_1_2",
+            "care-ultimate_3.2.5_167",
+            "acko-health-iii_2_3",
+            "care-ultimate-joy_10_257",
+            "acko-health-iii_4_64",
+            "care-ultimate_6.1_379",
+            "acko-health-iii_5_88",
+            "care-ultimate_2_249",
+            "hdfc-optima-secure_d_220_4"
+          ]
+        },
+        {
+          "id": "care-ultimate-002",
+          "policy_id": "care-ultimate",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.4_166",
+            "aditya-activ-one_b_140_1",
+            "niva-reassure-2_a_180",
+            "niva-reassure-2_b_179",
+            "care-ultimate-joy_3.2.24_213_1",
+            "aditya-activ-one_a_139",
+            "care-supreme-enhance_1_144",
+            "icici_complete_health_B_87_55",
+            "niva-reassure-2_1.10_104_2",
+            "niva-reassure-2_4.7.2_98_1"
+          ]
+        },
+        {
+          "id": "care-ultimate-003",
+          "policy_id": "care-ultimate",
+          "ranks": [
+            3
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.10_174",
+            "care-ultimate-joy_3.2.11_171",
+            "care-ultimate_2.1.38_199",
+            "care-ultimate_3.2.25_198",
+            "care-ultimate_3.2.23_192_1",
+            "hdfc-optima-secure_7.5_322_4",
+            "care-ultimate-joy_3.2.12_173",
+            "care-ultimate-joy_3.2.1_155",
+            "hdfc-optima-secure_2_121",
+            "care-supreme_12_79_8"
+          ]
+        },
+        {
+          "id": "care-ultimate-004",
+          "policy_id": "care-ultimate",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.5_167",
+            "care-ultimate_3.2.9_172_1",
+            "care-ultimate_II_126",
+            "tata-medicare-select_i_114_2",
+            "care-ultimate-joy_Clause 3.2.5_164",
+            "care-supreme-enhance_3.2.8_141",
+            "care-ultimate-joy_II_112",
+            "hdfc-optima-restore_b_56",
+            "acko-health-iii_2.12.9_24",
+            "care-supreme-enhance_i_142"
+          ]
+        },
+        {
+          "id": "care-joy-001",
+          "policy_id": "care-ultimate-joy",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_PREAMBLE_1",
+            "care-ultimate-joy_5_200",
+            "acko-health-iii_1_2",
+            "care-ultimate-joy_3.2.5_163",
+            "acko-health-iii_2_3",
+            "care-ultimate-joy_x_187",
+            "care-ultimate-joy_10_257",
+            "care-ultimate-joy_3.2.25_216",
+            "care-ultimate-joy_II_112",
+            "care-ultimate-joy_5.2.7_311"
+          ]
+        },
+        {
+          "id": "care-joy-002",
+          "policy_id": "care-ultimate-joy",
+          "ranks": [
+            2
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_3.2.25_216",
+            "care-ultimate-joy_3.1.12_152_1",
+            "care-ultimate-joy_3.1.12_152_2",
+            "care-ultimate_3.2.16_182",
+            "care-ultimate_3.2.18_184",
+            "star-comprehensive_C_61",
+            "tata-medicare-select_32_51",
+            "care-ultimate-joy_3.1.12_152_3",
+            "care-ultimate_3.1.7_160",
+            "care-ultimate-joy_3.2.24_213_3"
+          ]
+        },
+        {
+          "id": "care-joy-003",
+          "policy_id": "care-ultimate-joy",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_3.1.12_152_1",
+            "care-ultimate-joy_3.1.12_152_2",
+            "care-ultimate-joy_3.2.25_216",
+            "care-ultimate_3.2.16_182",
+            "care-ultimate_3.2.18_184",
+            "care-ultimate_3.2.17_183",
+            "care-ultimate_3.2.15_180_1",
+            "care-ultimate-joy_3.1.12_152_3",
+            "tata-medicare-select_32_51",
+            "icici_complete_health_B_87_29"
+          ]
+        },
+        {
+          "id": "care-joy-004",
+          "policy_id": "care-ultimate-joy",
+          "ranks": [
+            3
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.16_182",
+            "care-ultimate_3.1.7_160",
+            "care-ultimate-joy_3.1.12_152_2",
+            "care-supreme_2.1.31_30",
+            "icici_complete_health_B_87_29",
+            "care-supreme-enhance_2.1.33_43",
+            "care-ultimate-joy_3.1.12_152_1",
+            "care-ultimate_2.1.33_42",
+            "care-ultimate-joy_2.1.33_45",
+            "niva-reassure-2_b_145"
+          ]
+        }
+      ]
+    },
+    {
+      "setup": "hybrid_rrf_policy_filter",
+      "filter_is_given_gold_policy_id": true,
+      "metrics": {
+        "hit_at_1": 0.3,
+        "hit_at_5": 0.8,
+        "recall_at_5": 0.775,
+        "recall_at_10": 0.875,
+        "mrr_at_10": 0.506875
+      },
+      "bootstrap_95_percent_ci": {
+        "hit_at_1": [
+          0.175,
+          0.45
+        ],
+        "hit_at_5": [
+          0.675,
+          0.925
+        ],
+        "recall_at_5": [
+          0.6375,
+          0.8875
+        ],
+        "recall_at_10": [
+          0.775,
+          0.975
+        ],
+        "mrr_at_10": [
+          0.3965,
+          0.6154
+        ]
+      },
+      "latency_ms_median": 147.18,
+      "latency_ms_p95": 250.86,
+      "question_results": [
+        {
+          "id": "care-001",
+          "policy_id": "care-supreme",
+          "ranks": [
+            10
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-supreme_3.2.16_106",
+            "care-supreme_5.7_145_16",
+            "care-supreme_20_138_7",
+            "care-supreme_5.7_145_12",
+            "care-supreme_2.1.23_22",
+            "care-supreme_12_173_4",
+            "care-supreme_20_138_2",
+            "care-supreme_6.1.4_164_1",
+            "care-supreme_5.7_145_4",
+            "care-supreme_1_225_2"
+          ]
+        },
+        {
+          "id": "care-002",
+          "policy_id": "care-supreme",
+          "ranks": [
+            2
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-supreme_2.1.36_35",
+            "care-supreme_c_110_1",
+            "care-supreme_c_110_2",
+            "care-supreme_12_79_11",
+            "care-supreme_a_108",
+            "care-supreme_14_117_1",
+            "care-supreme_2.1.16_15",
+            "care-supreme_3.2.17_107",
+            "care-supreme_2.1.41_40",
+            "care-supreme_2.1.48_47_3"
+          ]
+        },
+        {
+          "id": "care-003",
+          "policy_id": "care-supreme",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-supreme_14_117_1",
+            "care-supreme_2.1.48_47_3",
+            "care-supreme_c_110_1",
+            "care-supreme_c_110_2",
+            "care-supreme_2.1.48_47_1",
+            "care-supreme_5.7_145_7",
+            "care-supreme_5.7_145_2",
+            "care-supreme_a_108",
+            "care-supreme_2.2.30_68_5",
+            "care-supreme_PREAMBLE_1_2"
+          ]
+        },
+        {
+          "id": "care-004",
+          "policy_id": "care-supreme",
+          "ranks": [
+            8
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-supreme_12_79_6",
+            "care-supreme_12_79_5",
+            "care-supreme_3.2.14_102_1",
+            "care-supreme_12_173_5",
+            "care-supreme_12_173_3",
+            "care-supreme_3.2.14_102_2",
+            "care-supreme_12_79_3",
+            "care-supreme_12_79_2",
+            "care-supreme_12_79_14",
+            "care-supreme_2.2.30_68_2"
+          ]
+        },
+        {
+          "id": "hdfc-001",
+          "policy_id": "hdfc-optima-secure",
+          "ranks": [
+            10
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "hdfc-optima-secure_b_80",
+            "hdfc-optima-secure_S_297_3",
+            "hdfc-optima-secure_b_230_3",
+            "hdfc-optima-secure_Section 2.9_112",
+            "hdfc-optima-secure_7.5_322_3",
+            "hdfc-optima-secure_f_236_3",
+            "hdfc-optima-secure_S_297_5",
+            "hdfc-optima-secure_1.1.1_305_16",
+            "hdfc-optima-secure_1.1.1_305_15",
+            "hdfc-optima-secure_PREAMBLE_1_1"
+          ]
+        },
+        {
+          "id": "hdfc-002",
+          "policy_id": "hdfc-optima-secure",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "hdfc-optima-secure_PREAMBLE_141_3",
+            "hdfc-optima-secure_1_120",
+            "hdfc-optima-secure_2_121",
+            "hdfc-optima-secure_PREAMBLE_141_1",
+            "hdfc-optima-secure_b_204",
+            "hdfc-optima-secure_5_19_6",
+            "hdfc-optima-secure_a_209",
+            "hdfc-optima-secure_i_14_1",
+            "hdfc-optima-secure_h_328_2",
+            "hdfc-optima-secure_b_119"
+          ]
+        },
+        {
+          "id": "hdfc-003",
+          "policy_id": "hdfc-optima-secure",
+          "ranks": [
+            3
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "hdfc-optima-secure_PREAMBLE_141_3",
+            "hdfc-optima-secure_PREAMBLE_141_1",
+            "hdfc-optima-secure_v_145_3",
+            "hdfc-optima-secure_a_209",
+            "hdfc-optima-secure_1.9_186_5",
+            "hdfc-optima-secure_B_152_5",
+            "hdfc-optima-secure_b_119",
+            "hdfc-optima-secure_A_151",
+            "hdfc-optima-secure_v_145_4",
+            "hdfc-optima-secure_h_328_2"
+          ]
+        },
+        {
+          "id": "hdfc-004",
+          "policy_id": "hdfc-optima-secure",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "hdfc-optima-secure_3_125",
+            "hdfc-optima-secure_2_123_1",
+            "hdfc-optima-secure_4_126",
+            "hdfc-optima-secure_1.1.1_305_16",
+            "hdfc-optima-secure_2_123_2",
+            "hdfc-optima-secure_7.5_322_2",
+            "hdfc-optima-secure_g_42_2",
+            "hdfc-optima-secure_a_38",
+            "hdfc-optima-secure_b_225_3",
+            "hdfc-optima-secure_5_19_15"
+          ]
+        },
+        {
+          "id": "niva-001",
+          "policy_id": "niva-reassure-2",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "niva-reassure-2_3_77",
+            "niva-reassure-2_PREAMBLE_1",
+            "niva-reassure-2_5.1.1_131",
+            "niva-reassure-2_b_218_2",
+            "niva-reassure-2_5.1.9_157",
+            "niva-reassure-2_4.16.3_123_2",
+            "niva-reassure-2_4.3_85_2",
+            "niva-reassure-2_a_144",
+            "niva-reassure-2_4.7_94",
+            "niva-reassure-2_6.1.2_178"
+          ]
+        },
+        {
+          "id": "niva-002",
+          "policy_id": "niva-reassure-2",
+          "ranks": [
+            1,
+            1
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "niva-reassure-2_4.1.2_81",
+            "niva-reassure-2_1.10_104_9",
+            "niva-reassure-2_4.8_100_1",
+            "niva-reassure-2_4.7.1_95_1",
+            "niva-reassure-2_6.2.9_229_2",
+            "niva-reassure-2_1.10_104_10",
+            "niva-reassure-2_4.9_103",
+            "niva-reassure-2_a_209",
+            "niva-reassure-2_4.2_82",
+            "niva-reassure-2_4_79"
+          ]
+        },
+        {
+          "id": "niva-003",
+          "policy_id": "niva-reassure-2",
+          "ranks": [
+            2,
+            6
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "niva-reassure-2_PREAMBLE_135",
+            "niva-reassure-2_c_138",
+            "niva-reassure-2_d_139",
+            "niva-reassure-2_5.2.1_169",
+            "niva-reassure-2_c_146",
+            "niva-reassure-2_a_132",
+            "niva-reassure-2_e_140",
+            "niva-reassure-2_2.1.33_56",
+            "niva-reassure-2_a_136",
+            "niva-reassure-2_a_202_1"
+          ]
+        },
+        {
+          "id": "niva-004",
+          "policy_id": "niva-reassure-2",
+          "ranks": [
+            11,
+            11
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "niva-reassure-2_6.2.4_216",
+            "niva-reassure-2_B_201",
+            "niva-reassure-2_A_198",
+            "niva-reassure-2_6.2.3_212",
+            "niva-reassure-2_6.1.7_190",
+            "niva-reassure-2_6.2.2_208",
+            "niva-reassure-2_a_209",
+            "niva-reassure-2_2.1.15_26",
+            "niva-reassure-2_i_205",
+            "niva-reassure-2_v_206"
+          ]
+        },
+        {
+          "id": "aditya-001",
+          "policy_id": "aditya-activ-one",
+          "ranks": [
+            2
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "aditya-activ-one_e_293_48",
+            "aditya-activ-one_b_6_2",
+            "aditya-activ-one_8_365_38",
+            "aditya-activ-one_6_231",
+            "aditya-activ-one_8_365_44",
+            "aditya-activ-one_8_365_51",
+            "aditya-activ-one_d_269_3",
+            "aditya-activ-one_8_365_11",
+            "aditya-activ-one_e_293_42",
+            "aditya-activ-one_e_293_47"
+          ]
+        },
+        {
+          "id": "aditya-002",
+          "policy_id": "aditya-activ-one",
+          "ranks": [
+            3,
+            3
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "aditya-activ-one_v_148_9",
+            "aditya-activ-one_b_140_8",
+            "aditya-activ-one_b_25",
+            "aditya-activ-one_v_148_6",
+            "aditya-activ-one_v_148_7",
+            "aditya-activ-one_C_161_7",
+            "aditya-activ-one_b_140_1",
+            "aditya-activ-one_C_161_8",
+            "aditya-activ-one_b_140_7",
+            "aditya-activ-one_c_252"
+          ]
+        },
+        {
+          "id": "aditya-003",
+          "policy_id": "aditya-activ-one",
+          "ranks": [
+            3
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "aditya-activ-one_e_293_14",
+            "aditya-activ-one_62_98_3",
+            "aditya-activ-one_62_98_2",
+            "aditya-activ-one_v_148_11",
+            "aditya-activ-one_e_293_70",
+            "aditya-activ-one_8_365_8",
+            "aditya-activ-one_v_148_4",
+            "aditya-activ-one_e_293_12",
+            "aditya-activ-one_62_98_1",
+            "aditya-activ-one_8_365_9"
+          ]
+        },
+        {
+          "id": "aditya-004",
+          "policy_id": "aditya-activ-one",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "aditya-activ-one_e_293_18",
+            "aditya-activ-one_e_293_70",
+            "aditya-activ-one_62_98_10",
+            "aditya-activ-one_62_98_3",
+            "aditya-activ-one_8_365_8",
+            "aditya-activ-one_62_98_2",
+            "aditya-activ-one_62_98_1",
+            "aditya-activ-one_e_293_12",
+            "aditya-activ-one_e_293_11",
+            "aditya-activ-one_e_293_17"
+          ]
+        },
+        {
+          "id": "star-001",
+          "policy_id": "star-comprehensive",
+          "ranks": [
+            11
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "star-comprehensive_i_62_3",
+            "star-comprehensive_v_122_2",
+            "star-comprehensive_4_36_6",
+            "star-comprehensive_i_4_2",
+            "star-comprehensive_7_135_2",
+            "star-comprehensive_7_200",
+            "star-comprehensive_PREAMBLE_1_1",
+            "star-comprehensive_8_117_2",
+            "star-comprehensive_v_67_3",
+            "star-comprehensive_43664600_212_3"
+          ]
+        },
+        {
+          "id": "star-002",
+          "policy_id": "star-comprehensive",
+          "ranks": [
+            4
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "star-comprehensive_2_139",
+            "star-comprehensive_2_144_1",
+            "star-comprehensive_i_204",
+            "star-comprehensive_i_23_2",
+            "star-comprehensive_i_65",
+            "star-comprehensive_i_72_1",
+            "star-comprehensive_i_80_2",
+            "star-comprehensive_2_144_2",
+            "star-comprehensive_7_200",
+            "star-comprehensive_i_80_1"
+          ]
+        },
+        {
+          "id": "star-003",
+          "policy_id": "star-comprehensive",
+          "ranks": [
+            2,
+            6
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "star-comprehensive_2_144_1",
+            "star-comprehensive_7_135_2",
+            "star-comprehensive_2_139",
+            "star-comprehensive_1_143",
+            "star-comprehensive_i_62_1",
+            "star-comprehensive_1_138",
+            "star-comprehensive_2_144_2",
+            "star-comprehensive_i_65",
+            "star-comprehensive_v_209_1",
+            "star-comprehensive_22_164_2"
+          ]
+        },
+        {
+          "id": "star-004",
+          "policy_id": "star-comprehensive",
+          "ranks": [
+            1,
+            1
+          ],
+          "refs": 2,
+          "retrieved_chunk_ids": [
+            "star-comprehensive_i_208",
+            "star-comprehensive_i_11_1",
+            "star-comprehensive_11_207",
+            "star-comprehensive_v_209_1",
+            "star-comprehensive_i_204",
+            "star-comprehensive_i_223",
+            "star-comprehensive_i_220",
+            "star-comprehensive_i_23_2",
+            "star-comprehensive_1_168",
+            "star-comprehensive_i_28_1"
+          ]
+        },
+        {
+          "id": "care-enhance-001",
+          "policy_id": "care-supreme-enhance",
+          "ranks": [
+            4
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-supreme-enhance_6.1.5_256",
+            "care-supreme-enhance_II_211",
+            "care-supreme-enhance_5.17_230",
+            "care-supreme-enhance_2.1.3_9",
+            "care-supreme-enhance_3_222",
+            "care-supreme-enhance_6.1.6_259_2",
+            "care-supreme-enhance_4_162",
+            "care-supreme-enhance_5.6_206_1",
+            "care-supreme-enhance_2.2.6_70",
+            "care-supreme-enhance_i_51"
+          ]
+        },
+        {
+          "id": "care-enhance-002",
+          "policy_id": "care-supreme-enhance",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-supreme-enhance_4.1_149",
+            "care-supreme-enhance_c_151",
+            "care-supreme-enhance_15_139_1",
+            "care-supreme-enhance_c_150",
+            "care-supreme-enhance_2.1.38_48",
+            "care-supreme-enhance_2.1.18_26",
+            "care-supreme-enhance_c_156",
+            "care-supreme-enhance_2.1.45_58",
+            "care-supreme-enhance_14_155",
+            "care-supreme-enhance_2.1.43_56"
+          ]
+        },
+        {
+          "id": "care-enhance-003",
+          "policy_id": "care-supreme-enhance",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-supreme-enhance_2_95",
+            "care-supreme-enhance_v_143",
+            "care-supreme-enhance_II_262",
+            "care-supreme-enhance_6.1.7_263_5",
+            "care-supreme-enhance_6.1.7_263_6",
+            "care-supreme-enhance_6.1.7_263_3",
+            "care-supreme-enhance_6.1.6_259_2",
+            "care-supreme-enhance_1_144",
+            "care-supreme-enhance_3.1_107",
+            "care-supreme-enhance_3.2_124"
+          ]
+        },
+        {
+          "id": "hdfc-restore-001",
+          "policy_id": "hdfc-optima-restore",
+          "ranks": [
+            5
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "hdfc-optima-restore_S_231_10",
+            "hdfc-optima-restore_f_216_2",
+            "hdfc-optima-restore_d_77_2",
+            "hdfc-optima-restore_c_181_10",
+            "hdfc-optima-restore_PREAMBLE_1",
+            "hdfc-optima-restore_3_69_2",
+            "hdfc-optima-restore_a_52",
+            "hdfc-optima-restore_k_203",
+            "hdfc-optima-restore_S_231_11",
+            "hdfc-optima-restore_i_7_2"
+          ]
+        },
+        {
+          "id": "hdfc-restore-002",
+          "policy_id": "hdfc-optima-restore",
+          "ranks": [
+            2
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "hdfc-optima-restore_i_17_1",
+            "hdfc-optima-restore_i_17_4",
+            "hdfc-optima-restore_d_191",
+            "hdfc-optima-restore_b_39",
+            "hdfc-optima-restore_h_46_2",
+            "hdfc-optima-restore_e_192_2",
+            "hdfc-optima-restore_i_28",
+            "hdfc-optima-restore_i_43",
+            "hdfc-optima-restore_i_17_2",
+            "hdfc-optima-restore_d_41"
+          ]
+        },
+        {
+          "id": "hdfc-restore-003",
+          "policy_id": "hdfc-optima-restore",
+          "ranks": [
+            3
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "hdfc-optima-restore_1_81_7",
+            "hdfc-optima-restore_1_81_1",
+            "hdfc-optima-restore_1_81_6",
+            "hdfc-optima-restore_1_81_2",
+            "hdfc-optima-restore_i_24_4",
+            "hdfc-optima-restore_i_17_3",
+            "hdfc-optima-restore_i_200_1",
+            "hdfc-optima-restore_1_81_4",
+            "hdfc-optima-restore_1_81_3",
+            "hdfc-optima-restore_i_29_1"
+          ]
+        },
+        {
+          "id": "acko-iii-001",
+          "policy_id": "acko-health-iii",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "acko-health-iii_PREAMBLE_1",
+            "acko-health-iii_2_3",
+            "acko-health-iii_7.1_103",
+            "acko-health-iii_4.13_77",
+            "acko-health-iii_4.8_72",
+            "acko-health-iii_10_37",
+            "acko-health-iii_3.1.10_52",
+            "acko-health-iii_2.12.16_31",
+            "acko-health-iii_3.1.2_43_2",
+            "acko-health-iii_A_121_10"
+          ]
+        },
+        {
+          "id": "acko-iii-002",
+          "policy_id": "acko-health-iii",
+          "ranks": [
+            4
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "acko-health-iii_3.1.2_43_2",
+            "acko-health-iii_2.12.6_21",
+            "acko-health-iii_3.1.2_43_1",
+            "acko-health-iii_3.1.1_42",
+            "acko-health-iii_PREAMBLE_1",
+            "acko-health-iii_6.2_94_1",
+            "acko-health-iii_3.1.10_52",
+            "acko-health-iii_4.13_77",
+            "acko-health-iii_4.8_72",
+            "acko-health-iii_2.12.16_31"
+          ]
+        },
+        {
+          "id": "acko-iii-003",
+          "policy_id": "acko-health-iii",
+          "ranks": [
+            3
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "acko-health-iii_2.12.6_21",
+            "acko-health-iii_3.1.2_43_1",
+            "acko-health-iii_3.1.2_43_3",
+            "acko-health-iii_3.1.1_42",
+            "acko-health-iii_2.12.2_17",
+            "acko-health-iii_2.12.3_18",
+            "acko-health-iii_4.16_81",
+            "acko-health-iii_3.2.2_62",
+            "acko-health-iii_1_2",
+            "acko-health-iii_3_40"
+          ]
+        },
+        {
+          "id": "tata-select-001",
+          "policy_id": "tata-medicare-select",
+          "ranks": [
+            2
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "tata-medicare-select_2_279_3",
+            "tata-medicare-select_PREAMBLE_1_1",
+            "tata-medicare-select_15_84",
+            "tata-medicare-select_i_124_2",
+            "tata-medicare-select_c_242",
+            "tata-medicare-select_i_219",
+            "tata-medicare-select_3_258_2",
+            "tata-medicare-select_i_116",
+            "tata-medicare-select_XX_150",
+            "tata-medicare-select_i_21"
+          ]
+        },
+        {
+          "id": "tata-select-002",
+          "policy_id": "tata-medicare-select",
+          "ranks": [
+            2
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "tata-medicare-select_c_138",
+            "tata-medicare-select_d_135",
+            "tata-medicare-select_d_139",
+            "tata-medicare-select_e_140",
+            "tata-medicare-select_17_29",
+            "tata-medicare-select_23_224_4",
+            "tata-medicare-select_A_173",
+            "tata-medicare-select_i_131",
+            "tata-medicare-select_a_160",
+            "tata-medicare-select_a_132"
+          ]
+        },
+        {
+          "id": "tata-select-003",
+          "policy_id": "tata-medicare-select",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "tata-medicare-select_v_97_3",
+            "tata-medicare-select_b_133",
+            "tata-medicare-select_2_129",
+            "tata-medicare-select_i_124_1",
+            "tata-medicare-select_PREAMBLE_1_1",
+            "tata-medicare-select_i_171_1",
+            "tata-medicare-select_1_128",
+            "tata-medicare-select_b_137",
+            "tata-medicare-select_i_171_2",
+            "tata-medicare-select_PREAMBLE_1_2"
+          ]
+        },
+        {
+          "id": "care-ultimate-001",
+          "policy_id": "care-ultimate",
+          "ranks": [
+            3
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.5_167",
+            "care-ultimate_3.2.15_180_2",
+            "care-ultimate_PREAMBLE_1",
+            "care-ultimate_3.2.19_185",
+            "care-ultimate_3.2.20_189",
+            "care-ultimate_3.2.37_217_2",
+            "care-ultimate_6.1_379",
+            "care-ultimate_2_249",
+            "care-ultimate_25_328",
+            "care-ultimate_3.2.40_254_1"
+          ]
+        },
+        {
+          "id": "care-ultimate-002",
+          "policy_id": "care-ultimate",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.4_166",
+            "care-ultimate_3.2.49_273_1",
+            "care-ultimate_i_364",
+            "care-ultimate_3.2.49_273_2",
+            "care-ultimate_5.7_344_1",
+            "care-ultimate_3.2.30_205",
+            "care-ultimate_II_347",
+            "care-ultimate_3.1_140",
+            "care-ultimate_3.2.21_190",
+            "care-ultimate_3.2.31_206_3"
+          ]
+        },
+        {
+          "id": "care-ultimate-003",
+          "policy_id": "care-ultimate",
+          "ranks": [
+            2
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.10_174",
+            "care-ultimate_2.1.38_199",
+            "care-ultimate_3.2.25_198",
+            "care-ultimate_3.2.23_192_1",
+            "care-ultimate_3.2.27_201",
+            "care-ultimate_3.2.26_200",
+            "care-ultimate_c_231_15",
+            "care-ultimate_3.2.22_191",
+            "care-ultimate_4.1_277",
+            "care-ultimate_6_130"
+          ]
+        },
+        {
+          "id": "care-ultimate-004",
+          "policy_id": "care-ultimate",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate_3.2.5_167",
+            "care-ultimate_3.2.9_172_1",
+            "care-ultimate_3.1.4_156_1",
+            "care-ultimate_II_126",
+            "care-ultimate_3.2.30_205",
+            "care-ultimate_3.2.15_180_1",
+            "care-ultimate_15_139",
+            "care-ultimate_3.2.3_165",
+            "care-ultimate_6_130",
+            "care-ultimate_3.2.2_164"
+          ]
+        },
+        {
+          "id": "care-joy-001",
+          "policy_id": "care-ultimate-joy",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_PREAMBLE_1",
+            "care-ultimate-joy_5_200",
+            "care-ultimate-joy_10_257",
+            "care-ultimate-joy_3.2.2_157",
+            "care-ultimate-joy_3.2.5_163",
+            "care-ultimate-joy_3.2.25_216",
+            "care-ultimate-joy_x_187",
+            "care-ultimate-joy_5.2.7_311",
+            "care-ultimate-joy_2.2.24_87",
+            "care-ultimate-joy_II_112"
+          ]
+        },
+        {
+          "id": "care-joy-002",
+          "policy_id": "care-ultimate-joy",
+          "ranks": [
+            2
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_3.2.25_216",
+            "care-ultimate-joy_3.1.12_152_1",
+            "care-ultimate-joy_3.1.12_152_2",
+            "care-ultimate-joy_3.1.12_152_3",
+            "care-ultimate-joy_3.2.15_181",
+            "care-ultimate-joy_3.2.24_213_3",
+            "care-ultimate-joy_2.1.33_45",
+            "care-ultimate-joy_3.2.17_183_2",
+            "care-ultimate-joy_7_116",
+            "care-ultimate-joy_3.2.17_183_1"
+          ]
+        },
+        {
+          "id": "care-joy-003",
+          "policy_id": "care-ultimate-joy",
+          "ranks": [
+            1
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_3.1.12_152_1",
+            "care-ultimate-joy_3.1.12_152_2",
+            "care-ultimate-joy_3.2.25_216",
+            "care-ultimate-joy_3.1.12_152_3",
+            "care-ultimate-joy_3.2.17_183_1",
+            "care-ultimate-joy_3.2.17_183_2",
+            "care-ultimate-joy_3.2.8_167_1",
+            "care-ultimate-joy_3.2.24_213_3",
+            "care-ultimate-joy_15_246",
+            "care-ultimate-joy_i_185"
+          ]
+        },
+        {
+          "id": "care-joy-004",
+          "policy_id": "care-ultimate-joy",
+          "ranks": [
+            2
+          ],
+          "refs": 1,
+          "retrieved_chunk_ids": [
+            "care-ultimate-joy_2.1.33_45",
+            "care-ultimate-joy_3.1.12_152_2",
+            "care-ultimate-joy_i_192",
+            "care-ultimate-joy_3.1.12_152_1",
+            "care-ultimate-joy_i_292",
+            "care-ultimate-joy_3.2.16_182",
+            "care-ultimate-joy_13_330",
+            "care-ultimate-joy_3.2.25_216",
+            "care-ultimate-joy_2.1.18_27",
+            "care-ultimate-joy_c_223"
+          ]
+        }
+      ]
+    }
+  ]
+}
